@@ -1,0 +1,81 @@
+package martinigt.einfachsparen.data;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.Date;
+
+import martinigt.einfachsparen.model.Period;
+
+/**
+ * Created by martin on 16.04.16.
+ */
+public class PeriodDbHelper {
+
+    public static final String PERIOD_TABLE_NAME = "Period";
+
+    public static final String PERIOD_ID = "_id";
+    public static final String PERIOD_START = "start";
+    public static final String PERIOD_END = "end";
+    public static final String PERIOD_NAME = "name";
+    public static final String PERIOD_PLANNED_SAVING = "plannedSaving";
+
+    public static final String PERIODEN_SCHEMA_CREATE = "CREATE TABLE " + PERIOD_TABLE_NAME + " (" + PERIOD_ID +" INTEGER " +
+            "PRIMARY KEY, " + PERIOD_START + " INTEGER, " + PERIOD_END + " INTEGER, " + PERIOD_NAME + " TEXT, " +
+            PERIOD_PLANNED_SAVING + " REAL)";
+
+    private DatabaseHelper dbHelper;
+
+    public PeriodDbHelper(DatabaseHelper helper){
+        dbHelper = helper;
+    }
+
+    public boolean savePeriod(Period period)
+    {
+        boolean result = false;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PERIOD_START, period.getStart().getTime());
+        contentValues.put(PERIOD_END, period.getEnd().getTime());
+        contentValues.put(PERIOD_NAME, period.getName());
+        contentValues.put(PERIOD_PLANNED_SAVING, period.getPlannedSaving());
+        try {
+            db.insert(PERIOD_TABLE_NAME, null, contentValues);
+            result = true;
+        }
+        catch (Exception e) {
+
+        }
+        return result;
+    }
+
+
+
+    public Period getCurrentPeriod() {
+        return getPeriodForDate(new Date());
+    }
+
+    public Period getPeriodForDate(Date datum) {
+        Period result = null;
+        long ticks = datum.getTime();
+        SQLiteDatabase db =  dbHelper.getReadableDatabase();
+        Cursor dbResults = db.rawQuery("SELECT * FROM " + PERIOD_TABLE_NAME +" WHERE " + ticks + " >= " + PERIOD_START +
+                " AND " +ticks +" < " + PERIOD_END, null);
+        while (dbResults.moveToNext()) {
+            result = getPeriodFromCursor(dbResults);
+        }
+        return result;
+    }
+
+    private Period getPeriodFromCursor(Cursor cursor){
+        Period result = new Period();
+        result.setId(cursor.getInt(cursor.getColumnIndex(PERIOD_ID)));
+        result.setStart(new Date(cursor.getInt(cursor.getColumnIndex(PERIOD_START))));
+        result.setEnd(new Date(cursor.getInt(cursor.getColumnIndex(PERIOD_END))));
+        result.setName(cursor.getString(cursor.getColumnIndex(PERIOD_NAME)));
+        result.setPlannedSaving(cursor.getDouble(cursor.getColumnIndex(PERIOD_PLANNED_SAVING)));
+        return result;
+    }
+
+}

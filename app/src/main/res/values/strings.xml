@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Einfach Sparen</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_createNewPeriod">Neue Periode anlegen</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_income_overview">IncomeOverviewActivity</string>
+    <string name="title_activity_expense_overview">ExpenseOverviewActivity</string>
+
+    <string name="currentExpensesLabel">Aktuelle Ausgaben:</string>
+    <string name="plannedExpensesLabel">Geplante Ausgaben:</string>
+    <string name="budgetLabel">Rest Budget:</string>
+    <string name="budgetPerDayLabel">Budget/Tag:</string>
+    <string name="lastExpensesListTitle">Letzte Ausgaben:</string>
+    <string name="startingValueDisplay">--</string>
+
+    <!-- Dialog keine aktuelle Periode vorhanden -->
+    <string name="noCurrentPeriodFoundTitle">Keine Periode gefunden</string>
+    <string name="noCurrentPeriodFound">Es existiert noch keine akutelle Periode. Diese ist
+    für die Planung aber notwendig. Möchten Sie jetzt eine neue Periode anlegen?</string>
+    <string name="createNewPeriodButtonText">Neue Periode anlegen...</string>
+
+    <!-- Texte für Activity zum Anlegen einer Periode -->
+    <string name="createPeriodActivityTitle">Periode anlegen</string>
+
+
+</resources>

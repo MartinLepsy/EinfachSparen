@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="martinigt.einfachsparen.CreatePeriodActivity">
+    <item
+        android:id="@+id/action_savePeriod"
+        android:orderInCategory="100"
+        android:title=""
+        android:icon="@android:drawable/ic_menu_save"
+        app:showAsAction="always"         />
+</menu>
