@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.ExpenseDbHelper;
 import martinigt.einfachsparen.data.IncomeDbHelper;
+import martinigt.einfachsparen.data.PeriodDbHelper;
 
 /**
  * Created by martin on 16.04.16.
@@ -17,10 +18,13 @@ public class PeriodWizard {
 
     private ExpenseDbHelper expenseDbHelper;
 
+    private PeriodDbHelper periodDbHelper;
+
     public PeriodWizard(Period newPeriod, DatabaseHelper dbHelper) {
         periodToPrepare = newPeriod;
         incomeDbHelper = new IncomeDbHelper(dbHelper);
         expenseDbHelper = new ExpenseDbHelper(dbHelper);
+        periodDbHelper = new PeriodDbHelper(dbHelper);
     }
 
     public void assignDefaultIncomeAndExpenses() {
@@ -48,6 +52,10 @@ public class PeriodWizard {
             incomesToAdd.add(clonedIncome);
         }
         incomeDbHelper.storeListOfIncomes(incomesToAdd);
+    }
+
+    public void savePeriod() {
+        periodDbHelper.savePeriod(periodToPrepare);
     }
 
 }

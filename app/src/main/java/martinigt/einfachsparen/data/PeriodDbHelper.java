@@ -25,6 +25,9 @@ public class PeriodDbHelper {
             "PRIMARY KEY, " + PERIOD_START + " INTEGER, " + PERIOD_END + " INTEGER, " + PERIOD_NAME + " TEXT, " +
             PERIOD_PLANNED_SAVING + " REAL)";
 
+    private static final String GET_MOST_RECENT_PERIOD_QUERY = "SELECT * FROM " + PERIOD_TABLE_NAME +
+            " ORDER BY " + PERIOD_ID + " DESC LIMIT 1";
+
     private DatabaseHelper dbHelper;
 
     public PeriodDbHelper(DatabaseHelper helper){
@@ -50,7 +53,15 @@ public class PeriodDbHelper {
         return result;
     }
 
-
+    public Period getMostRecentPeriod() {
+        Period result = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor dbResults = db.rawQuery(GET_MOST_RECENT_PERIOD_QUERY, null);
+        while (dbResults.moveToNext()) {
+            result = getPeriodFromCursor(dbResults);
+        }
+        return result;
+    }
 
     public Period getCurrentPeriod() {
         return getPeriodForDate(new Date());

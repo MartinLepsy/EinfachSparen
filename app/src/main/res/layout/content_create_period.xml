@@ -15,7 +15,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nameInput"
+        android:id="@+id/periodNameInput"
         android:hint="Bezeichnung"
         />
 
@@ -42,8 +42,15 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:ems="10"
-        android:id="@+id/plannedSavingInput"
+        android:id="@+id/periodPlannedSavingInput"
         android:layout_gravity="center_horizontal"
         android:hint="Planned saving" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/periodSaveButton"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
