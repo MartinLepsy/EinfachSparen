@@ -55,6 +55,7 @@ public class PeriodWizard {
     }
 
     public void savePeriod() {
+        periodDbHelper.cleanTable(); //TODO: DEBUG ONLY
         periodDbHelper.savePeriod(periodToPrepare);
     }
 

@@ -1,11 +1,9 @@
 package martinigt.einfachsparen;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ThemedSpinnerAdapter;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,6 +31,8 @@ public class CreatePeriodActivity extends AppCompatActivity {
 
     private EditText plannedSavingInput;
 
+    private FloatingActionButton saveButton;
+
     private DatabaseHelper dbHelper;
 
     @Override
@@ -40,53 +40,66 @@ public class CreatePeriodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_period);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.createPeriodToolbar);
-        setSupportActionBar(toolbar);
-
-        getReferenceToInputWidgets();
+        getReferenceToWidgets();
 
         addPickers();
 
-        Button savePeriodButton = (Button) findViewById(R.id.periodSaveButton);
-        savePeriodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Period newPeriod = new Period();
-                Double plannedSaving = Double.parseDouble(plannedSavingInput.getText().toString());
-                newPeriod.setPlannedSaving(plannedSaving);
-                newPeriod.setName(periodNameInput.getText().toString());
-                Calendar c = Calendar.getInstance();
-                DateFormat df = DateFormat.getDateInstance();
-                try {
-                    Date periodStart = df.parse(periodStartInput.getText().toString());
-                    Date periodEnd = df.parse(periodEndInput.getText().toString());
-                    newPeriod.setStart(periodStart);
-                    newPeriod.setEnd(periodEnd);
-                    preparePeriodAndSave(newPeriod);
-
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        bindListeners();
 
         dbHelper = new DatabaseHelper(this.getApplicationContext());
 
         prefillWidgets();
     }
 
+    private void bindListeners() {
+        Button savePeriodButton = (Button) findViewById(R.id.periodSaveButton);
+        savePeriodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePeriod();
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                savePeriod();
+            }
+        });
+    }
+
+    private void savePeriod() {
+        Period newPeriod = new Period();
+        Double plannedSaving = Double.parseDouble(plannedSavingInput.getText().toString());
+        newPeriod.setPlannedSaving(plannedSaving);
+        newPeriod.setName(periodNameInput.getText().toString());
+        Calendar c = Calendar.getInstance();
+        DateFormat df = DateFormat.getDateInstance();
+        try {
+            Date periodStart = df.parse(periodStartInput.getText().toString());
+            Date periodEnd = df.parse(periodEndInput.getText().toString());
+            newPeriod.setStart(periodStart);
+            newPeriod.setEnd(periodEnd);
+            preparePeriodAndSave(newPeriod);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void preparePeriodAndSave(Period periodToSave) {
         PeriodWizard wizz = new PeriodWizard(periodToSave, dbHelper);
         wizz.assignDefaultIncomeAndExpenses();
         wizz.savePeriod();
-
+        finish();
     }
 
-    private void getReferenceToInputWidgets() {
+    private void getReferenceToWidgets() {
         periodNameInput = (EditText) findViewById(R.id.periodNameInput);
         periodStartInput = (EditText) findViewById(R.id.periodStartInput);
         periodEndInput = (EditText) findViewById(R.id.periodEndInput);
         plannedSavingInput = (EditText) findViewById(R.id.periodPlannedSavingInput);
+        saveButton = (FloatingActionButton) findViewById(R.id.newPeriodSaveButton);
     }
 
     private void addPickers() {
@@ -139,6 +152,7 @@ public class CreatePeriodActivity extends AppCompatActivity {
             plannedSavingInput.setText(""+mostRecentPeriod.getPlannedSaving());
         }
         periodNameInput.setText(Helper.getMonthForDate(new Date()));
-        periodStartInput.setText(new Date().toString());
+        DateFormat df = DateFormat.getDateInstance();
+        periodStartInput.setText(df.format(new Date().getTime()));
     }
 }

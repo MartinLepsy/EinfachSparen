@@ -30,6 +30,8 @@ public class IncomeDbHelper {
             INCOME_NAME + " TEXT, " + INCOME_VALUE + " real, "+ INCOME_TAG + " TEXT, " +
             INCOME_DATE + " INTEGER)";
 
+    public static final String INCOME_DROP_TABLE = "DROP TABLE IF EXISTS " + INCOME_TABLE_NAME;
+
     public static final String INCOME_GET_ALL_DEFAULT = "SELECT * FROM " + INCOME_TABLE_NAME + " WHERE " +
             INCOME_IS_STANDARD + " >= 1";
 

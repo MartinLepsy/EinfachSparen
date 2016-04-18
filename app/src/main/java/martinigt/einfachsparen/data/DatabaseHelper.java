@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "EinfachSparen.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 13;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -18,14 +18,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(IncomeDbHelper.EINNAHMEN_SCHEMA_CREATE);
-        sqLiteDatabase.execSQL(ExpenseDbHelper.EXPENSE_SCHEMA_CREATE);
-        sqLiteDatabase.execSQL(PeriodDbHelper.PERIODEN_SCHEMA_CREATE);
+        createDatabaseFromScratch(sqLiteDatabase);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        //if (newVersion > oldVersion) {
+            deleteOldDatabase(sqLiteDatabase);
+            createDatabaseFromScratch(sqLiteDatabase);
+        //}
+    }
 
+    private void deleteOldDatabase(SQLiteDatabase sqlLiteDatabase) {
+        sqlLiteDatabase.execSQL(ExpenseDbHelper.EXPENSE_DROP_TABLE);
+        sqlLiteDatabase.execSQL(IncomeDbHelper.INCOME_DROP_TABLE);
+        sqlLiteDatabase.execSQL(PeriodDbHelper.PERIOD_DROP_TABLE);
+    }
+
+    private void createDatabaseFromScratch(SQLiteDatabase sqlLiteDatabase) {
+        sqlLiteDatabase.execSQL(IncomeDbHelper.EINNAHMEN_SCHEMA_CREATE);
+        sqlLiteDatabase.execSQL(ExpenseDbHelper.EXPENSE_SCHEMA_CREATE);
+        sqlLiteDatabase.execSQL(PeriodDbHelper.PERIODEN_SCHEMA_CREATE);
     }
 
 }

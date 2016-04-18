@@ -25,6 +25,10 @@ public class PeriodDbHelper {
             "PRIMARY KEY, " + PERIOD_START + " INTEGER, " + PERIOD_END + " INTEGER, " + PERIOD_NAME + " TEXT, " +
             PERIOD_PLANNED_SAVING + " REAL)";
 
+    public static final String PERIOD_DROP_TABLE = "DROP TABLE IF EXISTS " + PERIOD_TABLE_NAME;
+
+    private static final String PERIOD_DELETE_TABLE = "DELETE FROM " + PERIOD_TABLE_NAME;
+
     private static final String GET_MOST_RECENT_PERIOD_QUERY = "SELECT * FROM " + PERIOD_TABLE_NAME +
             " ORDER BY " + PERIOD_ID + " DESC LIMIT 1";
 
@@ -61,6 +65,11 @@ public class PeriodDbHelper {
             result = getPeriodFromCursor(dbResults);
         }
         return result;
+    }
+
+    public void cleanTable() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL(PERIOD_DELETE_TABLE);
     }
 
     public Period getCurrentPeriod() {

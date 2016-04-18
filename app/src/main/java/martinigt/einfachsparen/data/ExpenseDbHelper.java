@@ -30,6 +30,8 @@ public class ExpenseDbHelper {
             EXPENSE_NAME + " TEXT, " + EXPENSE_VALUE + " REAL, " + EXPENSE_TAG + " TEXT, " +
             EXPENSE_DATE + " INTEGER)";
 
+    public static final String EXPENSE_DROP_TABLE = "DROP TABLE IF EXISTS " + EXPENSE_TABLE_NAME;
+
     public static final String EXPENSE_GET_ALL_DEFAULT = "SELECT * FROM " + EXPENSE_TABLE_NAME + " WHERE " +
             EXPENSE_IS_STANDARD + " >= 1";
 
