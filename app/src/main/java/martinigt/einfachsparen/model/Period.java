@@ -23,7 +23,7 @@ public class Period {
     {
         id = -1;
         start = new Date();
-        name = Helper.getMonthForDate(start);
+        //name = Helper.getMonthForDate(start);
     }
 
     public int getId() {

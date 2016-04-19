@@ -1,6 +1,7 @@
 package martinigt.einfachsparen.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import martinigt.einfachsparen.helper.Helper;
@@ -26,8 +27,10 @@ public class Dashboard {
 
     private double plannedExpenses;
 
-    public Dashboard() {
+    private Date dateToCalculateFrom;
 
+    public Dashboard() {
+        setDateToCalculateFrom(new Date());
     }
 
     public void setPeriod(Period periode) {
@@ -73,7 +76,7 @@ public class Dashboard {
             budgetPerDay = -1;
         }
         else {
-            int differenzTage = (int) Helper.getDateDiff(currentPeriod.getStart(), currentPeriod.getEnd(),
+            int differenzTage = (int) Helper.getDateDiff(dateToCalculateFrom, currentPeriod.getEnd(),
                     TimeUnit.DAYS);
             if (differenzTage >= 1) {
                 budgetPerDay = budget / differenzTage;
@@ -101,5 +104,11 @@ public class Dashboard {
     public double getPlannedExpenses() { return  plannedExpenses; }
 
 
+    public Date getDateToCalculateFrom() {
+        return dateToCalculateFrom;
+    }
 
+    public void setDateToCalculateFrom(Date dateToCalculateFrom) {
+        this.dateToCalculateFrom = dateToCalculateFrom;
+    }
 }

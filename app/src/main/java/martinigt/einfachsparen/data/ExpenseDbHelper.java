@@ -35,12 +35,18 @@ public class ExpenseDbHelper {
     public static final String EXPENSE_GET_ALL_DEFAULT = "SELECT * FROM " + EXPENSE_TABLE_NAME + " WHERE " +
             EXPENSE_IS_STANDARD + " >= 1";
 
+    private static final String EXPENSE_DELETE_TABLE = "DELETE FROM " + EXPENSE_TABLE_NAME;
+
     private DatabaseHelper dbHelper;
 
     public ExpenseDbHelper(DatabaseHelper helper) {
         dbHelper = helper;
     }
 
+    public void cleanTable() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL(EXPENSE_DELETE_TABLE);
+    }
 
     public ArrayList<Expense> getAllDefaultExpenses() {
         ArrayList<Expense> result = new ArrayList<Expense>();

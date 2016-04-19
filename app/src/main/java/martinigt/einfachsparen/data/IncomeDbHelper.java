@@ -1,5 +1,6 @@
 package martinigt.einfachsparen.data;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
@@ -35,7 +36,7 @@ public class IncomeDbHelper {
     public static final String INCOME_GET_ALL_DEFAULT = "SELECT * FROM " + INCOME_TABLE_NAME + " WHERE " +
             INCOME_IS_STANDARD + " >= 1";
 
-
+    private static final String INCOME_DELETE_TABLE = "DELETE FROM " + INCOME_TABLE_NAME;
 
     private DatabaseHelper dbHelper;
 
@@ -43,8 +44,36 @@ public class IncomeDbHelper {
         dbHelper = helper;
     }
 
-    public void storeListOfIncomes(ArrayList<Income> incomesToStore) {
+    public void cleanTable() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL(INCOME_DELETE_TABLE);
+    }
 
+    public void storeListOfIncomes(ArrayList<Income> incomesToStore) {
+        for (Income currentIncome: incomesToStore
+                ) {
+            addIncome(currentIncome);
+        }
+    }
+
+    public boolean addIncome(Income incomeToAdd) {
+        boolean result = false;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(INCOME_NAME, incomeToAdd.getName());
+        contentValues.put(INCOME_TAG, incomeToAdd.getTag());
+        contentValues.put(INCOME_VALUE, incomeToAdd.getValue());
+        contentValues.put(INCOME_DATE, incomeToAdd.getDate().getTime());
+        contentValues.put(INCOME_IS_STANDARD, incomeToAdd.isStandard());
+        contentValues.put(INCOME_PERIOD_ID, incomeToAdd.getPeriodId());
+        try {
+            db.insert(INCOME_TABLE_NAME, null, contentValues);
+            result = true;
+        }
+        catch (Exception e) {
+            result = false;
+        }
+        return result;
     }
 
     public ArrayList<Income> getAllExpensesForPeriod(int periodId) {

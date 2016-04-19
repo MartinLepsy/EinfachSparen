@@ -39,6 +39,7 @@ public class DashboardUnitTest {
         einnahmenTestPeriode.add(new Income(1, 1, 2300, "Lohn", "", new Date(), true));
 
         d = new Dashboard();
+        d.setDateToCalculateFrom(new Date(testPeriode.getStart().getTime() + 1000 * 60 * 60 * 24 * 5));
         d.setPeriod(testPeriode);
         d.setPeriodExpenses(ausgabenTestPeriode);
         d.setPeriodIncome(einnahmenTestPeriode);
@@ -55,7 +56,7 @@ public class DashboardUnitTest {
 
     @Test
     public void budgetBerechnungProTagKorrekt() throws Exception {
-        double expectedResult = (2300 - 755 - 85 - 100) / 10;
+        double expectedResult = (2300 - 755 - 85 - 100) / 5;
         assertEquals(expectedResult, d.getBudgetPerDay(), 0.0);
     }
 

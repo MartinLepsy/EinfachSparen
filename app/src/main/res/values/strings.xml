@@ -6,6 +6,7 @@
     <string name="action_manageExpenses">Ausgaben verwalten</string>
     <string name="action_manageStandardIncome">Standardeinnahmen verwalten</string>
     <string name="action_manageStandardExpenses">Standardausgaben verwalten</string>
+    <string name="action_adminArea">Admin Bereich</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_income_overview">IncomeOverviewActivity</string>
@@ -26,6 +27,15 @@
 
     <!-- Texte für Activity zum Anlegen einer Periode -->
     <string name="createPeriodActivityTitle">Periode anlegen</string>
+    <string name="title_activity_income_list">IncomeListActivity</string>
+    <string name="title_activity_create_income">CreateIncomeActivity</string>
+
+    <!-- Transaction field names as hints in forms -->
+    <string name="transactionTitle">Bezeichnung</string>
+    <string name="transactionValue">Betrag</string>
+    <string name="transactionRecurring">Wiederkehrend</string>
+    <string name="transactionRecurringHint">Wenn &quot;Wiederkehrend&quot; gesetzt ist, wird der Wert
+    beim Anlegen einer neuen Periode automatisch verbucht.</string>
 
 
 </resources>

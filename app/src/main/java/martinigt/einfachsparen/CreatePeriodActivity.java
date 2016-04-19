@@ -1,11 +1,18 @@
 package martinigt.einfachsparen;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -21,7 +28,7 @@ import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.model.Period;
 import martinigt.einfachsparen.model.PeriodWizard;
 
-public class CreatePeriodActivity extends AppCompatActivity {
+public class CreatePeriodActivity extends AppCompatActivity implements TextWatcher {
 
     private EditText periodNameInput;
 
@@ -52,20 +59,17 @@ public class CreatePeriodActivity extends AppCompatActivity {
     }
 
     private void bindListeners() {
-        Button savePeriodButton = (Button) findViewById(R.id.periodSaveButton);
-        savePeriodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                savePeriod();
-            }
-        });
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 savePeriod();
             }
         });
+
+        periodNameInput.addTextChangedListener(this);
+        periodStartInput.addTextChangedListener(this);
+        periodEndInput.addTextChangedListener(this);
+        plannedSavingInput.addTextChangedListener(this);
     }
 
     private void savePeriod() {
@@ -95,14 +99,19 @@ public class CreatePeriodActivity extends AppCompatActivity {
     }
 
     private void getReferenceToWidgets() {
+        saveButton = (FloatingActionButton) findViewById(R.id.newPeriodSaveButton);
         periodNameInput = (EditText) findViewById(R.id.periodNameInput);
         periodStartInput = (EditText) findViewById(R.id.periodStartInput);
         periodEndInput = (EditText) findViewById(R.id.periodEndInput);
         plannedSavingInput = (EditText) findViewById(R.id.periodPlannedSavingInput);
-        saveButton = (FloatingActionButton) findViewById(R.id.newPeriodSaveButton);
+
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromInputMethod(periodStartInput.getWindowToken(),0);
+        inputManager.hideSoftInputFromInputMethod(periodEndInput.getWindowToken(),0);
     }
 
-    private void addPickers() {
+    private void addPickers() { //TODO: Shorten this
         periodStartInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -155,4 +164,55 @@ public class CreatePeriodActivity extends AppCompatActivity {
         DateFormat df = DateFormat.getDateInstance();
         periodStartInput.setText(df.format(new Date().getTime()));
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        boolean validationResult = validateInputFields();
+        Helper.formatFloatingButton(validationResult, saveButton);
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+
+    private boolean validateInputFields() {
+        boolean result = true;
+        result &= Helper.validateMandatoryTextField(periodNameInput);
+        result &= validateDateField(periodStartInput);
+        result &= validateDateField(periodEndInput);
+        result &= Helper.validatePositiveDoubleField(plannedSavingInput);
+        return result;
+    }
+
+    private boolean validateDateField(EditText dateField) {
+        boolean result = true;
+        try {
+            DateFormat df = DateFormat.getDateInstance();
+            df.parse(dateField.getText().toString());
+            //removeWrongMark(dateField); //TODO: Improve UI
+        }
+        catch (Exception ex) {
+            result = false;
+            //markFieldAsWrong(dateField); //TODO: Improve UI
+        }
+        return result;
+    }
+
+    private void markFieldAsWrong(EditText textFieldToMark) {
+        Drawable drawable = DrawableCompat.wrap(textFieldToMark.getBackground());
+        DrawableCompat.setTintList(drawable, ColorStateList.valueOf(Color.parseColor("#cc0000")));
+    }
+
+    private void removeWrongMark(EditText textFieldToUnMark) {
+        Drawable drawable = DrawableCompat.wrap(textFieldToUnMark.getBackground());
+    }
+
+
+
 }

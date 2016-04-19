@@ -91,8 +91,8 @@ public class PeriodDbHelper {
     private Period getPeriodFromCursor(Cursor cursor){
         Period result = new Period();
         result.setId(cursor.getInt(cursor.getColumnIndex(PERIOD_ID)));
-        result.setStart(new Date(cursor.getInt(cursor.getColumnIndex(PERIOD_START))));
-        result.setEnd(new Date(cursor.getInt(cursor.getColumnIndex(PERIOD_END))));
+        result.setStart(new Date(cursor.getLong(cursor.getColumnIndex(PERIOD_START))));
+        result.setEnd(new Date(cursor.getLong(cursor.getColumnIndex(PERIOD_END))));
         result.setName(cursor.getString(cursor.getColumnIndex(PERIOD_NAME)));
         result.setPlannedSaving(cursor.getDouble(cursor.getColumnIndex(PERIOD_PLANNED_SAVING)));
         return result;

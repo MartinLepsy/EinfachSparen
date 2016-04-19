@@ -12,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import martinigt.einfachsparen.admin.AdminActivity;
 import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.ExpenseDbHelper;
 import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
+import martinigt.einfachsparen.martinigt.einfachsparen.lists.IncomeListActivity;
 import martinigt.einfachsparen.model.Dashboard;
 import martinigt.einfachsparen.model.Period;
 
@@ -69,11 +71,17 @@ public class DashboardActivity extends AppCompatActivity {
                 //showHelp();
                 return true;
             case R.id.action_manageIncome:
-
+                Intent goToIncomeList = new Intent(getApplicationContext(),
+                        IncomeListActivity.class);
+                startActivity(goToIncomeList);
                 return true;
             case R.id.action_manageExpenses:
 
                 return true;
+            case R.id.action_adminArea:
+                Intent goToAdminArea = new Intent(getApplicationContext(),
+                        AdminActivity.class);
+                startActivity(goToAdminArea);
             default:
                 return super.onOptionsItemSelected(item);
         }
