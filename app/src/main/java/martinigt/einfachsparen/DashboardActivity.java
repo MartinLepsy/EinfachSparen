@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Currency;
+import java.util.Locale;
+
 import martinigt.einfachsparen.admin.AdminActivity;
 import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.ExpenseDbHelper;
@@ -102,10 +105,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void updateDisplay() {
-        allCurrentExpensesDisplay.setText("" + dashboard.getCumulatedExpenses());
-        budgetDisplay.setText( ""+  dashboard.getBudget());
-        budgetPerDayDisplay.setText("" + dashboard.getBudgetPerDay());
-        plannedExpensesDisplay.setText("" + dashboard.getPlannedExpenses());
+        Locale currentLocale = Locale.getDefault();
+        Currency myCurrency = Currency.getInstance((currentLocale));
+        allCurrentExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getCumulatedExpenses(), myCurrency.getSymbol()));
+        budgetDisplay.setText(String.format("%1.2f %s", dashboard.getBudget(), myCurrency.getSymbol()));
+        budgetPerDayDisplay.setText(String.format("%1.2f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
+        plannedExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getPlannedExpenses(), myCurrency.getSymbol()));
     }
 
     private void findReferencesToDisplayControls() {

@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Locale;
 
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.model.Expense;
@@ -23,10 +25,17 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
 
     private final ArrayList<Transaction> values;
 
+    private Locale currentLocale;
+
+    private Currency currentCurrency;
+
     public TransactionAdapter(Context context, ArrayList<Transaction> values) {
         super(context, -1, values);
         this.context = context;
         this.values = values;
+
+        currentLocale = Locale.getDefault();
+        currentCurrency = Currency.getInstance((currentLocale));
     }
 
     @Override
@@ -37,7 +46,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         TextView transactionValue = (TextView) rowView.findViewById(R.id.transaction_listItem_value);
         TextView transactionName = (TextView) rowView.findViewById(R.id.transaction_listItem_name);
 
-        transactionValue.setText(""+values.get(position).getValue());
+        transactionValue.setText(String.format("%1.2f %s", values.get(position).getValue(), currentCurrency.getSymbol()));
         transactionName.setText(values.get(position).getName());
 
         if (values.get(position) instanceof Expense) {
