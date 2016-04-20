@@ -58,7 +58,9 @@ public class CreateIncomeActivity extends AppCompatActivity implements TextWatch
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveIncome();
+                if(validateInput()) {
+                    saveIncome();
+                }
             }
         });
         incomeTitleInput.addTextChangedListener(this);

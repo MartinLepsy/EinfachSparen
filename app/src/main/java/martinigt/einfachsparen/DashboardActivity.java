@@ -2,13 +2,17 @@ package martinigt.einfachsparen;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
@@ -17,9 +21,13 @@ import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.ExpenseDbHelper;
 import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
+import martinigt.einfachsparen.data.TransactionAdapter;
+import martinigt.einfachsparen.forms.CreateExpenseActivity;
+import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.lists.ExpenseListActivity;
 import martinigt.einfachsparen.lists.IncomeListActivity;
 import martinigt.einfachsparen.model.Dashboard;
+import martinigt.einfachsparen.model.Expense;
 import martinigt.einfachsparen.model.Period;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -36,6 +44,12 @@ public class DashboardActivity extends AppCompatActivity {
 
     TextView budgetPerDayDisplay;
 
+    private ListView expenseList;
+
+    private FloatingActionButton addExpenseButton;
+
+    private TransactionAdapter expenseAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,14 +57,21 @@ public class DashboardActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        findReferencesToDisplayControls();
+
         bindListeners();
 
-        findReferencesToDisplayControls();
     }
 
     private void bindListeners() {
-       // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addExpenseFromDashboardButton);
-
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goToCreateExpenseActivity = new Intent(getApplicationContext(),
+                        CreateExpenseActivity.class);
+                startActivity(goToCreateExpenseActivity);
+            }
+        });
     }
 
     @Override
@@ -74,7 +95,6 @@ public class DashboardActivity extends AppCompatActivity {
                 Intent goToExpenseList = new Intent(getApplicationContext(),
                         ExpenseListActivity.class);
                 startActivity(goToExpenseList);
-                //System.out.println("wuc")
                 return true;
             case R.id.action_adminArea:
                 Intent goToAdminArea = new Intent(getApplicationContext(),
@@ -114,6 +134,8 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void findReferencesToDisplayControls() {
+        expenseList = (ListView) findViewById(R.id.dashboardExpenseList);
+        addExpenseButton = (FloatingActionButton) findViewById(R.id.fab);
         allCurrentExpensesDisplay = (TextView) findViewById(R.id.currentExpensesDisplay);
         plannedExpensesDisplay = (TextView) findViewById(R.id.plannedExpensesDisplay);
         budgetDisplay = (TextView) findViewById(R.id.budgetDisplay);
@@ -136,6 +158,17 @@ public class DashboardActivity extends AppCompatActivity {
 
         loadCurrentPeriodOrShowNotAvailableDialog();
 
+        refreshExpenseList();
+    }
+
+    private void refreshExpenseList() {
+        ExpenseDbHelper expenseDbHelper = new ExpenseDbHelper(dbHelper);
+        PeriodDbHelper periodDbHelper = new PeriodDbHelper(dbHelper);
+
+        Period currentPeriod = periodDbHelper.getCurrentPeriod();
+        ArrayList<Expense> expenses = expenseDbHelper.getAllExpensesForPeriod(currentPeriod.getId(), true);
+        expenseAdapter = new TransactionAdapter(this, Helper.castToTransactionList(expenses));
+        expenseList.setAdapter(expenseAdapter);
     }
 
     @Override

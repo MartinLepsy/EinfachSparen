@@ -58,7 +58,9 @@ public class CreateExpenseActivity extends AppCompatActivity  implements TextWat
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveExpense();
+                if (validateInput()) {
+                    saveExpense();
+                }
             }
         });
         expenseTitleInput.addTextChangedListener(this);

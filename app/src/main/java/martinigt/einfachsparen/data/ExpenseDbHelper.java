@@ -60,10 +60,18 @@ public class ExpenseDbHelper {
     }
 
     public ArrayList<Expense> getAllExpensesForPeriod(int periodId) {
+        return getAllExpensesForPeriod(periodId, false);
+    }
+
+    public ArrayList<Expense> getAllExpensesForPeriod(int periodId, boolean mostRecentFirst) {
         ArrayList<Expense> result = new ArrayList<Expense>();
         SQLiteDatabase db =  dbHelper.getReadableDatabase();
-        Cursor dbResults = db.rawQuery("SELECT * FROM " +  EXPENSE_TABLE_NAME + " WHERE " +
-                periodId + " = " + EXPENSE_PERIOD_ID, null);
+        String query = "SELECT * FROM " +  EXPENSE_TABLE_NAME + " WHERE " +
+                periodId + " = " + EXPENSE_PERIOD_ID;
+        if (mostRecentFirst) {
+            query = query + " ORDER BY " + EXPENSE_ID + " DESC";
+        }
+        Cursor dbResults = db.rawQuery(query, null);
         while (dbResults.moveToNext()) {
             result.add(getExpenseFromCursor(dbResults, periodId));
         }
