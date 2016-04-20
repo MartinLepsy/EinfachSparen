@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorCannotSave">#cc0000</color>
-    <color name="colorCanSave">#458B00</color>
+    <color name="colorCanSave">#458b00</color>
 </resources>
