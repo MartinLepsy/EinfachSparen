@@ -76,7 +76,7 @@ public class IncomeDbHelper {
         return result;
     }
 
-    public ArrayList<Income> getAllExpensesForPeriod(int periodId) {
+    public ArrayList<Income> getAllIncomesForPeriod(int periodId) {
         ArrayList<Income> result = new ArrayList<Income>();
         SQLiteDatabase db =  dbHelper.getReadableDatabase();
         Cursor dbResults = db.rawQuery("SELECT * FROM " +  INCOME_TABLE_NAME + " WHERE " +

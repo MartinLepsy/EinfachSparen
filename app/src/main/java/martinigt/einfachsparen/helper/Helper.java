@@ -4,12 +4,17 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.EditText;
 
+import java.lang.reflect.Array;
 import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import martinigt.einfachsparen.R;
+import martinigt.einfachsparen.model.Expense;
+import martinigt.einfachsparen.model.Income;
+import martinigt.einfachsparen.model.Transaction;
 
 /**
  * Created by martin on 16.04.16.
@@ -65,5 +70,13 @@ public class Helper {
             buttonToFormat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc0000")));
             buttonToFormat.setImageResource(R.drawable.ic_close);
         }
+    }
+
+    public static ArrayList<Transaction> castToTransactionList(ArrayList<? extends Transaction> expenseList) {
+        ArrayList<Transaction> result = new ArrayList<>();
+        for (Transaction currentItem : expenseList) {
+            result.add(currentItem);
+        }
+        return result;
     }
 }

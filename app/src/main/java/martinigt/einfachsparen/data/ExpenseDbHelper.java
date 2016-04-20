@@ -1,5 +1,6 @@
 package martinigt.einfachsparen.data;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -85,6 +86,29 @@ public class ExpenseDbHelper {
     }
 
     public void storeListOfExpenses(ArrayList<Expense> expenses) {
+        for (Expense currentExpense : expenses
+                ) {
+            addExpense(currentExpense);
+        }
+    }
 
+    public boolean addExpense(Expense expenseToAdd) {
+        boolean result = false;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EXPENSE_NAME, expenseToAdd.getName());
+        contentValues.put(EXPENSE_TAG, expenseToAdd.getTag());
+        contentValues.put(EXPENSE_VALUE, expenseToAdd.getValue());
+        contentValues.put(EXPENSE_DATE, expenseToAdd.getDate().getTime());
+        contentValues.put(EXPENSE_IS_STANDARD, expenseToAdd.isStandard());
+        contentValues.put(EXPENSE_PERIOD_ID, expenseToAdd.getPeriodId());
+        try {
+            db.insert(EXPENSE_TABLE_NAME, null, contentValues);
+            result = true;
+        }
+        catch (Exception e) {
+            result = false;
+        }
+        return result;
     }
 }

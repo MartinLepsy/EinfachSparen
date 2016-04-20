@@ -36,6 +36,8 @@
     <string name="transactionRecurring">Wiederkehrend</string>
     <string name="transactionRecurringHint">Wenn &quot;Wiederkehrend&quot; gesetzt ist, wird der Wert
     beim Anlegen einer neuen Periode automatisch verbucht.</string>
+    <string name="title_activity_expense_list">ExpenseListActivity</string>
+    <string name="title_activity_create_expense">CreateExpenseActivity</string>
 
 
 </resources>
