@@ -101,6 +101,21 @@ public class IncomeDbHelper {
         return this.getIncomeFromCursor(cursor, -1);
     }
 
+    public boolean deleteIncome(Income incomeToDelete) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return db.delete(INCOME_TABLE_NAME, INCOME_ID + " = " + incomeToDelete.getId(), null) > 0;
+    }
+
+    public boolean updateIncome(Income incomeToUpdate) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(INCOME_NAME, incomeToUpdate.getName());
+        contentValues.put(INCOME_TAG, incomeToUpdate.getTag());
+        contentValues.put(INCOME_VALUE, incomeToUpdate.getValue());
+        contentValues.put(INCOME_IS_STANDARD, incomeToUpdate.isStandard());
+        return db.update(INCOME_TABLE_NAME, contentValues, INCOME_ID + " = " + incomeToUpdate.getId(), null) > 0;
+    }
+
     private Income getIncomeFromCursor(Cursor cursor, int periodId) {
         Income result = new Income();
         result.setPeriodId(periodId);

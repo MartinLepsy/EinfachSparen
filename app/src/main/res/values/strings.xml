@@ -40,5 +40,10 @@
     <string name="title_activity_create_expense">CreateExpenseActivity</string>
     <string name="title_activity_edit_transaction">EditTransactionActivity</string>
 
+    <!-- Confirmation Dialog -->
+    <string name="confirmQuestion">Sind Sie sicher?</string>
+    <string name="confirmYes">Ja</string>
+    <string name="confirmNo">Nein</string>
+
 
 </resources>

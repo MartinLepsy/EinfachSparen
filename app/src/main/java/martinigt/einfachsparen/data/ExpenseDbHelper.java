@@ -119,4 +119,19 @@ public class ExpenseDbHelper {
         }
         return result;
     }
+
+    public boolean deleteExpense(Expense expenseToDelete) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return db.delete(EXPENSE_TABLE_NAME, EXPENSE_ID + " = " + expenseToDelete.getId(), null) > 0;
+    }
+
+    public boolean updateExpense(Expense expenseToUpdate) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(EXPENSE_NAME, expenseToUpdate.getName());
+        contentValues.put(EXPENSE_TAG, expenseToUpdate.getTag());
+        contentValues.put(EXPENSE_VALUE, expenseToUpdate.getValue());
+        contentValues.put(EXPENSE_IS_STANDARD, expenseToUpdate.isStandard());
+        return db.update(EXPENSE_TABLE_NAME, contentValues, EXPENSE_ID + " = " + expenseToUpdate.getId(), null) > 0;
+    }
 }
