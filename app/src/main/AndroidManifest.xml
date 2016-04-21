@@ -49,7 +49,16 @@
             android:name=".forms.CreateExpenseActivity"
             android:label="@string/title_activity_create_expense"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".forms.EditTransactionActivity"
+            android:label="@string/title_activity_edit_transaction"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".lists.IncomeListActivity" />
+        </activity>
+
     </application>
 
 </manifest>

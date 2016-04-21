@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
@@ -57,5 +58,9 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         }
 
         return rowView;
+    }
+
+    public ArrayList<Transaction> getValues() {
+        return values;
     }
 }

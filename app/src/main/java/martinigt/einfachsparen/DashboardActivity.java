@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,12 +24,14 @@ import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
 import martinigt.einfachsparen.data.TransactionAdapter;
 import martinigt.einfachsparen.forms.CreateExpenseActivity;
+import martinigt.einfachsparen.forms.EditTransactionActivity;
 import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.lists.ExpenseListActivity;
 import martinigt.einfachsparen.lists.IncomeListActivity;
 import martinigt.einfachsparen.model.Dashboard;
 import martinigt.einfachsparen.model.Expense;
 import martinigt.einfachsparen.model.Period;
+import martinigt.einfachsparen.model.Transaction;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -70,6 +73,17 @@ public class DashboardActivity extends AppCompatActivity {
                 Intent goToCreateExpenseActivity = new Intent(getApplicationContext(),
                         CreateExpenseActivity.class);
                 startActivity(goToCreateExpenseActivity);
+            }
+        });
+
+        expenseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Transaction selectedExpense = expenseAdapter.getValues().get(position);
+                Intent editIncomeIntent = new Intent(getApplicationContext(),
+                        EditTransactionActivity.class);
+                editIncomeIntent.putExtra("TransactionToEdit", selectedExpense);
+                startActivity(editIncomeIntent);
             }
         });
     }

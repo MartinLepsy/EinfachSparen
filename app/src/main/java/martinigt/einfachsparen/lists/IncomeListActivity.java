@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
 import martinigt.einfachsparen.data.TransactionAdapter;
 import martinigt.einfachsparen.forms.CreateIncomeActivity;
+import martinigt.einfachsparen.forms.EditTransactionActivity;
 import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.model.Income;
 import martinigt.einfachsparen.model.Period;
+import martinigt.einfachsparen.model.Transaction;
 
 public class IncomeListActivity extends AppCompatActivity {
 
@@ -59,6 +62,17 @@ public class IncomeListActivity extends AppCompatActivity {
                 Intent goToCreateIncome = new Intent(getApplicationContext(),
                         CreateIncomeActivity.class);
                 startActivity(goToCreateIncome);
+            }
+        });
+
+        incomeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Transaction selectedIncome = incomeAdapter.getValues().get(position);
+                Intent editIncomeIntent = new Intent(getApplicationContext(),
+                        EditTransactionActivity.class);
+                editIncomeIntent.putExtra("TransactionToEdit", selectedIncome);
+                startActivity(editIncomeIntent);
             }
         });
     }

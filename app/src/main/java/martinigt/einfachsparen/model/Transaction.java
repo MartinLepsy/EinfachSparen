@@ -1,11 +1,12 @@
 package martinigt.einfachsparen.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by martin on 16.04.16.
  */
-public class Transaction {
+public class Transaction implements Serializable {
 
     public Transaction() {
 
