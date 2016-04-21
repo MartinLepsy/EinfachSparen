@@ -2,10 +2,12 @@ package martinigt.einfachsparen.forms;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ public class CreateExpenseActivity extends AppCompatActivity  implements TextWat
         setContentView(R.layout.activity_create_expense);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getReferenceToWidgets();
 
@@ -103,6 +106,17 @@ public class CreateExpenseActivity extends AppCompatActivity  implements TextWat
         expenseToAdd.setStandard(expenseRecurringInput.isChecked());
         expenseHelper.addExpense(expenseToAdd);
         finish();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

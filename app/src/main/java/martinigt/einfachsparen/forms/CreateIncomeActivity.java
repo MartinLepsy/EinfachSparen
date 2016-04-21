@@ -3,10 +3,12 @@ package martinigt.einfachsparen.forms;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ public class CreateIncomeActivity extends AppCompatActivity implements TextWatch
         setContentView(R.layout.activity_create_income);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getReferenceToWidgets();
 
@@ -103,6 +106,17 @@ public class CreateIncomeActivity extends AppCompatActivity implements TextWatch
         incomeToAdd.setStandard(incomeRecurringInput.isChecked());
         incomeHelper.addIncome(incomeToAdd);
         finish();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

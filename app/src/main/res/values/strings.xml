@@ -27,8 +27,8 @@
 
     <!-- Texte für Activity zum Anlegen einer Periode -->
     <string name="createPeriodActivityTitle">Periode anlegen</string>
-    <string name="title_activity_income_list">IncomeListActivity</string>
-    <string name="title_activity_create_income">CreateIncomeActivity</string>
+    <string name="title_activity_income_list">Alle Einnahmen</string>
+    <string name="title_activity_create_income">Neue Einnahme</string>
 
     <!-- Transaction field names as hints in forms -->
     <string name="transactionTitle">Bezeichnung</string>
@@ -36,9 +36,9 @@
     <string name="transactionRecurring">Wiederkehrend</string>
     <string name="transactionRecurringHint">Wenn &quot;Wiederkehrend&quot; gesetzt ist, wird der Wert
     beim Anlegen einer neuen Periode automatisch verbucht.</string>
-    <string name="title_activity_expense_list">ExpenseListActivity</string>
-    <string name="title_activity_create_expense">CreateExpenseActivity</string>
-    <string name="title_activity_edit_transaction">EditTransactionActivity</string>
+    <string name="title_activity_expense_list">Alle Ausgaben</string>
+    <string name="title_activity_create_expense">Neue Ausgabe</string>
+    <string name="title_activity_edit_transaction">Transaktion bearbeiten</string>
 
     <!-- Confirmation Dialog -->
     <string name="confirmQuestion">Sind Sie sicher?</string>
