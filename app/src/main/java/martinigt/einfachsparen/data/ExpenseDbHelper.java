@@ -84,7 +84,7 @@ public class ExpenseDbHelper {
         result.setStandard(cursor.getInt(cursor.getColumnIndex(EXPENSE_IS_STANDARD)) > 0);
         result.setName(cursor.getString(cursor.getColumnIndex(EXPENSE_NAME)));
         result.setValue(cursor.getDouble(cursor.getColumnIndex(EXPENSE_VALUE)));
-        result.setDate(new Date(cursor.getInt(cursor.getColumnIndex(EXPENSE_DATE))));
+        result.setDate(new Date(cursor.getLong(cursor.getColumnIndex(EXPENSE_DATE))));
         result.setTag(cursor.getString(cursor.getColumnIndex(EXPENSE_TAG)));
         return result;
     }

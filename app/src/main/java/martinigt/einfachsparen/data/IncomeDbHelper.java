@@ -108,7 +108,7 @@ public class IncomeDbHelper {
         result.setStandard(cursor.getInt(cursor.getColumnIndex(INCOME_IS_STANDARD)) > 0);
         result.setName(cursor.getString(cursor.getColumnIndex(INCOME_NAME)));
         result.setValue(cursor.getDouble(cursor.getColumnIndex(INCOME_VALUE)));
-        result.setDate(new Date(cursor.getInt(cursor.getColumnIndex(INCOME_DATE))));
+        result.setDate(new Date(cursor.getLong(cursor.getColumnIndex(INCOME_DATE))));
         result.setTag(cursor.getString(cursor.getColumnIndex(INCOME_TAG)));
         return result;
     }
