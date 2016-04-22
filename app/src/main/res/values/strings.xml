@@ -9,14 +9,15 @@
     <string name="action_adminArea">Admin Bereich</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_income_overview">IncomeOverviewActivity</string>
-    <string name="title_activity_expense_overview">ExpenseOverviewActivity</string>
 
+    <!-- Dashboard texts -->
     <string name="currentExpensesLabel">Aktuelle Ausgaben:</string>
     <string name="plannedExpensesLabel">Geplante Ausgaben:</string>
     <string name="budgetLabel">Rest Budget:</string>
     <string name="budgetPerDayLabel">Budget/Tag:</string>
     <string name="lastExpensesListTitle">Letzte Ausgaben:</string>
+    <string name="remainingDaysLabel">Verblebende Tage:</string>
+    <string name="approximatedSavingLabel">Vsl. Sparbetrag:</string>
     <string name="startingValueDisplay">--</string>
 
     <!-- Dialog keine aktuelle Periode vorhanden -->

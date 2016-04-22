@@ -47,6 +47,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     TextView budgetPerDayDisplay;
 
+    private TextView daysRemainingDisplay;
+
+    private TextView approximatedSavingsDisplay;
+
     private ListView expenseList;
 
     private FloatingActionButton addExpenseButton;
@@ -145,6 +149,8 @@ public class DashboardActivity extends AppCompatActivity {
         budgetDisplay.setText(String.format("%1.2f %s", dashboard.getBudget(), myCurrency.getSymbol()));
         budgetPerDayDisplay.setText(String.format("%1.2f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
         plannedExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getPlannedExpenses(), myCurrency.getSymbol()));
+        daysRemainingDisplay.setText(String.format("%s", dashboard.getDaysRemaining()));
+        approximatedSavingsDisplay.setText(String.format("%1.2f %s", dashboard.getApproximatedSaving(), myCurrency.getSymbol()));
     }
 
     private void findReferencesToDisplayControls() {
@@ -154,6 +160,8 @@ public class DashboardActivity extends AppCompatActivity {
         plannedExpensesDisplay = (TextView) findViewById(R.id.plannedExpensesDisplay);
         budgetDisplay = (TextView) findViewById(R.id.budgetDisplay);
         budgetPerDayDisplay = (TextView) findViewById(R.id.budgetPerDayDisplay);
+        daysRemainingDisplay = (TextView) findViewById(R.id.remainingDaysDisplay);
+        approximatedSavingsDisplay = (TextView) findViewById(R.id.approximatedSavingsDisplay);
     }
 
     private void showNoPeriodFoundDialog() {

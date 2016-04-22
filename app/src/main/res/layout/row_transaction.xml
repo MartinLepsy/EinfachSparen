@@ -3,25 +3,41 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="100"
-        android:id="@+id/transaction_listItem_value"
-        android:textColor="@color/colorCanSave"
-        android:layout_marginRight="20dp"
-        android:paddingLeft="40dp"
-        android:paddingTop="20dp"
-        android:paddingRight="40dp"
-        android:paddingBottom="20dp" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/transaction_listItem_name"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:layout_weight="0.4">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="100"
+            android:id="@+id/transaction_listItem_value"
+            android:textColor="@color/colorCanSave"
+            android:layout_marginRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+           />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.6">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/transaction_listItem_name"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp" />
+    </RelativeLayout>
+
+
+
+
+
+
 </LinearLayout>

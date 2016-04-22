@@ -27,6 +27,10 @@ public class Dashboard {
 
     private double plannedExpenses;
 
+    private int daysRemaining;
+
+    private double approximatedSaving;
+
     private Date dateToCalculateFrom;
 
     public Dashboard() {
@@ -49,6 +53,8 @@ public class Dashboard {
         cumulatedExpenses = 0;
         cumulatedIncome = 0;
         if (currentPeriod != null) {
+            daysRemaining = (int) Helper.getDateDiff(dateToCalculateFrom, currentPeriod.getEnd(),
+                    TimeUnit.DAYS);
             if (periodExpenses != null) {
                 for (Expense currentExpense : periodExpenses) {
                     cumulatedExpenses += currentExpense.getValue();
@@ -62,12 +68,14 @@ public class Dashboard {
             budget = cumulatedIncome - cumulatedExpenses - currentPeriod.getPlannedSaving();
             plannedExpenses = cumulatedIncome - currentPeriod.getPlannedSaving();
             calculateDailyBudget();
+            approximatedSaving = currentPeriod.getPlannedSaving() + budget;
         }
         else {
             budgetPerDay = 0;
             budget = 0;
             plannedExpenses = 0;
         }
+
     }
 
     private void calculateDailyBudget() {
@@ -76,10 +84,8 @@ public class Dashboard {
             budgetPerDay = -1;
         }
         else {
-            int differenzTage = (int) Helper.getDateDiff(dateToCalculateFrom, currentPeriod.getEnd(),
-                    TimeUnit.DAYS);
-            if (differenzTage >= 1) {
-                budgetPerDay = budget / differenzTage;
+            if (daysRemaining >= 1) {
+                budgetPerDay = budget / daysRemaining;
             }
             else {
                 budgetPerDay = -1;
@@ -103,12 +109,27 @@ public class Dashboard {
 
     public double getPlannedExpenses() { return  plannedExpenses; }
 
-
     public Date getDateToCalculateFrom() {
         return dateToCalculateFrom;
     }
 
     public void setDateToCalculateFrom(Date dateToCalculateFrom) {
         this.dateToCalculateFrom = dateToCalculateFrom;
+    }
+
+    public int getDaysRemaining() {
+        return daysRemaining;
+    }
+
+    public void setDaysRemaining(int daysRemaining) {
+        this.daysRemaining = daysRemaining;
+    }
+
+    public double getApproximatedSaving() {
+        return approximatedSaving;
+    }
+
+    public void setApproximatedSaving(double approximatedSaving) {
+        this.approximatedSaving = approximatedSaving;
     }
 }
