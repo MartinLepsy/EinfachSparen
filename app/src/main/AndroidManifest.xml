@@ -19,14 +19,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IncomeOverviewActivity"
-            android:label="@string/title_activity_income_overview"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ExpenseOverviewActivity"
-            android:label="@string/title_activity_expense_overview"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".CreatePeriodActivity"
             android:label="@string/createPeriodActivityTitle"
             android:theme="@style/AppTheme.NoActionBar"
