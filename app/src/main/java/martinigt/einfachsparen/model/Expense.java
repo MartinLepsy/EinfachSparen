@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class Expense extends Transaction {
 
-    public Expense(int periodeId) {
+    public Expense(long periodeId) {
         this.setPeriodId(periodeId);
     }
 

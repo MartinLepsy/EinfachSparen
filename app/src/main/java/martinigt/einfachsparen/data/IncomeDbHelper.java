@@ -76,7 +76,7 @@ public class IncomeDbHelper {
         return result;
     }
 
-    public ArrayList<Income> getAllIncomesForPeriod(int periodId) {
+    public ArrayList<Income> getAllIncomesForPeriod(long periodId) {
         ArrayList<Income> result = new ArrayList<Income>();
         SQLiteDatabase db =  dbHelper.getReadableDatabase();
         Cursor dbResults = db.rawQuery("SELECT * FROM " +  INCOME_TABLE_NAME + " WHERE " +
@@ -116,7 +116,7 @@ public class IncomeDbHelper {
         return db.update(INCOME_TABLE_NAME, contentValues, INCOME_ID + " = " + incomeToUpdate.getId(), null) > 0;
     }
 
-    private Income getIncomeFromCursor(Cursor cursor, int periodId) {
+    private Income getIncomeFromCursor(Cursor cursor, long periodId) {
         Income result = new Income();
         result.setPeriodId(periodId);
         result.setId(cursor.getInt(cursor.getColumnIndex(INCOME_ID)));

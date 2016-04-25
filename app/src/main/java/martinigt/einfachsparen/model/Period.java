@@ -9,7 +9,7 @@ import martinigt.einfachsparen.helper.Helper;
  */
 public class Period {
 
-    private int id;
+    private long id;
 
     private Date start;
 
@@ -26,11 +26,11 @@ public class Period {
         //name = Helper.getMonthForDate(start);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

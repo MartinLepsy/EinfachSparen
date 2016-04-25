@@ -12,6 +12,13 @@
     tools:context="martinigt.einfachsparen.DashboardActivity"
     tools:showIn="@layout/activity_create_period">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/createPeriodInfoLabel"
+        android:layout_gravity="center_horizontal" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

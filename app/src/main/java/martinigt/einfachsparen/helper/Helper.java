@@ -38,6 +38,12 @@ public class Helper {
         return Helper.getMonthForInt(cal.get(Calendar.MONTH));
     }
 
+    public static String getNextMonthName() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, 1);
+        return Helper.getMonthForInt(cal.get(Calendar.MONTH));
+    }
+
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);

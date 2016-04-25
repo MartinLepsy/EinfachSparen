@@ -8,21 +8,24 @@
             android:id="@+id/action_newPeriod"
             android:orderInCategory="100"
             android:title="@string/action_createNewPeriod"
-            app:showAsAction="never"
+            app:showAsAction="ifRoom"
+            android:icon="@drawable/ic_action_clock"
             />
     </group>
     <group>
-        <item
-            android:id="@+id/action_manageIncome"
-            android:orderInCategory="100"
-            android:title="@string/action_manageIncome"
-            app:showAsAction="never"
-            />
         <item
             android:id="@+id/action_manageExpenses"
             android:orderInCategory="100"
             android:title="@string/action_manageExpenses"
             app:showAsAction="never"
+            android:icon="@drawable/ic_action_minus"
+            />
+        <item
+            android:id="@+id/action_manageIncome"
+            android:orderInCategory="100"
+            android:title="@string/action_manageIncome"
+            app:showAsAction="never"
+            android:icon="@drawable/ic_action_add"
             />
     </group>
     <group>

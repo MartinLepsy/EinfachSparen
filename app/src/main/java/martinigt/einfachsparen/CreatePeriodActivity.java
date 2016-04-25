@@ -9,12 +9,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -26,6 +28,7 @@ import martinigt.einfachsparen.data.PeriodDbHelper;
 import martinigt.einfachsparen.helper.DatePickerFragment;
 import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.model.Period;
+import martinigt.einfachsparen.model.PeriodUtility;
 import martinigt.einfachsparen.model.PeriodWizard;
 
 public class CreatePeriodActivity extends AppCompatActivity implements TextWatcher {
@@ -38,22 +41,31 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
 
     private EditText plannedSavingInput;
 
+    private TextView createPeriodInfoLabel;
+
     private FloatingActionButton saveButton;
 
     private DatabaseHelper dbHelper;
+
+    private PeriodUtility periodUtility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_period);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        dbHelper = new DatabaseHelper(this.getApplicationContext());
+        periodUtility = new PeriodUtility(dbHelper);
+
         getReferenceToWidgets();
 
         addPickers();
 
         bindListeners();
-
-        dbHelper = new DatabaseHelper(this.getApplicationContext());
 
         prefillWidgets();
     }
@@ -65,7 +77,6 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
                 savePeriod();
             }
         });
-
         periodNameInput.addTextChangedListener(this);
         periodStartInput.addTextChangedListener(this);
         periodEndInput.addTextChangedListener(this);
@@ -84,21 +95,15 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
             Date periodEnd = df.parse(periodEndInput.getText().toString());
             newPeriod.setStart(periodStart);
             newPeriod.setEnd(periodEnd);
-            preparePeriodAndSave(newPeriod);
-
+            periodUtility.savePeriodAndAssignDefaultValues(newPeriod);
+            finish();
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    private void preparePeriodAndSave(Period periodToSave) {
-        PeriodWizard wizz = new PeriodWizard(periodToSave, dbHelper);
-        wizz.assignDefaultIncomeAndExpenses();
-        wizz.savePeriod();
-        finish();
-    }
-
     private void getReferenceToWidgets() {
+        createPeriodInfoLabel = (TextView) findViewById(R.id.createPeriodInfoLabel);
         saveButton = (FloatingActionButton) findViewById(R.id.newPeriodSaveButton);
         periodNameInput = (EditText) findViewById(R.id.periodNameInput);
         periodStartInput = (EditText) findViewById(R.id.periodStartInput);
@@ -155,14 +160,17 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
     }
 
     private void prefillWidgets() {
-        PeriodDbHelper periodHelper = new PeriodDbHelper(dbHelper);
-        Period mostRecentPeriod = periodHelper.getMostRecentPeriod();
-        if (mostRecentPeriod != null) {
-            plannedSavingInput.setText(""+mostRecentPeriod.getPlannedSaving());
-        }
-        periodNameInput.setText(Helper.getMonthForDate(new Date()));
+        periodNameInput.setText(Helper.getNextMonthName());
         DateFormat df = DateFormat.getDateInstance();
-        periodStartInput.setText(df.format(new Date().getTime()));
+        Date startDate = new Date();
+        periodStartInput.setText(df.format(startDate.getTime()));
+        if (periodUtility.currentPeriodAvailable()) {
+            createPeriodInfoLabel.setText(getString(R.string.createPeriodExistingCurrentPeriodInfoText));
+        }
+        if (periodUtility.mostRecentPeriodAvailable()) {
+            plannedSavingInput.setText(""+periodUtility.getMostRecentPeriod().getPlannedSaving());
+            periodEndInput.setText(df.format(periodUtility.predictEndDateFromMostRecentPeriod(startDate).getTime()));
+        }
     }
 
     @Override

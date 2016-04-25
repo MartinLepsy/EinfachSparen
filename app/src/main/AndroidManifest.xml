@@ -14,7 +14,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,7 +21,11 @@
             android:name=".CreatePeriodActivity"
             android:label="@string/createPeriodActivityTitle"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
         <activity
             android:name=".lists.IncomeListActivity"
             android:label="@string/title_activity_income_list"
@@ -30,7 +33,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
-            </activity>
+        </activity>
         <activity
             android:name=".forms.CreateIncomeActivity"
             android:label="@string/title_activity_create_income"

@@ -22,7 +22,7 @@ public class Transaction implements Serializable {
 
     private int id;
 
-    private int periodId;
+    private long periodId;
 
     private boolean isStandard;
 
@@ -42,11 +42,11 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public int getPeriodId() {
+    public long getPeriodId() {
         return periodId;
     }
 
-    public void setPeriodId(int periodId) {
+    public void setPeriodId(long periodId) {
         this.periodId = periodId;
     }
 

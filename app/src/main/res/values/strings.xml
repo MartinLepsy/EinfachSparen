@@ -30,6 +30,9 @@
     <string name="createPeriodActivityTitle">Periode anlegen</string>
     <string name="title_activity_income_list">Alle Einnahmen</string>
     <string name="title_activity_create_income">Neue Einnahme</string>
+    <string name="createPeriodExistingCurrentPeriodInfoText">Es existiert bereits eine aktuelle Periode.
+        Beim Anlegen der neuen Periode wird das Enddatum der aktuellen Periode auf das Startdatum
+        der neuen Periode gesetzt.</string>
 
     <!-- Transaction field names as hints in forms -->
     <string name="transactionTitle">Bezeichnung</string>

@@ -59,11 +59,11 @@ public class ExpenseDbHelper {
         return result;
     }
 
-    public ArrayList<Expense> getAllExpensesForPeriod(int periodId) {
+    public ArrayList<Expense> getAllExpensesForPeriod(long periodId) {
         return getAllExpensesForPeriod(periodId, false);
     }
 
-    public ArrayList<Expense> getAllExpensesForPeriod(int periodId, boolean mostRecentFirst) {
+    public ArrayList<Expense> getAllExpensesForPeriod(long periodId, boolean mostRecentFirst) {
         ArrayList<Expense> result = new ArrayList<Expense>();
         SQLiteDatabase db =  dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " +  EXPENSE_TABLE_NAME + " WHERE " +
@@ -78,7 +78,7 @@ public class ExpenseDbHelper {
         return result;
     }
 
-    private Expense getExpenseFromCursor(Cursor cursor, int periodeId){
+    private Expense getExpenseFromCursor(Cursor cursor, long periodeId){
         Expense result = new Expense(periodeId);
         result.setId(cursor.getInt(cursor.getColumnIndex(EXPENSE_ID)));
         result.setStandard(cursor.getInt(cursor.getColumnIndex(EXPENSE_IS_STANDARD)) > 0);

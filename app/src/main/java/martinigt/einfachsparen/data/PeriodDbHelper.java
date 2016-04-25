@@ -38,9 +38,9 @@ public class PeriodDbHelper {
         dbHelper = helper;
     }
 
-    public boolean savePeriod(Period period)
+    public long savePeriod(Period period)
     {
-        boolean result = false;
+        long result = -1;
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(PERIOD_START, period.getStart().getTime());
@@ -48,11 +48,9 @@ public class PeriodDbHelper {
         contentValues.put(PERIOD_NAME, period.getName());
         contentValues.put(PERIOD_PLANNED_SAVING, period.getPlannedSaving());
         try {
-            db.insert(PERIOD_TABLE_NAME, null, contentValues);
-            result = true;
+            result = db.insert(PERIOD_TABLE_NAME, null, contentValues);
         }
         catch (Exception e) {
-
         }
         return result;
     }
@@ -90,12 +88,22 @@ public class PeriodDbHelper {
 
     private Period getPeriodFromCursor(Cursor cursor){
         Period result = new Period();
-        result.setId(cursor.getInt(cursor.getColumnIndex(PERIOD_ID)));
+        result.setId(cursor.getLong(cursor.getColumnIndex(PERIOD_ID)));
         result.setStart(new Date(cursor.getLong(cursor.getColumnIndex(PERIOD_START))));
         result.setEnd(new Date(cursor.getLong(cursor.getColumnIndex(PERIOD_END))));
         result.setName(cursor.getString(cursor.getColumnIndex(PERIOD_NAME)));
         result.setPlannedSaving(cursor.getDouble(cursor.getColumnIndex(PERIOD_PLANNED_SAVING)));
         return result;
+    }
+
+    public boolean updatePeriod(Period periodToUpdate) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PERIOD_NAME, periodToUpdate.getName());
+        contentValues.put(PERIOD_PLANNED_SAVING, periodToUpdate.getPlannedSaving());
+        contentValues.put(PERIOD_START, periodToUpdate.getStart().getTime());
+        contentValues.put(PERIOD_END, periodToUpdate.getEnd().getTime());
+        return db.update(PERIOD_TABLE_NAME, contentValues, PERIOD_ID + " = " + periodToUpdate.getId(), null) > 0;
     }
 
 }

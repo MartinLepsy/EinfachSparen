@@ -27,7 +27,7 @@ public class PeriodWizard {
         periodDbHelper = new PeriodDbHelper(dbHelper);
     }
 
-    public void assignDefaultIncomeAndExpenses() {
+    private void assignDefaultIncomeAndExpenses() {
         assignDefaultIncome();
         assignDefaultExpenses();
     }
@@ -54,9 +54,14 @@ public class PeriodWizard {
         incomeDbHelper.storeListOfIncomes(incomesToAdd);
     }
 
-    public void savePeriod() {
-        periodDbHelper.cleanTable(); //TODO: DEBUG ONLY
-        periodDbHelper.savePeriod(periodToPrepare);
+    private void savePeriod() {
+        long newPeriodId = periodDbHelper.savePeriod(periodToPrepare);
+        periodToPrepare.setId(newPeriodId);
+    }
+
+    public void savePeriodAndAssignDefaultTransactions() {
+        savePeriod();
+        assignDefaultIncomeAndExpenses();
     }
 
 }
