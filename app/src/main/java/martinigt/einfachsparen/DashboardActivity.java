@@ -188,9 +188,11 @@ public class DashboardActivity extends AppCompatActivity {
         PeriodDbHelper periodDbHelper = new PeriodDbHelper(dbHelper);
 
         Period currentPeriod = periodDbHelper.getCurrentPeriod();
-        ArrayList<Expense> expenses = expenseDbHelper.getAllExpensesForPeriod(currentPeriod.getId(), true);
-        expenseAdapter = new TransactionAdapter(this, Helper.castToTransactionList(expenses));
-        expenseList.setAdapter(expenseAdapter);
+        if (currentPeriod != null) {
+            ArrayList<Expense> expenses = expenseDbHelper.getAllExpensesForPeriod(currentPeriod.getId(), true);
+            expenseAdapter = new TransactionAdapter(this, Helper.castToTransactionList(expenses));
+            expenseList.setAdapter(expenseAdapter);
+        }
     }
 
     @Override
