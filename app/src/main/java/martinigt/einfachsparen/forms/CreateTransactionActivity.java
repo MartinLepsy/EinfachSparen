@@ -1,5 +1,6 @@
 package martinigt.einfachsparen.forms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
@@ -16,32 +17,46 @@ import java.util.Date;
 
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.data.DatabaseHelper;
-import martinigt.einfachsparen.data.ExpenseDbHelper;
-import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
+import martinigt.einfachsparen.data.TransactionDbHelper;
 import martinigt.einfachsparen.helper.Helper;
-import martinigt.einfachsparen.model.Expense;
 import martinigt.einfachsparen.model.Period;
+import martinigt.einfachsparen.model.Transaction;
+import martinigt.einfachsparen.model.TransactionType;
 
-public class CreateExpenseActivity extends AppCompatActivity  implements TextWatcher {
+public class CreateTransactionActivity extends AppCompatActivity implements TextWatcher {
 
-    private EditText expenseTitleInput;
+    private EditText transactionTitleInput;
 
-    private EditText expenseValueInput;
+    private EditText transactionValueInput;
 
-    private CheckBox expenseRecurringInput;
+    private CheckBox transactionRecurringInput;
 
     private FloatingActionButton saveButton;
 
     private DatabaseHelper dbHelper;
 
+    private TransactionType transactionType;
+
+    public static final String TRANSACTION_TYPE_INTENT_EXTRA = "TransactionType";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_expense);
+        setContentView(R.layout.activity_create_transaction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent sourceIntent = getIntent();
+        transactionType = TransactionType.values()[sourceIntent.getIntExtra(TRANSACTION_TYPE_INTENT_EXTRA,
+                TransactionType.INCOME.ordinal())];
+
+        int titleId = transactionType == TransactionType.EXPENSE ? R.string.title_create_expense :
+                R.string.title_create_income;
+        setTitle(titleId);
 
         getReferenceToWidgets();
 
@@ -51,9 +66,9 @@ public class CreateExpenseActivity extends AppCompatActivity  implements TextWat
     }
 
     private void getReferenceToWidgets() {
-        expenseTitleInput = (EditText) findViewById(R.id.createExpenseTitleInput);
-        expenseValueInput = (EditText) findViewById(R.id.createExpenseValueInput);
-        expenseRecurringInput = (CheckBox) findViewById(R.id.createExpenseRecurringInput);
+        transactionTitleInput = (EditText) findViewById(R.id.createTransactionTitleInput);
+        transactionValueInput = (EditText) findViewById(R.id.createTransactionValueInput);
+        transactionRecurringInput = (CheckBox) findViewById(R.id.createTransactionRecurringInput);
         saveButton = (FloatingActionButton) findViewById(R.id.fab);
     }
 
@@ -61,13 +76,13 @@ public class CreateExpenseActivity extends AppCompatActivity  implements TextWat
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (validateInput()) {
-                    saveExpense();
+                if(validateInput()) {
+                    saveTransaction();
                 }
             }
         });
-        expenseTitleInput.addTextChangedListener(this);
-        expenseValueInput.addTextChangedListener(this);
+        transactionTitleInput.addTextChangedListener(this);
+        transactionValueInput.addTextChangedListener(this);
     }
 
     @Override
@@ -88,23 +103,25 @@ public class CreateExpenseActivity extends AppCompatActivity  implements TextWat
 
     private boolean validateInput() {
         boolean result = true;
-        result &= Helper.validateMandatoryTextField(expenseTitleInput);
-        result &= Helper.validatePositiveDoubleField(expenseValueInput);
+        result &= Helper.validateMandatoryTextField(transactionTitleInput);
+        result &= Helper.validatePositiveDoubleField(transactionValueInput);
         return result;
     }
 
-    private void saveExpense() {
+    private void saveTransaction() {
         PeriodDbHelper periodHelper = new PeriodDbHelper(dbHelper);
-        ExpenseDbHelper expenseHelper = new ExpenseDbHelper(dbHelper);
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
         Period currentPeriod = periodHelper.getCurrentPeriod();
-        Expense expenseToAdd = new Expense();
-        expenseToAdd.setPeriodId(currentPeriod.getId());
-        expenseToAdd.setDate(new Date());
-        expenseToAdd.setTag("");
-        expenseToAdd.setName(expenseTitleInput.getText().toString());
-        expenseToAdd.setValue(Double.parseDouble(expenseValueInput.getText().toString()));
-        expenseToAdd.setStandard(expenseRecurringInput.isChecked());
-        expenseHelper.addExpense(expenseToAdd);
+        Transaction transactionToAdd = new Transaction();
+        transactionToAdd.setPeriodId(currentPeriod.getId());
+        transactionToAdd.setDate(new Date());
+        transactionToAdd.setTag("");
+        transactionToAdd.setName(transactionTitleInput.getText().toString());
+        transactionToAdd.setValue(Double.parseDouble(transactionValueInput.getText().toString()));
+        transactionToAdd.setStandard(transactionRecurringInput.isChecked());
+        transactionToAdd.setType(transactionType);
+        transactionToAdd.setFromStandardId(0);
+        transactionDbHelper.addTransaction(transactionToAdd);
         finish();
     }
 

@@ -13,16 +13,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.data.DatabaseHelper;
-import martinigt.einfachsparen.data.ExpenseDbHelper;
-import martinigt.einfachsparen.data.IncomeDbHelper;
+import martinigt.einfachsparen.data.TransactionDbHelper;
 import martinigt.einfachsparen.helper.Helper;
-import martinigt.einfachsparen.model.Expense;
-import martinigt.einfachsparen.model.Income;
 import martinigt.einfachsparen.model.Transaction;
+import martinigt.einfachsparen.model.TransactionType;
 
 public class EditTransactionActivity extends AppCompatActivity implements TextWatcher, DialogInterface.OnClickListener {
 
@@ -120,14 +117,8 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
     private void deleteTransaction() {
         boolean result = true;
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        if (transactionToEdit instanceof Income) {
-            IncomeDbHelper incomeDbHelper = new IncomeDbHelper(dbHelper);
-            result = incomeDbHelper.deleteIncome((Income) transactionToEdit);
-        }
-        else {
-            ExpenseDbHelper expenseDbHelper = new ExpenseDbHelper(dbHelper);
-            result = expenseDbHelper.deleteExpense((Expense) transactionToEdit);
-        }
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
+        result = transactionDbHelper.deleteTRansaction(transactionToEdit);
         if (result) {
             finish();
         }
@@ -139,14 +130,8 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         transactionToEdit.setValue(Double.parseDouble(transactionValueInput.getText().toString()));
         transactionToEdit.setStandard(transactionRecurringInput.isChecked());
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
-        if (transactionToEdit instanceof Income) {
-            IncomeDbHelper incomeDbHelper = new IncomeDbHelper(dbHelper);
-            result = incomeDbHelper.updateIncome((Income) transactionToEdit);
-        }
-        else {
-            ExpenseDbHelper expenseDbHelper = new ExpenseDbHelper(dbHelper);
-            result = expenseDbHelper.updateExpense((Expense) transactionToEdit);
-        }
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
+        result = transactionDbHelper.updateTransaction(transactionToEdit);
         if (result) {
             finish();
         }

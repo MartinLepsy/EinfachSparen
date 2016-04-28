@@ -3,9 +3,8 @@ package martinigt.einfachsparen.model;
 import java.util.ArrayList;
 
 import martinigt.einfachsparen.data.DatabaseHelper;
-import martinigt.einfachsparen.data.ExpenseDbHelper;
-import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
+import martinigt.einfachsparen.data.TransactionDbHelper;
 
 /**
  * Created by martin on 16.04.16.
@@ -14,44 +13,25 @@ public class PeriodWizard {
 
     private Period periodToPrepare;
 
-    private IncomeDbHelper incomeDbHelper;
-
-    private ExpenseDbHelper expenseDbHelper;
-
     private PeriodDbHelper periodDbHelper;
+
+    private TransactionDbHelper transactionDbHelper;
 
     public PeriodWizard(Period newPeriod, DatabaseHelper dbHelper) {
         periodToPrepare = newPeriod;
-        incomeDbHelper = new IncomeDbHelper(dbHelper);
-        expenseDbHelper = new ExpenseDbHelper(dbHelper);
+        transactionDbHelper = new TransactionDbHelper(dbHelper);
         periodDbHelper = new PeriodDbHelper(dbHelper);
     }
 
-    private void assignDefaultIncomeAndExpenses() {
-        assignDefaultIncome();
-        assignDefaultExpenses();
-    }
-
-    private void assignDefaultExpenses() {
-        ArrayList<Expense> allDefaultIncomes = expenseDbHelper.getAllDefaultExpenses();
-        ArrayList<Expense> expensesToAdd = new ArrayList<Expense>();
-        for (Expense currentDefaultExpense : allDefaultIncomes) {
-            Expense clonedExpense = currentDefaultExpense.cloneAsNonDefault();
-            clonedExpense.setPeriodId(periodToPrepare.getId());
-            expensesToAdd.add(clonedExpense);
+    private void assignDefaultTransactions() {
+        ArrayList<Transaction> allDefaultTransactions = transactionDbHelper.getAllDefaultTransactions();
+        ArrayList<Transaction> transactionToAdd = new ArrayList<Transaction>();
+        for (Transaction currentDefaultTransaction : allDefaultTransactions) {
+            Transaction clonedTransaction = currentDefaultTransaction.cloneAsNonDefault();
+            clonedTransaction.setPeriodId(periodToPrepare.getId());
+            transactionToAdd.add(clonedTransaction);
         }
-        expenseDbHelper.storeListOfExpenses(expensesToAdd);
-    }
-
-    private void assignDefaultIncome() {
-        ArrayList<Income> allDefaultIncomes = incomeDbHelper.getAllDefaultIncomes();
-        ArrayList<Income> incomesToAdd = new ArrayList<Income>();
-        for (Income currentDefaultIncome : allDefaultIncomes) {
-            Income clonedIncome = currentDefaultIncome.cloneAsNonDefault();
-            clonedIncome.setPeriodId(periodToPrepare.getId());
-            incomesToAdd.add(clonedIncome);
-        }
-        incomeDbHelper.storeListOfIncomes(incomesToAdd);
+        transactionDbHelper.storeListOfTransactions(transactionToAdd);
     }
 
     private void savePeriod() {
@@ -61,7 +41,7 @@ public class PeriodWizard {
 
     public void savePeriodAndAssignDefaultTransactions() {
         savePeriod();
-        assignDefaultIncomeAndExpenses();
+        assignDefaultTransactions();
     }
 
 }

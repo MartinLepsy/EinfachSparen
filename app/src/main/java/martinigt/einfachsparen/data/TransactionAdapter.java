@@ -8,14 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
 import martinigt.einfachsparen.R;
-import martinigt.einfachsparen.model.Expense;
 import martinigt.einfachsparen.model.Transaction;
+import martinigt.einfachsparen.model.TransactionType;
 
 /**
  * Created by martin on 20.04.16.
@@ -50,7 +49,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         transactionValue.setText(String.format("%1.2f %s", values.get(position).getValue(), currentCurrency.getSymbol()));
         transactionName.setText(values.get(position).getName());
 
-        if (values.get(position) instanceof Expense) {
+        if (values.get(position).getType() == TransactionType.EXPENSE) {
             transactionValue.setTextColor(Color.parseColor("#cc0000"));
         }
         else {

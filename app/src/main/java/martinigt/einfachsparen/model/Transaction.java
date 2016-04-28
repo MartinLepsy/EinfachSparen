@@ -12,13 +12,19 @@ public class Transaction implements Serializable {
 
     }
 
-    public Transaction(boolean isStandard, String name, String tag, double value , Date date) {
+
+
+    public Transaction(boolean isStandard, String name, String tag, double value , Date date,
+                       TransactionType type, int copiedFromId) {
         this.isStandard = isStandard;
         this.name = name;
         this.tag = tag;
         this.value = value;
         this.date = date;
+        this.type = type;
     }
+
+
 
     private int id;
 
@@ -33,6 +39,10 @@ public class Transaction implements Serializable {
     private String tag;
 
     private Date date;
+
+    private TransactionType type;
+
+    private int fromStandardId;
 
     public int getId() {
         return id;
@@ -91,4 +101,24 @@ public class Transaction implements Serializable {
     }
 
 
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public int getFromStandardId() {
+        return fromStandardId;
+    }
+
+    public void setFromStandardId(int fromStandardId) {
+        this.fromStandardId = fromStandardId;
+    }
+
+    public Transaction cloneAsNonDefault() {
+        return new Transaction(false, this.getName(), this.getTag(), this.getValue(),
+                new Date(),this.getType(), this.getId());
+    }
 }

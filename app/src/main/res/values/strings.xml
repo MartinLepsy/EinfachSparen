@@ -28,8 +28,6 @@
 
     <!-- Texte für Activity zum Anlegen einer Periode -->
     <string name="createPeriodActivityTitle">Periode anlegen</string>
-    <string name="title_activity_income_list">Alle Einnahmen</string>
-    <string name="title_activity_create_income">Neue Einnahme</string>
     <string name="createPeriodExistingCurrentPeriodInfoText">Es existiert bereits eine aktuelle Periode.
         Beim Anlegen der neuen Periode wird das Enddatum der aktuellen Periode auf das Startdatum
         der neuen Periode gesetzt.</string>
@@ -40,14 +38,20 @@
     <string name="transactionRecurring">Wiederkehrend</string>
     <string name="transactionRecurringHint">Wenn &quot;Wiederkehrend&quot; gesetzt ist, wird der Wert
     beim Anlegen einer neuen Periode automatisch verbucht.</string>
-    <string name="title_activity_expense_list">Alle Ausgaben</string>
-    <string name="title_activity_create_expense">Neue Ausgabe</string>
     <string name="title_activity_edit_transaction">Transaktion bearbeiten</string>
 
     <!-- Confirmation Dialog -->
     <string name="confirmQuestion">Sind Sie sicher?</string>
     <string name="confirmYes">Ja</string>
     <string name="confirmNo">Nein</string>
+
+    <!-- Generic Transaction Activity texts -->
+    <string name="title_activity_transaction_list">-</string>
+    <string name="title_activity_create_transaction">-</string>
+    <string name="title_income_list">Alle Einnahmen</string>
+    <string name="title_expense_list">Alle Ausgaben</string>
+    <string name="title_create_expense">Neue Ausgabe</string>
+    <string name="title_create_income">Neue Einnahme</string>
 
 
 </resources>

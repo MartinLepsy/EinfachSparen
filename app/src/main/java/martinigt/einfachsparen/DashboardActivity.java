@@ -19,19 +19,17 @@ import java.util.Locale;
 
 import martinigt.einfachsparen.admin.AdminActivity;
 import martinigt.einfachsparen.data.DatabaseHelper;
-import martinigt.einfachsparen.data.ExpenseDbHelper;
-import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
 import martinigt.einfachsparen.data.TransactionAdapter;
-import martinigt.einfachsparen.forms.CreateExpenseActivity;
+import martinigt.einfachsparen.data.TransactionDbHelper;
+import martinigt.einfachsparen.forms.CreateTransactionActivity;
 import martinigt.einfachsparen.forms.EditTransactionActivity;
 import martinigt.einfachsparen.helper.Helper;
-import martinigt.einfachsparen.lists.ExpenseListActivity;
-import martinigt.einfachsparen.lists.IncomeListActivity;
+import martinigt.einfachsparen.lists.TransactionListActivity;
 import martinigt.einfachsparen.model.Dashboard;
-import martinigt.einfachsparen.model.Expense;
 import martinigt.einfachsparen.model.Period;
 import martinigt.einfachsparen.model.Transaction;
+import martinigt.einfachsparen.model.TransactionType;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -75,7 +73,9 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent goToCreateExpenseActivity = new Intent(getApplicationContext(),
-                        CreateExpenseActivity.class);
+                        CreateTransactionActivity.class);
+                goToCreateExpenseActivity.putExtra(CreateTransactionActivity.TRANSACTION_TYPE_INTENT_EXTRA,
+                        TransactionType.EXPENSE.ordinal());
                 startActivity(goToCreateExpenseActivity);
             }
         });
@@ -106,12 +106,16 @@ public class DashboardActivity extends AppCompatActivity {
                 return true;
             case R.id.action_manageIncome:
                 Intent goToIncomeList = new Intent(getApplicationContext(),
-                        IncomeListActivity.class);
+                        TransactionListActivity.class);
+                goToIncomeList.putExtra(TransactionListActivity.TRANSACTION_TYPE_INTENT_EXTRA,
+                        TransactionType.INCOME.ordinal());
                 startActivity(goToIncomeList);
                 return true;
             case R.id.action_manageExpenses:
                 Intent goToExpenseList = new Intent(getApplicationContext(),
-                        ExpenseListActivity.class);
+                        TransactionListActivity.class);
+                goToExpenseList.putExtra(TransactionListActivity.TRANSACTION_TYPE_INTENT_EXTRA,
+                        TransactionType.EXPENSE.ordinal());
                 startActivity(goToExpenseList);
                 return true;
             case R.id.action_adminArea:
@@ -125,8 +129,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void loadCurrentPeriodOrShowNotAvailableDialog() {
         PeriodDbHelper periodHelper = new PeriodDbHelper(dbHelper);
-        ExpenseDbHelper expenseHelper = new ExpenseDbHelper(dbHelper);
-        IncomeDbHelper incomeHelper = new IncomeDbHelper(dbHelper);
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
 
         Period currentPeriod = periodHelper.getCurrentPeriod();
 
@@ -135,8 +138,8 @@ public class DashboardActivity extends AppCompatActivity {
         }
         else {
             dashboard.setPeriod(currentPeriod);
-            dashboard.setPeriodExpenses(expenseHelper.getAllExpensesForPeriod(currentPeriod.getId()));
-            dashboard.setPeriodIncome(incomeHelper.getAllIncomesForPeriod(currentPeriod.getId()));
+            dashboard.setPeriodExpenses(transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId()));
+            dashboard.setPeriodIncome(transactionDbHelper.getAllIncomesForPeriod(currentPeriod.getId()));
         }
         dashboard.recalculate();
         updateDisplay();
@@ -184,12 +187,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void refreshExpenseList() {
-        ExpenseDbHelper expenseDbHelper = new ExpenseDbHelper(dbHelper);
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
         PeriodDbHelper periodDbHelper = new PeriodDbHelper(dbHelper);
 
         Period currentPeriod = periodDbHelper.getCurrentPeriod();
         if (currentPeriod != null) {
-            ArrayList<Expense> expenses = expenseDbHelper.getAllExpensesForPeriod(currentPeriod.getId(), true);
+            ArrayList<Transaction> expenses = transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId(), true);
             expenseAdapter = new TransactionAdapter(this, Helper.castToTransactionList(expenses));
             expenseList.setAdapter(expenseAdapter);
         }

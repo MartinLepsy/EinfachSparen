@@ -5,10 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Date;
 
-import martinigt.einfachsparen.model.Expense;
 import martinigt.einfachsparen.model.Dashboard;
-import martinigt.einfachsparen.model.Income;
 import martinigt.einfachsparen.model.Period;
+import martinigt.einfachsparen.model.Transaction;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,9 +18,9 @@ public class DashboardUnitTest {
 
     private Period testPeriode;
 
-    private ArrayList<Expense> ausgabenTestPeriode;
+    private ArrayList<Transaction> ausgabenTestPeriode;
 
-    private ArrayList<Income> einnahmenTestPeriode;
+    private ArrayList<Transaction> einnahmenTestPeriode;
 
     private  Dashboard d;
 
@@ -30,13 +29,13 @@ public class DashboardUnitTest {
         testPeriode.setStart(new Date());
         testPeriode.setEnd(new Date(testPeriode.getStart().getTime() + 1000 * 60 * 60 * 24 * 10));
         testPeriode.setPlannedSaving(100);
+        //TODO: Test korrigieren
+        ausgabenTestPeriode = new ArrayList<Transaction>();
+        //ausgabenTestPeriode.add(new Transaction(true, 1, 1, 755, "Miete", "", new Date()));
+        //ausgabenTestPeriode.add(new Transaction(2, 1, 85, "Strom", "", new Date(), true));
 
-        ausgabenTestPeriode = new ArrayList<Expense>();
-        ausgabenTestPeriode.add(new Expense(1, 1, 755, "Miete", "", new Date(), true));
-        ausgabenTestPeriode.add(new Expense(2, 1, 85, "Strom", "", new Date(), true));
-
-        einnahmenTestPeriode = new ArrayList<Income>();
-        einnahmenTestPeriode.add(new Income(1, 1, 2300, "Lohn", "", new Date(), true));
+        einnahmenTestPeriode = new ArrayList<Transaction>();
+        //einnahmenTestPeriode.add(new Transaction(1, 1, 2300, "Lohn", "", new Date(), true));
 
         d = new Dashboard();
         d.setDateToCalculateFrom(new Date(testPeriode.getStart().getTime() + 1000 * 60 * 60 * 24 * 5));

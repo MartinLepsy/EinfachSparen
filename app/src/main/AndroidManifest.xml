@@ -14,6 +14,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,50 +27,31 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-        <activity
-            android:name=".lists.IncomeListActivity"
-            android:label="@string/title_activity_income_list"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
-        </activity>
-        <activity
-            android:name=".forms.CreateIncomeActivity"
-            android:label="@string/title_activity_create_income"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".lists.IncomeListActivity" />
-            </activity>
         <activity android:name=".admin.AdminActivity" />
-        <activity
-            android:name=".lists.ExpenseListActivity"
-            android:label="@string/title_activity_expense_list"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
-            </activity>
-        <activity
-            android:name=".forms.CreateExpenseActivity"
-            android:label="@string/title_activity_create_expense"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".lists.ExpenseListActivity" />
-            </activity>
         <activity
             android:name=".forms.EditTransactionActivity"
             android:label="@string/title_activity_edit_transaction"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".lists.IncomeListActivity" />
+                android:value=".lists.TransactionListActivity" />
         </activity>
-
+        <activity
+            android:name=".lists.TransactionListActivity"
+            android:label="@string/title_activity_transaction_list"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+        <activity
+            android:name=".forms.CreateTransactionActivity"
+            android:label="@string/title_activity_create_transaction"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".lists.TransactionListActivity" />
+        </activity>
     </application>
 
 </manifest>

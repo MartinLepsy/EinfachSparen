@@ -13,9 +13,9 @@ public class Dashboard {
 
     private Period currentPeriod;
 
-    private ArrayList<Expense> periodExpenses;
+    private ArrayList<Transaction> periodExpenses;
 
-    private ArrayList<Income> periodIncome;
+    private ArrayList<Transaction> periodIncome;
 
     private  double budget;
 
@@ -41,11 +41,11 @@ public class Dashboard {
         currentPeriod = periode;
     }
 
-    public void setPeriodExpenses(ArrayList<Expense> periodExpenses) {
+    public void setPeriodExpenses(ArrayList<Transaction> periodExpenses) {
         this.periodExpenses = periodExpenses;
     }
 
-    public void setPeriodIncome(ArrayList<Income> periodIncome) {
+    public void setPeriodIncome(ArrayList<Transaction> periodIncome) {
         this.periodIncome = periodIncome;
     }
 
@@ -56,13 +56,13 @@ public class Dashboard {
             daysRemaining = (int) Helper.getDateDiff(dateToCalculateFrom, currentPeriod.getEnd(),
                     TimeUnit.DAYS);
             if (periodExpenses != null) {
-                for (Expense currentExpense : periodExpenses) {
+                for (Transaction currentExpense : periodExpenses) {
                     cumulatedExpenses += currentExpense.getValue();
                 }
             }
             if (periodIncome != null) {
-                for (Income aktuelleEinnahme : periodIncome) {
-                    cumulatedIncome += aktuelleEinnahme.getValue();
+                for (Transaction currentIncome : periodIncome) {
+                    cumulatedIncome += currentIncome.getValue();
                 }
             }
             budget = cumulatedIncome - cumulatedExpenses - currentPeriod.getPlannedSaving();

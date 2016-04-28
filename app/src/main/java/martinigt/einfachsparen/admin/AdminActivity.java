@@ -7,9 +7,8 @@ import android.widget.Button;
 
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.data.DatabaseHelper;
-import martinigt.einfachsparen.data.ExpenseDbHelper;
-import martinigt.einfachsparen.data.IncomeDbHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
+import martinigt.einfachsparen.data.TransactionDbHelper;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -22,22 +21,14 @@ public class AdminActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this.getApplicationContext());
 
-        Button deleteAllIncome = (Button) findViewById(R.id.adminDeleteAllIncome);
-        Button deleteAllExpenses = (Button) findViewById(R.id.adminDeleteAllExpensesButton);
+        Button deleteAllTransactions = (Button) findViewById(R.id.adminDeleteAllExpensesButton);
         Button deleteAllPeriods = (Button) findViewById(R.id.adminDeleteAllPeriods);
 
-        deleteAllIncome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                IncomeDbHelper incomeHelper = new IncomeDbHelper(dbHelper);
-                incomeHelper.cleanTable();
-            }
-        });
 
-        deleteAllExpenses.setOnClickListener(new View.OnClickListener() {
+        deleteAllTransactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ExpenseDbHelper expenseHelper = new ExpenseDbHelper(dbHelper);
+                TransactionDbHelper expenseHelper = new TransactionDbHelper(dbHelper);
                 expenseHelper.cleanTable();
             }
         });

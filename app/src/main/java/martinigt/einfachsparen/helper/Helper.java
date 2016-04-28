@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.EditText;
 
-import java.lang.reflect.Array;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,8 +11,6 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import martinigt.einfachsparen.R;
-import martinigt.einfachsparen.model.Expense;
-import martinigt.einfachsparen.model.Income;
 import martinigt.einfachsparen.model.Transaction;
 
 /**
