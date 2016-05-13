@@ -10,7 +10,6 @@
     <string name="action_showPeriods">Perioden anzeigen</string>
 
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Dashboard texts -->
@@ -126,6 +125,10 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_dashboard_with_nav">DashboardWithNav</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
 </resources>

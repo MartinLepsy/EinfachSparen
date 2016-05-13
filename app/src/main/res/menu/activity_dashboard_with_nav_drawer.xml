@@ -1,14 +1,11 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="martinigt.einfachsparen.DashboardActivity">
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group>
         <item
             android:id="@+id/action_newPeriod"
             android:orderInCategory="100"
             android:title="@string/action_createNewPeriod"
-            app:showAsAction="ifRoom"
             android:icon="@drawable/ic_action_clock"
             />
     </group>
@@ -17,34 +14,28 @@
             android:id="@+id/action_manageExpenses"
             android:orderInCategory="100"
             android:title="@string/action_manageExpenses"
-            app:showAsAction="never"
             android:icon="@drawable/ic_action_minus"
             />
         <item
             android:id="@+id/action_manageIncome"
             android:orderInCategory="100"
             android:title="@string/action_manageIncome"
-            app:showAsAction="never"
             android:icon="@drawable/ic_action_add"
             />
         <item
             android:id="@+id/action_showPeriods"
             android:orderInCategory="100"
-            android:title="@string/action_showPeriods"
-            app:showAsAction="never" />
+            android:title="@string/action_showPeriods" />
     </group>
     <group>
         <item
             android:id="@+id/action_settings"
             android:orderInCategory="100"
-            android:title="@string/action_settings"
-            app:showAsAction="never" />
+            android:title="@string/action_settings" />
         <item
             android:id="@+id/action_adminArea"
             android:orderInCategory="100"
-            android:title="@string/action_adminArea"
-            app:showAsAction="never" />
+            android:title="@string/action_adminArea" />
     </group>
-
 
 </menu>
