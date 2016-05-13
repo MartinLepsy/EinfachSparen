@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
+import martinigt.einfachsparen.model.Period;
 import martinigt.einfachsparen.model.Transaction;
 import martinigt.einfachsparen.model.TransactionType;
 
@@ -138,6 +139,11 @@ public class TransactionDbHelper {
     public boolean deleteTRansaction(Transaction transactionToDelete) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         return db.delete(TRANSACTION_TABLE_NAME, TRANSACTION_ID + " = " + transactionToDelete.getId(), null) > 0;
+    }
+
+    public boolean deleteAllTransactionsForPeriod(Period periodToDeleteFor) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return db.delete(TRANSACTION_TABLE_NAME, TRANSACTION_PERIOD_ID + " = " + periodToDeleteFor.getId(), null) > 0;
     }
 
     public boolean updateTransaction(Transaction transactionToUpdate) {

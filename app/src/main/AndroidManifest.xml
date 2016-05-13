@@ -49,8 +49,32 @@
             android:label="@string/title_activity_create_transaction"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".lists.TransactionListActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".lists.TransactionListActivity" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="martinigt.einfachsparen.DashboardActivity" />
+        </activity>
+        <activity
+            android:name=".lists.PeriodListActivity"
+            android:label="@string/title_activity_period_list"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+        <activity
+            android:name=".forms.PeriodDetailsActivity"
+            android:label="@string/title_activity_period_details"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".lists.PeriodListActivity" />
         </activity>
     </application>
 

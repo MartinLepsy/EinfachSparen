@@ -25,6 +25,7 @@ import martinigt.einfachsparen.data.TransactionDbHelper;
 import martinigt.einfachsparen.forms.CreateTransactionActivity;
 import martinigt.einfachsparen.forms.EditTransactionActivity;
 import martinigt.einfachsparen.helper.Helper;
+import martinigt.einfachsparen.lists.PeriodListActivity;
 import martinigt.einfachsparen.lists.TransactionListActivity;
 import martinigt.einfachsparen.model.Dashboard;
 import martinigt.einfachsparen.model.Period;
@@ -102,7 +103,9 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(goToCreateNewPeriod);
                 return true;
             case R.id.action_settings:
-                //showHelp();
+                Intent goToPrefs = new Intent(getApplicationContext(),
+                        SettingsActivity.class);
+                startActivity(goToPrefs);
                 return true;
             case R.id.action_manageIncome:
                 Intent goToIncomeList = new Intent(getApplicationContext(),
@@ -117,6 +120,11 @@ public class DashboardActivity extends AppCompatActivity {
                 goToExpenseList.putExtra(TransactionListActivity.TRANSACTION_TYPE_INTENT_EXTRA,
                         TransactionType.EXPENSE.ordinal());
                 startActivity(goToExpenseList);
+                return true;
+            case R.id.action_showPeriods:
+                Intent goToPeriodList = new Intent(getApplicationContext(),
+                        PeriodListActivity.class);
+                startActivity(goToPeriodList);
                 return true;
             case R.id.action_adminArea:
                 Intent goToAdminArea = new Intent(getApplicationContext(),

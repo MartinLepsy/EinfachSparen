@@ -1,5 +1,6 @@
 package martinigt.einfachsparen.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import martinigt.einfachsparen.helper.Helper;
@@ -7,7 +8,7 @@ import martinigt.einfachsparen.helper.Helper;
 /**
  * Created by martin on 16.04.16.
  */
-public class Period {
+public class Period implements Serializable {
 
     private long id;
 

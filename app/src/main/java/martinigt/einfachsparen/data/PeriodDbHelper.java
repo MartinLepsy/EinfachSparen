@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import martinigt.einfachsparen.model.Period;
@@ -104,6 +105,25 @@ public class PeriodDbHelper {
         contentValues.put(PERIOD_START, periodToUpdate.getStart().getTime());
         contentValues.put(PERIOD_END, periodToUpdate.getEnd().getTime());
         return db.update(PERIOD_TABLE_NAME, contentValues, PERIOD_ID + " = " + periodToUpdate.getId(), null) > 0;
+    }
+
+    public ArrayList<Period> getAllPeriods(boolean mostRecentFirst) {
+        ArrayList<Period> result = new ArrayList<Period>();
+        SQLiteDatabase db =  dbHelper.getReadableDatabase();
+        String query = "SELECT * FROM " +  PERIOD_TABLE_NAME;
+        if (mostRecentFirst) {
+            query = query + " ORDER BY " + PERIOD_ID + " DESC";
+        }
+        Cursor dbResults = db.rawQuery(query, null);
+        while (dbResults.moveToNext()) {
+            result.add(getPeriodFromCursor(dbResults));
+        }
+        return result;
+    }
+
+    public boolean deletePeriod(Period periodToDelete) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        return db.delete(PERIOD_TABLE_NAME, PERIOD_ID + " = " + periodToDelete.getId(), null) > 0;
     }
 
 }
