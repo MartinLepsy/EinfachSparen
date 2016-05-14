@@ -1,7 +1,9 @@
 package martinigt.einfachsparen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +18,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Currency;
@@ -54,6 +58,10 @@ public class DashboardActivity extends AppCompatActivity
     private TextView daysRemainingDisplay;
 
     private TextView approximatedSavingsDisplay;
+
+    private TextView plannedExpensesDisplayTitle;
+
+    private TextView allCurrentExpensesDisplayTitle;
 
     private ListView expenseList;
 
@@ -107,47 +115,6 @@ public class DashboardActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_newPeriod:
-                Intent goToCreateNewPeriod = new Intent(getApplicationContext(),
-                        CreatePeriodActivity.class);
-                startActivity(goToCreateNewPeriod);
-                return true;
-            case R.id.action_settings:
-                Intent goToPrefs = new Intent(getApplicationContext(),
-                        SettingsActivity.class);
-                startActivity(goToPrefs);
-                return true;
-            case R.id.action_manageIncome:
-                Intent goToIncomeList = new Intent(getApplicationContext(),
-                        TransactionListActivity.class);
-                goToIncomeList.putExtra(TransactionListActivity.TRANSACTION_TYPE_INTENT_EXTRA,
-                        TransactionType.INCOME.ordinal());
-                startActivity(goToIncomeList);
-                return true;
-            case R.id.action_manageExpenses:
-                Intent goToExpenseList = new Intent(getApplicationContext(),
-                        TransactionListActivity.class);
-                goToExpenseList.putExtra(TransactionListActivity.TRANSACTION_TYPE_INTENT_EXTRA,
-                        TransactionType.EXPENSE.ordinal());
-                startActivity(goToExpenseList);
-                return true;
-            case R.id.action_showPeriods:
-                Intent goToPeriodList = new Intent(getApplicationContext(),
-                        PeriodListActivity.class);
-                startActivity(goToPeriodList);
-                return true;
-            case R.id.action_adminArea:
-                Intent goToAdminArea = new Intent(getApplicationContext(),
-                        AdminActivity.class);
-                startActivity(goToAdminArea);
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private void loadCurrentPeriodOrShowNotAvailableDialog() {
         PeriodDbHelper periodHelper = new PeriodDbHelper(dbHelper);
@@ -170,19 +137,29 @@ public class DashboardActivity extends AppCompatActivity
     private void updateDisplay() {
         Locale currentLocale = Locale.getDefault();
         Currency myCurrency = Currency.getInstance((currentLocale));
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean hideExpenses = sPrefs.getBoolean(getString(R.string.pref_key_expensesOnDashboard), false);
         allCurrentExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getCumulatedExpenses(), myCurrency.getSymbol()));
         budgetDisplay.setText(String.format("%1.2f %s", dashboard.getBudget(), myCurrency.getSymbol()));
         budgetPerDayDisplay.setText(String.format("%1.2f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
         plannedExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getPlannedExpenses(), myCurrency.getSymbol()));
         daysRemainingDisplay.setText(String.format("%s", dashboard.getDaysRemaining()));
         approximatedSavingsDisplay.setText(String.format("%1.2f %s", dashboard.getApproximatedSaving(), myCurrency.getSymbol()));
+        if (hideExpenses) {
+            allCurrentExpensesDisplay.setVisibility(View.GONE);
+            allCurrentExpensesDisplayTitle.setVisibility(View.GONE);
+            plannedExpensesDisplay.setVisibility(View.GONE);
+            plannedExpensesDisplayTitle.setVisibility(View.GONE);
+        }
     }
 
     private void findReferencesToDisplayControls() {
         expenseList = (ListView) findViewById(R.id.dashboardExpenseList);
         addExpenseButton = (FloatingActionButton) findViewById(R.id.fab);
         allCurrentExpensesDisplay = (TextView) findViewById(R.id.currentExpensesDisplay);
+        allCurrentExpensesDisplayTitle = (TextView) findViewById(R.id.currentExpensesLabel);
         plannedExpensesDisplay = (TextView) findViewById(R.id.plannedExpensesDisplay);
+        plannedExpensesDisplayTitle = (TextView) findViewById(R.id.plannedExpensesLabel);
         budgetDisplay = (TextView) findViewById(R.id.budgetDisplay);
         budgetPerDayDisplay = (TextView) findViewById(R.id.budgetPerDayDisplay);
         daysRemainingDisplay = (TextView) findViewById(R.id.remainingDaysDisplay);
@@ -206,6 +183,8 @@ public class DashboardActivity extends AppCompatActivity
         loadCurrentPeriodOrShowNotAvailableDialog();
 
         refreshExpenseList();
+
+        updateDisplay();
     }
 
     private void refreshExpenseList() {
@@ -229,11 +208,6 @@ public class DashboardActivity extends AppCompatActivity
                         CreatePeriodActivity.class);
                 startActivity(goToCreateNewPeriod);
                 break;
-            case R.id.action_settings:
-                Intent goToPrefs = new Intent(getApplicationContext(),
-                        SettingsActivity.class);
-                startActivity(goToPrefs);
-                break;
             case R.id.action_manageIncome:
                 Intent goToIncomeList = new Intent(getApplicationContext(),
                         TransactionListActivity.class);
@@ -253,10 +227,10 @@ public class DashboardActivity extends AppCompatActivity
                         PeriodListActivity.class);
                 startActivity(goToPeriodList);
                 break;
-            case R.id.action_adminArea:
-                Intent goToAdminArea = new Intent(getApplicationContext(),
-                        AdminActivity.class);
-                startActivity(goToAdminArea);
+            case R.id.action_settings:
+                Intent goToSettings = new Intent(getApplicationContext(),
+                        SettingsActivity.class);
+                startActivity(goToSettings);
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

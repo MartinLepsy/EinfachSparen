@@ -1,9 +1,10 @@
 package martinigt.einfachsparen.lists;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -106,7 +107,14 @@ public class TransactionListActivity extends AppCompatActivity {
             transactions = transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId());
         }
         else {
-            transactions = transactionDbHelper.getAllIncomesForPeriod(currentPeriod.getId());
+            SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean showIncome= sPrefs.getBoolean(getString(R.string.pref_key_showIncomeList), true);
+            if (showIncome) {
+                transactions = transactionDbHelper.getAllIncomesForPeriod(currentPeriod.getId());
+            }
+            else {
+                transactions = new ArrayList<>();
+            }
         }
         if (transactions != null) {
             transactionAdapter = new TransactionAdapter(this, Helper.castToTransactionList(transactions));
