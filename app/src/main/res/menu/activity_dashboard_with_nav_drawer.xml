@@ -25,7 +25,8 @@
         <item
             android:id="@+id/action_showPeriods"
             android:orderInCategory="100"
-            android:title="@string/action_showPeriods" />
+            android:title="@string/action_showPeriods"
+            android:icon="@drawable/ic_restore"/>
     </group>
     <group>
         <item
@@ -33,6 +34,13 @@
             android:orderInCategory="100"
             android:title="@string/action_settings"
             android:icon="@drawable/ic_menu_manage"/>
+    </group>
+    <group>
+        <item
+        android:id="@+id/action_tour"
+        android:orderInCategory="100"
+        android:title="@string/action_tour"
+        android:icon="@drawable/ic_help_outline"/>
     </group>
 
 </menu>

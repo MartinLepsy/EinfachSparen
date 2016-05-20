@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Einfach Sparen</string>
     <string name="action_settings">Einstellungen</string>
+    <string name="action_tour">Tour</string>
     <string name="action_createNewPeriod">Neue Periode anlegen</string>
     <string name="action_manageIncome">Einnahmen verwalten</string>
     <string name="action_manageExpenses">Ausgaben verwalten</string>
@@ -69,7 +70,6 @@
     <string name="current">(Aktuell)</string>
 
 
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -92,6 +92,8 @@
         Einnahmenliste nicht angezeigt (Privatsphäre)
     </string>
     <string name="pref_key_showIncomeList">income_showList</string>
+    <string name="title_activity_tour">Tour</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 
 </resources>

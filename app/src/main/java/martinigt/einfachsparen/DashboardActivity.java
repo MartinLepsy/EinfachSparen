@@ -231,7 +231,10 @@ public class DashboardActivity extends AppCompatActivity
                 Intent goToSettings = new Intent(getApplicationContext(),
                         SettingsActivity.class);
                 startActivity(goToSettings);
-                break;
+            case R.id.action_tour:
+                Intent goToTour = new Intent(getApplicationContext(),
+                        TourActivity.class);
+                startActivity(goToTour);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
