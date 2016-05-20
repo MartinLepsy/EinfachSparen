@@ -11,6 +11,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -19,13 +22,14 @@ import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.TransactionDbHelper;
 import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.model.Transaction;
-import martinigt.einfachsparen.model.TransactionType;
 
 public class EditTransactionActivity extends AppCompatActivity implements TextWatcher, DialogInterface.OnClickListener {
 
     private EditText transactionNameInput;
 
     private EditText transactionValueInput;
+
+    private AutoCompleteTextView transactionTagInput;
 
     private CheckBox transactionRecurringInput;
 
@@ -43,6 +47,8 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
 
         getReferencesToWidgets();
 
+        Helper.hideOrConfigureTagInput(transactionTagInput);
+
         Intent sourceIntent = getIntent();
         transactionToEdit = (Transaction) sourceIntent.getSerializableExtra("TransactionToEdit");
 
@@ -59,6 +65,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
     private void getReferencesToWidgets() {
         transactionNameInput = (EditText) findViewById(R.id.editTransactionNameInput);
         transactionValueInput = (EditText) findViewById(R.id.editTransactionValueInput);
+        transactionTagInput = (AutoCompleteTextView) findViewById(R.id.editTransactionTagInput);
         transactionRecurringInput = (CheckBox) findViewById(R.id.editTransactionRecurringInput);
     }
 
@@ -66,6 +73,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         transactionNameInput.setText(transactionToEdit.getName());
         transactionValueInput.setText(""+ transactionToEdit.getValue());
         transactionRecurringInput.setChecked(transactionToEdit.isStandard());
+        transactionTagInput.setText(transactionToEdit.getTag());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -128,6 +136,9 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         boolean result = true;
         transactionToEdit.setName(transactionNameInput.getText().toString());
         transactionToEdit.setValue(Double.parseDouble(transactionValueInput.getText().toString()));
+        if (transactionTagInput.getVisibility() == View.VISIBLE) {
+            transactionToEdit.setTag(transactionTagInput.getText().toString());
+        }
         transactionToEdit.setStandard(transactionRecurringInput.isChecked());
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
         TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);

@@ -1,21 +1,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="@string/pref_key_expensesOnDashboard"
-        android:summary="@string/pref_description_expensesOnDashboard"
-        android:title="@string/pref_title_expensesOnDashboard" />
-
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="@string/pref_key_showIncomeList"
-        android:summary="@string/pref_description_showExpenseList"
-        android:title="@string/pref_title_showExpenseList" />
-
-    <SwitchPreference
+    <PreferenceCategory android:title="Allgemein">
+         <SwitchPreference
         android:defaultValue="false"
         android:key="@string/pref_key_useTags"
         android:summary="@string/pref_description_useTags"
         android:title="@string/pref_title_useTags" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Privatsphäre">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/pref_key_expensesOnDashboard"
+            android:summary="@string/pref_description_expensesOnDashboard"
+            android:title="@string/pref_title_expensesOnDashboard" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/pref_key_showIncomeList"
+            android:summary="@string/pref_description_showExpenseList"
+            android:title="@string/pref_title_showExpenseList" />
+
+
+    </PreferenceCategory>
+
+
 
 </PreferenceScreen>

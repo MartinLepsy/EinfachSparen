@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -29,6 +30,8 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
     private EditText transactionTitleInput;
 
     private EditText transactionValueInput;
+
+    private AutoCompleteTextView transactionTagInput;
 
     private CheckBox transactionRecurringInput;
 
@@ -60,6 +63,8 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
 
         getReferenceToWidgets();
 
+        Helper.hideOrConfigureTagInput(transactionTagInput);
+
         bindListeners();
 
         dbHelper = new DatabaseHelper(getApplicationContext());
@@ -68,6 +73,7 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
     private void getReferenceToWidgets() {
         transactionTitleInput = (EditText) findViewById(R.id.createTransactionTitleInput);
         transactionValueInput = (EditText) findViewById(R.id.createTransactionValueInput);
+        transactionTagInput = (AutoCompleteTextView) findViewById(R.id.createTransactionTagInput);
         transactionRecurringInput = (CheckBox) findViewById(R.id.createTransactionRecurringInput);
         saveButton = (FloatingActionButton) findViewById(R.id.fab);
     }
@@ -115,7 +121,12 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         Transaction transactionToAdd = new Transaction();
         transactionToAdd.setPeriodId(currentPeriod.getId());
         transactionToAdd.setDate(new Date());
-        transactionToAdd.setTag("");
+        if (transactionTagInput.getVisibility() == View.VISIBLE) {
+            transactionToAdd.setTag(transactionTagInput.getText().toString());
+        }
+        else {
+            transactionToAdd.setTag("");
+        }
         transactionToAdd.setName(transactionTitleInput.getText().toString());
         transactionToAdd.setValue(Double.parseDouble(transactionValueInput.getText().toString()));
         transactionToAdd.setStandard(transactionRecurringInput.isChecked());

@@ -1,7 +1,12 @@
 package martinigt.einfachsparen.helper;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import java.text.DateFormatSymbols;
@@ -11,6 +16,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import martinigt.einfachsparen.R;
+import martinigt.einfachsparen.data.DatabaseHelper;
+import martinigt.einfachsparen.data.TransactionDbHelper;
 import martinigt.einfachsparen.model.Transaction;
 
 /**
@@ -81,5 +88,22 @@ public class Helper {
             result.add(currentItem);
         }
         return result;
+    }
+
+    public static void hideOrConfigureTagInput(AutoCompleteTextView tagInputField) {
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(tagInputField.getContext());
+        boolean useTags = sPrefs.getBoolean(tagInputField.getContext().getString(
+                R.string.pref_key_useTags), false);
+        if (!useTags) {
+            tagInputField.setVisibility(View.GONE);
+        }
+        else {
+            DatabaseHelper dbHelper = new DatabaseHelper(tagInputField.getContext());
+            TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
+            String[] allTags = transactionDbHelper.getAllAvailableTags();
+            ArrayAdapter<String> tagAutoCompleteAdapter = new ArrayAdapter<>(tagInputField.getContext(),
+                    android.R.layout.simple_dropdown_item_1line, allTags);
+            tagInputField.setAdapter(tagAutoCompleteAdapter);
+        }
     }
 }

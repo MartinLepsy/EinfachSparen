@@ -33,15 +33,24 @@
         android:layout_alignEnd="@+id/createTransactionTitleInput"
         android:hint="@string/transactionValue" />
 
+    <AutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/createTransactionTagInput"
+        android:layout_below="@+id/createTransactionValueInput"
+        android:completionThreshold="1"
+        android:layout_alignParentStart="true"
+        android:hint="@string/transactionCategory"
+        android:layout_alignEnd="@+id/createTransactionValueInput" />
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/transactionRecurring"
         android:id="@+id/createTransactionRecurringInput"
-        android:layout_below="@+id/createTransactionValueInput"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/createTransactionValueInput"
-        android:hint="@string/transactionRecurringHint" />
+        android:hint="@string/transactionRecurringHint"
+        android:layout_below="@+id/createTransactionTagInput"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"

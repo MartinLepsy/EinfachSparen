@@ -37,6 +37,7 @@
     <!-- Transaction field names as hints in forms -->
     <string name="transactionTitle">Bezeichnung</string>
     <string name="transactionValue">Betrag</string>
+    <string name="transactionCategory">Kategorie</string>
     <string name="transactionRecurring">Wiederkehrend</string>
     <string name="transactionRecurringHint">Wenn &quot;Wiederkehrend&quot; gesetzt ist, wird der Wert
     beim Anlegen einer neuen Periode automatisch verbucht.</string>
@@ -54,7 +55,7 @@
     <string name="title_expense_list">Alle Ausgaben</string>
     <string name="title_create_expense">Neue Ausgabe</string>
     <string name="title_create_income">Neue Einnahme</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Einstellungen</string>
 
     <!-- period list activity -->
     <string name="title_activity_period_list">Periodenübersicht</string>
@@ -72,6 +73,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Preferences -->
+
+    <string name="pref_title_useTags">Kategorien verwenden</string>
+    <string name="pref_description_useTags">Aktiviert Kategorien, nach denen die Einnahmen und
+        Ausgaben aufgeschlüsselt werden können
+    </string>
+    <string name="pref_key_useTags">use_tags</string>
 
     <string name="pref_title_expensesOnDashboard">Dashboard: Ausgaben</string>
     <string name="pref_description_expensesOnDashboard">Blendet die Ausgaben auf dem Dashboard ein
@@ -84,14 +92,6 @@
         Einnahmenliste nicht angezeigt (Privatsphäre)
     </string>
     <string name="pref_key_showIncomeList">income_showList</string>
-
-    <string name="pref_title_useTags">Kategorien verwenden</string>
-    <string name="pref_description_useTags">Aktiviert Kategorien, nach denen die Einnahmen und
-        Ausgaben aufgeschlüsselt werden können
-    </string>
-    <string name="pref_key_useTags">use_tags</string>
-
-
 
 
 </resources>

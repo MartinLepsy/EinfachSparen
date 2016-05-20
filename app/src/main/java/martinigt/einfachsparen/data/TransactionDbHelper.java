@@ -29,9 +29,9 @@ public class TransactionDbHelper {
     public static final String TRANSACTION_TYPE = "type";
     public static final String TRANSACTION_COPIED_FROM_STANDARD_ID = "fromStandardId";
 
-    public static final String TRANSACTION_SCHEMA_CREATE = "CREATE TABLE " + TRANSACTION_TABLE_NAME +" (" + TRANSACTION_ID + " INTEGER " +
-            "PRIMARY KEY, " + TRANSACTION_PERIOD_ID + " INTEGER, " + TRANSACTION_IS_STANDARD +" INTEGER, " +
-            TRANSACTION_NAME + " TEXT, " + TRANSACTION_VALUE + " real, "+ TRANSACTION_TAG + " TEXT, " +
+    public static final String TRANSACTION_SCHEMA_CREATE = "CREATE TABLE " + TRANSACTION_TABLE_NAME + " (" + TRANSACTION_ID + " INTEGER " +
+            "PRIMARY KEY, " + TRANSACTION_PERIOD_ID + " INTEGER, " + TRANSACTION_IS_STANDARD + " INTEGER, " +
+            TRANSACTION_NAME + " TEXT, " + TRANSACTION_VALUE + " real, " + TRANSACTION_TAG + " TEXT, " +
             TRANSACTION_DATE + " INTEGER, " + TRANSACTION_TYPE + " INTEGER, " + TRANSACTION_COPIED_FROM_STANDARD_ID +
             " INTEGER)";
 
@@ -42,6 +42,9 @@ public class TransactionDbHelper {
             TRANSACTION_IS_STANDARD + " >= 1";
 
     private static final String TRANSACTION_DELETE_TABLE = "DELETE FROM " + TRANSACTION_TABLE_NAME;
+
+    private static final String TRANSACTION_GET_ALL_TAGS = "SELECT DISTINCT " + TRANSACTION_TAG + " FROM " +
+            TRANSACTION_TABLE_NAME;
 
     private DatabaseHelper dbHelper;
 
@@ -61,7 +64,7 @@ public class TransactionDbHelper {
 
     public void storeListOfTransactions(ArrayList<Transaction> transactionsToStore,
                                         SQLiteDatabase db) {
-        for (Transaction currentTransaction: transactionsToStore
+        for (Transaction currentTransaction : transactionsToStore
                 ) {
             addTransaction(currentTransaction, db);
         }
@@ -81,8 +84,7 @@ public class TransactionDbHelper {
         try {
             db.insert(TRANSACTION_TABLE_NAME, null, contentValues);
             result = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             result = false;
         }
         return result;
@@ -98,7 +100,7 @@ public class TransactionDbHelper {
     }
 
     public ArrayList<Transaction> getAllExpensesForPeriod(long periodId) {
-       return getAllTransactionsForPeriod(periodId, TransactionType.EXPENSE, false);
+        return getAllTransactionsForPeriod(periodId, TransactionType.EXPENSE, false);
     }
 
     public ArrayList<Transaction> getAllExpensesForPeriod(long periodId, boolean mostRecentFirst) {
@@ -108,8 +110,8 @@ public class TransactionDbHelper {
     public ArrayList<Transaction> getAllTransactionsForPeriod(long periodId, TransactionType type,
                                                               boolean mostRecentFirst) {
         ArrayList<Transaction> result = new ArrayList<Transaction>();
-        SQLiteDatabase db =  dbHelper.getReadableDatabase();
-        String query = "SELECT * FROM " +  TRANSACTION_TABLE_NAME + " WHERE " +
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String query = "SELECT * FROM " + TRANSACTION_TABLE_NAME + " WHERE " +
                 periodId + " = " + TRANSACTION_PERIOD_ID + " AND " + TRANSACTION_TYPE +
                 " = " + type.ordinal();
         if (mostRecentFirst) {
@@ -170,5 +172,15 @@ public class TransactionDbHelper {
         result.setType(TransactionType.values()[cursor.getInt(cursor.getColumnIndex(TRANSACTION_TYPE))]);
         result.setFromStandardId(cursor.getInt(cursor.getColumnIndex(TRANSACTION_COPIED_FROM_STANDARD_ID)));
         return result;
+    }
+
+    public String[] getAllAvailableTags() {
+        ArrayList<String> tempResult = new ArrayList<String>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor tagCursor = db.rawQuery(TRANSACTION_GET_ALL_TAGS, null);
+        while (tagCursor.moveToNext()) {
+            tempResult.add(tagCursor.getString(tagCursor.getColumnIndex(TRANSACTION_TAG)));
+        }
+        return  tempResult.toArray(new String[0]);
     }
 }
