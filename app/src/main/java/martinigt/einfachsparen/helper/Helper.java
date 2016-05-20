@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -101,8 +102,8 @@ public class Helper {
             DatabaseHelper dbHelper = new DatabaseHelper(tagInputField.getContext());
             TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
             String[] allTags = transactionDbHelper.getAllAvailableTags();
-            ArrayAdapter<String> tagAutoCompleteAdapter = new ArrayAdapter<>(tagInputField.getContext(),
-                    android.R.layout.simple_dropdown_item_1line, allTags);
+            CustomAutoSuggestAdapter tagAutoCompleteAdapter = new CustomAutoSuggestAdapter(tagInputField.getContext(),
+                    android.R.layout.simple_dropdown_item_1line, new ArrayList<>(Arrays.asList(allTags)));
             tagInputField.setAdapter(tagAutoCompleteAdapter);
         }
     }
