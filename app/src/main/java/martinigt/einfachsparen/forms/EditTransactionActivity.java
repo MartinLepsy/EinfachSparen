@@ -25,7 +25,7 @@ import martinigt.einfachsparen.model.Transaction;
 
 public class EditTransactionActivity extends AppCompatActivity implements TextWatcher, DialogInterface.OnClickListener {
 
-    private EditText transactionNameInput;
+    private AutoCompleteTextView transactionNameInput;
 
     private EditText transactionValueInput;
 
@@ -47,6 +47,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
 
         getReferencesToWidgets();
 
+        Helper.addTransactionTitleAutoComplete(transactionNameInput);
         Helper.hideOrConfigureTagInput(transactionTagInput);
 
         Intent sourceIntent = getIntent();
@@ -55,6 +56,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         readValuesFromTransaction();
 
         bindListeners();
+
     }
 
     private void bindListeners() {
@@ -63,7 +65,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
     }
 
     private void getReferencesToWidgets() {
-        transactionNameInput = (EditText) findViewById(R.id.editTransactionNameInput);
+        transactionNameInput = (AutoCompleteTextView) findViewById(R.id.editTransactionNameInput);
         transactionValueInput = (EditText) findViewById(R.id.editTransactionValueInput);
         transactionTagInput = (AutoCompleteTextView) findViewById(R.id.editTransactionTagInput);
         transactionRecurringInput = (CheckBox) findViewById(R.id.editTransactionRecurringInput);

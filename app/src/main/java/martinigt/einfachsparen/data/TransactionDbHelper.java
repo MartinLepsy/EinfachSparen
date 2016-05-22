@@ -46,6 +46,9 @@ public class TransactionDbHelper {
     private static final String TRANSACTION_GET_ALL_TAGS = "SELECT DISTINCT " + TRANSACTION_TAG + " FROM " +
             TRANSACTION_TABLE_NAME;
 
+    private static final String TRANSACTION_GET_DISTINCT_EXPENSES = "SELECT DISTINCT " + TRANSACTION_NAME +
+            " FROM " + TRANSACTION_TABLE_NAME;
+
     private DatabaseHelper dbHelper;
 
     public TransactionDbHelper(DatabaseHelper dbHelper) {
@@ -182,5 +185,15 @@ public class TransactionDbHelper {
             tempResult.add(tagCursor.getString(tagCursor.getColumnIndex(TRANSACTION_TAG)));
         }
         return  tempResult.toArray(new String[0]);
+    }
+
+    public String[] getAllAvailableExpenses() {
+        ArrayList<String> tempResults = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor expenseCursor = db.rawQuery(TRANSACTION_GET_DISTINCT_EXPENSES, null);
+        while (expenseCursor.moveToNext()) {
+            tempResults.add(expenseCursor.getString(expenseCursor.getColumnIndex(TRANSACTION_NAME)));
+        }
+        return tempResults.toArray(new String[0]);
     }
 }

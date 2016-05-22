@@ -107,4 +107,14 @@ public class Helper {
             tagInputField.setAdapter(tagAutoCompleteAdapter);
         }
     }
+
+    public static void addTransactionTitleAutoComplete(AutoCompleteTextView titleInputField) {
+        DatabaseHelper dbHelper = new DatabaseHelper(titleInputField.getContext());
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
+        String[] allTags = transactionDbHelper.getAllAvailableExpenses();
+        CustomAutoSuggestAdapter tagAutoCompleteAdapter = new CustomAutoSuggestAdapter(titleInputField.getContext(),
+                android.R.layout.simple_dropdown_item_1line, new ArrayList<>(Arrays.asList(allTags)));
+        titleInputField.setAdapter(tagAutoCompleteAdapter);
+    }
+
 }

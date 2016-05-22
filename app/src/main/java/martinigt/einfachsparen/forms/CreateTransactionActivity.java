@@ -14,12 +14,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
 import martinigt.einfachsparen.data.TransactionDbHelper;
+import martinigt.einfachsparen.helper.CustomAutoSuggestAdapter;
 import martinigt.einfachsparen.helper.Helper;
 import martinigt.einfachsparen.model.Period;
 import martinigt.einfachsparen.model.Transaction;
@@ -27,7 +30,7 @@ import martinigt.einfachsparen.model.TransactionType;
 
 public class CreateTransactionActivity extends AppCompatActivity implements TextWatcher {
 
-    private EditText transactionTitleInput;
+    private AutoCompleteTextView transactionTitleInput;
 
     private EditText transactionValueInput;
 
@@ -51,6 +54,8 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        dbHelper = new DatabaseHelper(getApplicationContext());
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent sourceIntent = getIntent();
@@ -63,15 +68,15 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
 
         getReferenceToWidgets();
 
+        Helper.addTransactionTitleAutoComplete(transactionTitleInput);
         Helper.hideOrConfigureTagInput(transactionTagInput);
 
         bindListeners();
 
-        dbHelper = new DatabaseHelper(getApplicationContext());
     }
 
     private void getReferenceToWidgets() {
-        transactionTitleInput = (EditText) findViewById(R.id.createTransactionTitleInput);
+        transactionTitleInput = (AutoCompleteTextView) findViewById(R.id.createTransactionTitleInput);
         transactionValueInput = (EditText) findViewById(R.id.createTransactionValueInput);
         transactionTagInput = (AutoCompleteTextView) findViewById(R.id.createTransactionTagInput);
         transactionRecurringInput = (CheckBox) findViewById(R.id.createTransactionRecurringInput);
