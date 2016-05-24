@@ -41,6 +41,11 @@
         android:orderInCategory="100"
         android:title="@string/action_tour"
         android:icon="@drawable/ic_help_outline"/>
+        <item
+            android:id="@+id/action_about"
+            android:orderInCategory="100"
+            android:title="@string/action_about"
+            android:icon="@drawable/ic_action_info" />
     </group>
 
 </menu>
