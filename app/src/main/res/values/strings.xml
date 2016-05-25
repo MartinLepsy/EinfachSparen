@@ -100,7 +100,13 @@
     <string name="about_headline">Über einfach Sparen</string>
     <string name="about_author">Entwickler: Martin Lepsy</string>
     <string name="about_version">Version: </string>
-    <string name="about_mailtoLink">E-Mail: einfachsparen.app@gmail.com</string>
+    <string name="about_sendFeedback">Feedback senden</string>
+    <string name="about_rate_app">App bewerten</string>
+    <string name="about_no_mail_client_found">There are no email clients installed.</string>
+    <string name="about_mailto">einfachsparen.app@gmail.com</string>
+    <string name="about_mailsubject">Feedback zu Einfach Sparen</string>
+    <string name="about_mail_placeholder">Bitte hier Feedback eingeben :)</string>
+
 
 
 </resources>
