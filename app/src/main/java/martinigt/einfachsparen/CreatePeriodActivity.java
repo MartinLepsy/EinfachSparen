@@ -96,6 +96,7 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
             newPeriod.setStart(periodStart);
             newPeriod.setEnd(periodEnd);
             periodUtility.savePeriodAndAssignDefaultValues(newPeriod);
+            Helper.updateDesktopWidgets(getApplicationContext());
             finish();
         } catch (ParseException e) {
             e.printStackTrace();

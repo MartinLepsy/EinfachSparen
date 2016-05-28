@@ -90,6 +90,7 @@ public class TransactionDbHelper {
         } catch (Exception e) {
             result = false;
         }
+        db.close();
         return result;
     }
 
@@ -124,6 +125,7 @@ public class TransactionDbHelper {
         while (dbResults.moveToNext()) {
             result.add(getTransactionFromCursor(dbResults, periodId));
         }
+        dbResults.close();
         return result;
     }
 
@@ -134,6 +136,7 @@ public class TransactionDbHelper {
         while (allResults.moveToNext()) {
             result.add(getTransactionFromCursor(allResults));
         }
+        allResults.close();
         return result;
     }
 
@@ -184,6 +187,7 @@ public class TransactionDbHelper {
         while (tagCursor.moveToNext()) {
             tempResult.add(tagCursor.getString(tagCursor.getColumnIndex(TRANSACTION_TAG)));
         }
+        tagCursor.close();
         return  tempResult.toArray(new String[0]);
     }
 
@@ -194,6 +198,7 @@ public class TransactionDbHelper {
         while (expenseCursor.moveToNext()) {
             tempResults.add(expenseCursor.getString(expenseCursor.getColumnIndex(TRANSACTION_NAME)));
         }
+        expenseCursor.close();
         return tempResults.toArray(new String[0]);
     }
 }

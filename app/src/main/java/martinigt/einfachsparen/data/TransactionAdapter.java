@@ -51,7 +51,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         TextView transactionName = (TextView) rowView.findViewById(R.id.transaction_listItem_name);
         TextView transactionAdditionalInfo = (TextView) rowView.findViewById(R.id.transaction_listItem_additionalInfo);
 
-        if (values.get(position).getTag().length() > 0) {
+        if (values.get(position).getTag() != null && values.get(position).getTag().length() > 0) {
             transactionAdditionalInfo.setText(String.format("%s - %s", values.get(position).getTag(),
                     df.format(values.get(position).getDate())));
         }

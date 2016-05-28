@@ -112,6 +112,8 @@
     <string name="about_mail_placeholder">Bitte hier Feedback eingeben :)</string>
     <string name="appwidget_text">SNÄRZ</string>
     <string name="add_widget">Add widget</string>
+    <string name="expense_from_home_screen_title">Ausgabe vom</string>
+    <string name="widget_expense_added">hinzugefügt</string>
 
 
 </resources>

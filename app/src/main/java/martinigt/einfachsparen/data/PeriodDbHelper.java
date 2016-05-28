@@ -63,12 +63,14 @@ public class PeriodDbHelper {
         while (dbResults.moveToNext()) {
             result = getPeriodFromCursor(dbResults);
         }
+        dbResults.close();
         return result;
     }
 
     public void cleanTable() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(PERIOD_DELETE_TABLE);
+        db.close();
     }
 
     public Period getCurrentPeriod() {
@@ -84,6 +86,7 @@ public class PeriodDbHelper {
         while (dbResults.moveToNext()) {
             result = getPeriodFromCursor(dbResults);
         }
+        dbResults.close();
         return result;
     }
 
@@ -118,6 +121,7 @@ public class PeriodDbHelper {
         while (dbResults.moveToNext()) {
             result.add(getPeriodFromCursor(dbResults));
         }
+        dbResults.close();
         return result;
     }
 

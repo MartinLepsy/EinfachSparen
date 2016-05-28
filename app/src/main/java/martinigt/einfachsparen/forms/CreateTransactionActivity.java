@@ -1,5 +1,7 @@
 package martinigt.einfachsparen.forms;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+import martinigt.einfachsparen.DesktopWidget;
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.PeriodDbHelper;
@@ -138,6 +141,7 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         transactionToAdd.setType(transactionType);
         transactionToAdd.setFromStandardId(0);
         transactionDbHelper.addTransaction(transactionToAdd);
+        Helper.updateDesktopWidgets(getApplicationContext());
         finish();
     }
 

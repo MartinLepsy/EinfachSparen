@@ -1,4 +1,8 @@
 package martinigt.einfachsparen.helper;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -16,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import martinigt.einfachsparen.DesktopWidget;
 import martinigt.einfachsparen.R;
 import martinigt.einfachsparen.data.DatabaseHelper;
 import martinigt.einfachsparen.data.TransactionDbHelper;
@@ -115,6 +120,16 @@ public class Helper {
         CustomAutoSuggestAdapter tagAutoCompleteAdapter = new CustomAutoSuggestAdapter(titleInputField.getContext(),
                 android.R.layout.simple_dropdown_item_1line, new ArrayList<>(Arrays.asList(allTags)));
         titleInputField.setAdapter(tagAutoCompleteAdapter);
+    }
+
+    public static void updateDesktopWidgets(Context context) {
+        AppWidgetManager man = AppWidgetManager.getInstance(context);
+        int[] ids = man.getAppWidgetIds(
+                new ComponentName(context,DesktopWidget.class));
+        Intent updateIntent = new Intent();
+        updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        context.sendBroadcast(updateIntent);
     }
 
 }
