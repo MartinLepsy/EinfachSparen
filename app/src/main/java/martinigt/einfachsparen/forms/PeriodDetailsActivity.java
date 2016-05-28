@@ -2,7 +2,9 @@ package martinigt.einfachsparen.forms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -13,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +37,10 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
     private ListView incomeList;
 
     private ListView expenseList;
+
+    private ImageView spyView;
+
+    private TextView incomeListHiddenHint;
 
     private TextView periodNameTextView;
 
@@ -68,13 +75,22 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
         periodNameTextView.setText(periodToShow.getName());
         periodDurationTextView.setText(df.format(periodToShow.getStart().getTime()) +
                 " - " + df.format(periodToShow.getEnd().getTime()));
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean showIncome= sPrefs.getBoolean(getString(R.string.pref_key_showIncomeList), true);
         TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
-        ArrayList<Transaction> incomes = transactionDbHelper.getAllIncomesForPeriod(periodToShow.getId());
-        TransactionAdapter incomeAdapter = new TransactionAdapter(this, incomes);
         ArrayList<Transaction> expenses = transactionDbHelper.getAllExpensesForPeriod(periodToShow.getId());
         TransactionAdapter expenseAdapter = new TransactionAdapter(this, expenses);
-        incomeList.setAdapter(incomeAdapter);
         expenseList.setAdapter(expenseAdapter);
+        if (showIncome) {
+            ArrayList<Transaction> incomes = transactionDbHelper.getAllIncomesForPeriod(periodToShow.getId());
+            TransactionAdapter incomeAdapter = new TransactionAdapter(this, incomes);
+            incomeList.setAdapter(incomeAdapter);
+            spyView.setVisibility(View.GONE);
+            incomeListHiddenHint.setVisibility(View.GONE);
+        }
+        else {
+            incomeList.setVisibility(View.GONE);
+        }
     }
 
     public void getReferencesToWidgets() {
@@ -82,6 +98,8 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
         expenseList = (ListView) findViewById(R.id.periodDetailsExpensesList);
         periodNameTextView = (TextView) findViewById(R.id.periodDetailsName);
         periodDurationTextView = (TextView) findViewById(R.id.periodDetailsTime);
+        spyView = (ImageView) findViewById(R.id.spyIcon);
+        incomeListHiddenHint = (TextView) findViewById(R.id.incomeListHiddenHint);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

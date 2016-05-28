@@ -48,13 +48,33 @@
         android:layout_below="@+id/periodDetailsIncomeTitle"
         android:layout_alignParentStart="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spyIcon"
+        android:layout_gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/periodDetailsIncomeList"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/spy" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/income_list_hidden"
+        android:id="@+id/incomeListHiddenHint"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spyIcon" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/expenses"
         android:id="@+id/periodDetailsExpensesTitle"
-        android:layout_below="@+id/periodDetailsIncomeList"
+        android:layout_below="@+id/incomeListHiddenHint"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp" />
 

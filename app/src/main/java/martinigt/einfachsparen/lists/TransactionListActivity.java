@@ -11,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,10 @@ public class TransactionListActivity extends AppCompatActivity {
     private FloatingActionButton addIncomeButton;
 
     private TransactionAdapter transactionAdapter;
+
+    private ImageView spyView;
+
+    private TextView incomeListHiddenHint;
 
     private DatabaseHelper dbHelper;
 
@@ -70,6 +76,8 @@ public class TransactionListActivity extends AppCompatActivity {
     private void getReferencesToWidgets() {
         addIncomeButton = (FloatingActionButton) findViewById(R.id.fab);
         transactionListView = (ListView) findViewById(R.id.transactionList);
+        spyView = (ImageView) findViewById(R.id.spyIcon);
+        incomeListHiddenHint = (TextView) findViewById(R.id.incomeListHiddenHint);
     }
 
     private void bindListeners() {
@@ -105,12 +113,16 @@ public class TransactionListActivity extends AppCompatActivity {
         ArrayList<Transaction> transactions = null;
         if (transactionListType == TransactionType.EXPENSE) {
             transactions = transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId());
+            spyView.setVisibility(View.GONE);
+            incomeListHiddenHint.setVisibility(View.GONE);
         }
         else {
             SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
             boolean showIncome= sPrefs.getBoolean(getString(R.string.pref_key_showIncomeList), true);
             if (showIncome) {
                 transactions = transactionDbHelper.getAllIncomesForPeriod(currentPeriod.getId());
+                spyView.setVisibility(View.GONE);
+                incomeListHiddenHint.setVisibility(View.GONE);
             }
             else {
                 transactions = new ArrayList<>();
@@ -120,6 +132,7 @@ public class TransactionListActivity extends AppCompatActivity {
             transactionAdapter = new TransactionAdapter(this, Helper.castToTransactionList(transactions));
             transactionListView.setAdapter(transactionAdapter);
         }
+
     }
 
     @Override
