@@ -1,4 +1,8 @@
 <resources>
+
+    <string name="app_versionName">0.1 alpha
+    </string>
+
     <string name="app_name">Einfach Sparen</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_tour">Tour</string>
@@ -106,7 +110,8 @@
     <string name="about_mailto">einfachsparen.app@gmail.com</string>
     <string name="about_mailsubject">Feedback zu Einfach Sparen</string>
     <string name="about_mail_placeholder">Bitte hier Feedback eingeben :)</string>
-
+    <string name="appwidget_text">SNÄRZ</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>

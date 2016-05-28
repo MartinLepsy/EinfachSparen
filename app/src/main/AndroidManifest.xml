@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="martinigt.einfachsparen">
+    package="martinigt.einfachsparen"
+    android:versionCode="1"
+    android:versionName="@string/app_versionName">
 
     <application
         android:allowBackup="true"
@@ -94,6 +96,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="martinigt.einfachsparen.DashboardActivity" />
         </activity>
+
+        <receiver android:name=".DesktopWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/desktop_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
