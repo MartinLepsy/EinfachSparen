@@ -147,8 +147,11 @@ public class DesktopWidget extends AppWidgetProvider {
 
         transactionDbHelper.addTransaction(newExpense);
 
-        Toast.makeText(context.getApplicationContext(), String.format("%s %s",expenseName,
-                context.getString(R.string.widget_expense_added)) , Toast.LENGTH_SHORT).show();
+        Locale currentLocale = Locale.getDefault();
+        Currency myCurrency = Currency.getInstance((currentLocale));
+        Toast.makeText(context.getApplicationContext(), String.format("%d %s %s %s", value, myCurrency.getSymbol(),
+                expenseName, context.getString(R.string.widget_expense_added)),
+                Toast.LENGTH_SHORT).show();
 
     }
 }
