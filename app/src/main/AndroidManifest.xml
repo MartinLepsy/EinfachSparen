@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="martinigt.einfachsparen"
+    package="de.martinlepsy.einfachsparen"
     android:versionCode="1"
     android:versionName="@string/app_versionName">
 
@@ -33,7 +33,8 @@
         <activity
             android:name=".forms.EditTransactionActivity"
             android:label="@string/title_activity_edit_transaction"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".lists.TransactionListActivity" />
@@ -49,7 +50,8 @@
         <activity
             android:name=".forms.CreateTransactionActivity"
             android:label="@string/title_activity_create_transaction"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".lists.TransactionListActivity" />
@@ -85,7 +87,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="martinigt.einfachsparen.DashboardActivity" />
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"
@@ -94,7 +96,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="martinigt.einfachsparen.DashboardActivity" />
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
 
         <receiver android:name=".DesktopWidget">

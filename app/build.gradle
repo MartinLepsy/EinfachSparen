@@ -23,7 +23,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
     defaultConfig {
-        applicationId "martinigt.einfachsparen"
+        applicationId "martinigt.de.martinlepsy.einfachsparen"
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1

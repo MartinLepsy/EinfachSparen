@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="martinigt.einfachsparen.forms.PeriodDetailsActivity">
+    tools:context="de.martinlepsy.einfachsparen.forms.PeriodDetailsActivity">
     <item
         android:id="@+id/action_deletePeriod"
         android:orderInCategory="100"
