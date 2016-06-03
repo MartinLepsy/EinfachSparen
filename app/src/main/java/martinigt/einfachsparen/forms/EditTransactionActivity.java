@@ -130,6 +130,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
         result = transactionDbHelper.deleteTRansaction(transactionToEdit);
         if (result) {
+            Helper.updateDesktopWidgets(getApplicationContext());
             finish();
         }
     }
@@ -146,6 +147,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
         result = transactionDbHelper.updateTransaction(transactionToEdit);
         if (result) {
+            Helper.updateDesktopWidgets(getApplicationContext());
             finish();
         }
     }
