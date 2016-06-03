@@ -16,7 +16,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,9 +26,8 @@
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
-        <activity android:name=".admin.AdminActivity" />
         <activity
             android:name=".forms.EditTransactionActivity"
             android:label="@string/title_activity_edit_transaction"
@@ -37,7 +35,7 @@
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".lists.TransactionListActivity" />
+                android:value="de.martinlepsy.einfachsparen.lists.TransactionListActivity" />
         </activity>
         <activity
             android:name=".lists.TransactionListActivity"
@@ -45,7 +43,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
         <activity
             android:name=".forms.CreateTransactionActivity"
@@ -54,7 +52,7 @@
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".lists.TransactionListActivity" />
+                android:value="de.martinlepsy.einfachsparen.lists.TransactionListActivity" />
         </activity>
         <activity
             android:name=".lists.PeriodListActivity"
@@ -62,7 +60,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
         <activity
             android:name=".forms.PeriodDetailsActivity"
@@ -70,7 +68,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".lists.PeriodListActivity" />
+                android:value="de.martinlepsy.einfachsparen.lists.PeriodListActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -78,7 +76,7 @@
             android:parentActivityName=".DashboardActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
         <activity
             android:name=".TourActivity"
@@ -98,12 +96,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
-
         <receiver android:name=".DesktopWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/desktop_widget_info" />
