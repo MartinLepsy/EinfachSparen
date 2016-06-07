@@ -25,6 +25,8 @@ public class Dashboard {
 
     private double cumulatedIncome;
 
+    private double differenceToPlannedExpense;
+
     private double plannedExpenses;
 
     private int daysRemaining;
@@ -52,12 +54,16 @@ public class Dashboard {
     public void recalculate() {
         cumulatedExpenses = 0;
         cumulatedIncome = 0;
+        double allPlannedExpenses = 0;
         if (currentPeriod != null) {
             daysRemaining = (int) Helper.getDateDiff(dateToCalculateFrom, currentPeriod.getEnd(),
                     TimeUnit.DAYS);
             if (periodExpenses != null) {
                 for (Transaction currentExpense : periodExpenses) {
                     cumulatedExpenses += currentExpense.getValue();
+                    if (currentExpense.isStandard() || currentExpense.getFromStandardId() > 0) {
+                        allPlannedExpenses += currentExpense.getValue();
+                    }
                 }
             }
             if (periodIncome != null) {
@@ -68,14 +74,28 @@ public class Dashboard {
             budget = cumulatedIncome - cumulatedExpenses - currentPeriod.getPlannedSaving();
             plannedExpenses = cumulatedIncome - currentPeriod.getPlannedSaving();
             calculateDailyBudget();
+            calculateDifferenceToPlannedBudget(allPlannedExpenses);
             approximatedSaving = currentPeriod.getPlannedSaving() + budget;
         }
         else {
             budgetPerDay = 0;
             budget = 0;
             plannedExpenses = 0;
+            setDifferenceToPlannedExpense(0);
         }
 
+    }
+
+    private void calculateDifferenceToPlannedBudget(double allPlannedExpenses) {
+        double startingPoint = cumulatedIncome - allPlannedExpenses;
+        double differenceToPlannedSaving = startingPoint - currentPeriod.getPlannedSaving();
+        int periodDays = (int) Helper.getDateDiff(currentPeriod.getStart(), currentPeriod.getEnd(),
+                TimeUnit.DAYS);
+        if (periodDays > 0) {
+            double plannedExpensePerDay = differenceToPlannedSaving / (double) periodDays;
+            double optimalExpensesPerToday = startingPoint - ((double)(periodDays - daysRemaining)) * plannedExpensePerDay;
+            setDifferenceToPlannedExpense(cumulatedIncome - cumulatedExpenses - optimalExpensesPerToday);
+        }
     }
 
     private void calculateDailyBudget() {
@@ -131,5 +151,13 @@ public class Dashboard {
 
     public void setApproximatedSaving(double approximatedSaving) {
         this.approximatedSaving = approximatedSaving;
+    }
+
+    public double getDifferenceToPlannedExpense() {
+        return differenceToPlannedExpense;
+    }
+
+    public void setDifferenceToPlannedExpense(double differenceToPlannedExpense) {
+        this.differenceToPlannedExpense = differenceToPlannedExpense;
     }
 }
