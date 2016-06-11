@@ -30,8 +30,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/currentExpensesLabel"
                 android:id="@+id/currentExpensesLabel"
-                android:layout_row="0"
-                android:layout_column="0"
                 android:textColor="@color/colorPrimary_text" />
         </RelativeLayout>
         <RelativeLayout
@@ -44,8 +42,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/plannedExpensesLabel"
                 android:id="@+id/plannedExpensesLabel"
-                android:layout_row="0"
-                android:layout_column="1"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/colorPrimary_text" />
         </RelativeLayout>
@@ -58,19 +54,20 @@
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:textAlignment="center">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/currentExpensesDisplay"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:paddingTop="10dp"
+                android:paddingTop="6dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorCannotSave"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dip"
@@ -82,12 +79,12 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/plannedExpensesDisplay"
-                android:layout_row="1"
-                android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:paddingTop="10dp"
+                android:paddingTop="6dp"
                 android:paddingBottom="10dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -105,8 +102,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/budgetLabel"
                 android:id="@+id/budgetLabel"
-                android:layout_row="2"
-                android:layout_column="0"
                 android:textColor="@color/colorPrimary_text" />
         </RelativeLayout>
         <RelativeLayout
@@ -119,8 +114,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/budgetPerDayLabel"
                 android:id="@+id/budgetPerDayLabel"
-                android:layout_row="2"
-                android:layout_column="1"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/colorPrimary_text" />
         </RelativeLayout>
@@ -141,9 +134,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/budgetDisplay"
-                android:layout_row="3"
-                android:layout_column="0"
-                android:paddingTop="10dp"
+                android:paddingTop="6dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorCanSave"
                 android:textStyle="bold" />
@@ -158,10 +149,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/budgetPerDayDisplay"
-                android:layout_row="3"
-                android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:paddingTop="10dp"
+                android:paddingTop="6dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorCanSave"
                 android:textStyle="bold" />
@@ -181,8 +170,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/remainingDaysLabel"
-                android:layout_row="4"
-                android:layout_column="0"
                 android:id="@+id/remainingDaysLabel"
                 android:textColor="@color/colorPrimary_text" />
         </RelativeLayout>
@@ -195,8 +182,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/approximatedSavingLabel"
-                android:layout_row="4"
-                android:layout_column="1"
                 android:layout_marginLeft="20dp"
                 android:id="@+id/approximatedSavingsLabel"
                 android:textColor="@color/colorPrimary_text" />
@@ -217,9 +202,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/remainingDaysDisplay"
-                android:layout_row="5"
-                android:layout_column="0"
-                android:paddingTop="10dp"
+                android:paddingTop="6dp"
                 android:paddingBottom="10dp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -234,10 +217,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/approximatedSavingsDisplay"
-                android:layout_row="5"
-                android:layout_column="1"
                 android:layout_marginLeft="20dp"
-                android:paddingTop="10dp"
+                android:paddingTop="6dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorCanSave"
                 android:textStyle="bold" />
@@ -261,10 +242,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/remaining_expenses_per_today"
                 android:id="@+id/remainingExpensesPerTodayLabel"
-                android:layout_row="5"
-                android:layout_column="0"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:textColor="@color/colorPrimary_text" />
         </RelativeLayout>
 
@@ -281,15 +258,12 @@
             android:layout_weight="0.5" >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/startingValueDisplay"
                 android:id="@+id/remainingBudgetPerTodayDisplay"
-                android:layout_row="5"
-                android:layout_column="0"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="6dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
