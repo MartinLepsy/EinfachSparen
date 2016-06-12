@@ -131,4 +131,22 @@ public class Helper {
         context.sendBroadcast(updateIntent);
     }
 
+    public static void suggestTagForTransaction(boolean useTags, View focusChangedView, boolean hasFocus,
+                                                AutoCompleteTextView transactionTitleInput,
+                                                AutoCompleteTextView transactionTagInput,
+                                                DatabaseHelper dbHelper) {
+        if (useTags) {
+            if (focusChangedView.getId() == transactionTitleInput.getId() && !hasFocus) {
+                if (transactionTitleInput.getText().length() > 0) {
+                    TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
+                    String suggestedTag = transactionDbHelper.getAssociatedTagForTransactionTitle(
+                            transactionTitleInput.getText().toString());
+                    if (suggestedTag != null && suggestedTag.length() > 0) {
+                        transactionTagInput.setText(suggestedTag);
+                    }
+                }
+            }
+        }
+    }
+
 }

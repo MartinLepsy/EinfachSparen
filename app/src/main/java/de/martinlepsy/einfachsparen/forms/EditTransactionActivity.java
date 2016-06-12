@@ -2,7 +2,9 @@ package de.martinlepsy.einfachsparen.forms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +24,7 @@ import de.martinlepsy.einfachsparen.data.TransactionDbHelper;
 import de.martinlepsy.einfachsparen.helper.Helper;
 import de.martinlepsy.einfachsparen.model.Transaction;
 
-public class EditTransactionActivity extends AppCompatActivity implements TextWatcher, DialogInterface.OnClickListener {
+public class EditTransactionActivity extends AppCompatActivity implements TextWatcher, DialogInterface.OnClickListener, View.OnFocusChangeListener {
 
     private AutoCompleteTextView transactionNameInput;
 
@@ -36,6 +38,8 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
 
     private Transaction transactionToEdit;
 
+    private boolean useTags;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,9 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        useTags = sPrefs.getBoolean(getApplicationContext().getString(R.string.pref_key_useTags), false);
 
         getReferencesToWidgets();
 
@@ -61,6 +68,7 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
     private void bindListeners() {
         transactionNameInput.addTextChangedListener(this);
         transactionValueInput.addTextChangedListener(this);
+        transactionNameInput.setOnFocusChangeListener(this);
     }
 
     private void getReferencesToWidgets() {
@@ -170,4 +178,9 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
         }
     }
 
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        Helper.suggestTagForTransaction(useTags, view, hasFocus,
+                transactionNameInput, transactionTagInput, new DatabaseHelper(getApplicationContext()));
+    }
 }

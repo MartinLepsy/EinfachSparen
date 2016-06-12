@@ -1,7 +1,9 @@
 package de.martinlepsy.einfachsparen.forms;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +27,7 @@ import de.martinlepsy.einfachsparen.model.Period;
 import de.martinlepsy.einfachsparen.model.Transaction;
 import de.martinlepsy.einfachsparen.model.TransactionType;
 
-public class CreateTransactionActivity extends AppCompatActivity implements TextWatcher {
+public class CreateTransactionActivity extends AppCompatActivity implements TextWatcher, View.OnFocusChangeListener {
 
     private AutoCompleteTextView transactionTitleInput;
 
@@ -43,6 +45,7 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
 
     public static final String TRANSACTION_TYPE_INTENT_EXTRA = "TransactionType";
 
+    private boolean useTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,9 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         dbHelper = new DatabaseHelper(getApplicationContext());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        useTags = sPrefs.getBoolean(getApplicationContext().getString(R.string.pref_key_useTags), false);
 
         Intent sourceIntent = getIntent();
         transactionType = TransactionType.values()[sourceIntent.getIntExtra(TRANSACTION_TYPE_INTENT_EXTRA,
@@ -91,6 +97,7 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         });
         transactionTitleInput.addTextChangedListener(this);
         transactionValueInput.addTextChangedListener(this);
+        transactionTitleInput.setOnFocusChangeListener(this);
     }
 
     @Override
@@ -150,4 +157,9 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         }
     }
 
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        Helper.suggestTagForTransaction(useTags, view, hasFocus, transactionTitleInput,
+                transactionTagInput, dbHelper);
+    }
 }
