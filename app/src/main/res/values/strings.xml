@@ -54,6 +54,11 @@
     <string name="confirmYes">Ja</string>
     <string name="confirmNo">Nein</string>
 
+    <!-- Tour Dialog -->
+    <string name="tourQuestion">Anscheinend starten Sie Einfach Sparen zum ersten Mal. Möchten Sie die Kurzeinführung lesen?</string>
+    <string name="tourYes">Ja</string>
+    <string name="tourNo">Nein</string>
+
     <!-- Generic Transaction Activity texts -->
     <string name="title_activity_transaction_list">-</string>
     <string name="title_activity_create_transaction">-</string>
@@ -117,5 +122,6 @@
     <string name="widget_expense_added">hinzugefügt</string>
     <string name="remaining_expenses_per_today">Bis heute verbleibendes Budget:</string>
 
+    <string name="tour_taken_key">isTourTaken</string>
 
 </resources>

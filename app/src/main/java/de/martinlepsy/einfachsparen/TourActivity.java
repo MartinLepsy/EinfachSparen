@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import de.martinlepsy.einfachsparen.helper.TourHelper;
+
 public class TourActivity extends AppCompatActivity {
 
     /**
@@ -45,6 +47,8 @@ public class TourActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        TourHelper tourHelper = new TourHelper(this);
+        tourHelper.markTourAsTaken();
     }
 
 

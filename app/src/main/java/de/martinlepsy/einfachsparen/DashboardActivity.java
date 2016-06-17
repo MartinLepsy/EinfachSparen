@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.test.TouchUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,6 +31,7 @@ import de.martinlepsy.einfachsparen.data.TransactionDbHelper;
 import de.martinlepsy.einfachsparen.forms.CreateTransactionActivity;
 import de.martinlepsy.einfachsparen.forms.EditTransactionActivity;
 import de.martinlepsy.einfachsparen.helper.Helper;
+import de.martinlepsy.einfachsparen.helper.TourHelper;
 import de.martinlepsy.einfachsparen.lists.PeriodListActivity;
 import de.martinlepsy.einfachsparen.lists.TransactionListActivity;
 import de.martinlepsy.einfachsparen.model.Dashboard;
@@ -88,6 +90,10 @@ public class DashboardActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        TourHelper tourHelper = new TourHelper(this);
+        if (!tourHelper.isTourAlreadyTaken()) {
+            tourHelper.askForTour();
+        }
     }
 
     private void bindListeners() {
