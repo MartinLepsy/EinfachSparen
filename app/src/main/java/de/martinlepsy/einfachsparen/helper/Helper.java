@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -77,12 +78,14 @@ public class Helper {
     public static void formatFloatingButton(boolean validationResult, FloatingActionButton buttonToFormat) {
         if (validationResult) {
             buttonToFormat.setEnabled(true);
-            buttonToFormat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#458B00")));
+            buttonToFormat.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(buttonToFormat.getContext(),
+                    R.color.colorCanSave)));
             buttonToFormat.setImageResource(R.drawable.ic_check);
 
         } else {
             buttonToFormat.setEnabled(false);
-            buttonToFormat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc0000")));
+            buttonToFormat.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(buttonToFormat.getContext(),
+                    R.color.colorCannotSave)));
             buttonToFormat.setImageResource(R.drawable.ic_close);
         }
     }
