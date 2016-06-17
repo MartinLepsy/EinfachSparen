@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -144,11 +145,25 @@ public class DashboardActivity extends AppCompatActivity
         daysRemainingDisplay.setText(String.format("%s", dashboard.getDaysRemaining()));
         approximatedSavingsDisplay.setText(String.format("%1.2f %s", dashboard.getApproximatedSaving(), myCurrency.getSymbol()));
         remainingBudgetPerTodayDisplay.setText(String.format("%1.2f %s", dashboard.getDifferenceToPlannedExpense(), myCurrency.getSymbol()));
+        formatRemainingBudgetPerToday();
         if (hideExpenses) {
             allCurrentExpensesDisplay.setVisibility(View.GONE);
             allCurrentExpensesDisplayTitle.setVisibility(View.GONE);
             plannedExpensesDisplay.setVisibility(View.GONE);
             plannedExpensesDisplayTitle.setVisibility(View.GONE);
+        }
+    }
+
+    private void formatRemainingBudgetPerToday() {
+        if (dashboard.getDifferenceToPlannedExpense() < 0) {
+            if (dashboard.getDifferenceToPlannedExpense() < (dashboard.getBudgetPerDay() * -1)) {
+                remainingBudgetPerTodayDisplay.setTextColor(ContextCompat.getColor(getApplicationContext(),
+                        R.color.colorCannotSave));
+            }
+            else {
+                remainingBudgetPerTodayDisplay.setTextColor(ContextCompat.getColor(getApplicationContext(),
+                        R.color.colorAccent));
+            }
         }
     }
 
