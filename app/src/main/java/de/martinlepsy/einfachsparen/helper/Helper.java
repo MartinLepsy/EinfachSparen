@@ -65,7 +65,7 @@ public class Helper {
     }
 
     public static boolean validateMandatoryTextField(EditText textField) {
-        return textField.getText().length() > 0;
+        return textField.getText().toString().trim().length() > 0;
     }
 
     public static void formatFloatingButton(boolean validationResult, FloatingActionButton buttonToFormat) {

@@ -144,10 +144,10 @@ public class EditTransactionActivity extends AppCompatActivity implements TextWa
 
     private void updateTransaction() {
         boolean result = true;
-        transactionToEdit.setName(transactionNameInput.getText().toString());
-        transactionToEdit.setValue(Double.parseDouble(transactionValueInput.getText().toString()));
+        transactionToEdit.setName(transactionNameInput.getText().toString().trim());
+        transactionToEdit.setValue(Double.parseDouble(transactionValueInput.getText().toString().trim()));
         if (transactionTagInput.getVisibility() == View.VISIBLE) {
-            transactionToEdit.setTag(transactionTagInput.getText().toString());
+            transactionToEdit.setTag(transactionTagInput.getText().toString().trim());
         }
         transactionToEdit.setStandard(transactionRecurringInput.isChecked());
         DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());

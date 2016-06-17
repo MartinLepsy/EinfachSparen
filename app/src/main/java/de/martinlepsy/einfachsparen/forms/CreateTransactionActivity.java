@@ -131,13 +131,13 @@ public class CreateTransactionActivity extends AppCompatActivity implements Text
         transactionToAdd.setPeriodId(currentPeriod.getId());
         transactionToAdd.setDate(new Date());
         if (transactionTagInput.getVisibility() == View.VISIBLE) {
-            transactionToAdd.setTag(transactionTagInput.getText().toString());
+            transactionToAdd.setTag(transactionTagInput.getText().toString().trim());
         }
         else {
             transactionToAdd.setTag("");
         }
-        transactionToAdd.setName(transactionTitleInput.getText().toString());
-        transactionToAdd.setValue(Double.parseDouble(transactionValueInput.getText().toString()));
+        transactionToAdd.setName(transactionTitleInput.getText().toString().trim());
+        transactionToAdd.setValue(Double.parseDouble(transactionValueInput.getText().toString().trim()));
         transactionToAdd.setStandard(transactionRecurringInput.isChecked());
         transactionToAdd.setType(transactionType);
         transactionToAdd.setFromStandardId(0);

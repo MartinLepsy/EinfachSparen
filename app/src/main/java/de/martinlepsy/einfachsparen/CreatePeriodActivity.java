@@ -83,14 +83,13 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
 
     private void savePeriod() {
         Period newPeriod = new Period();
-        Double plannedSaving = Double.parseDouble(plannedSavingInput.getText().toString());
+        Double plannedSaving = Double.parseDouble(plannedSavingInput.getText().toString().trim());
         newPeriod.setPlannedSaving(plannedSaving);
-        newPeriod.setName(periodNameInput.getText().toString());
-        Calendar c = Calendar.getInstance();
+        newPeriod.setName(periodNameInput.getText().toString().trim());
         DateFormat df = DateFormat.getDateInstance();
         try {
-            Date periodStart = df.parse(periodStartInput.getText().toString());
-            Date periodEnd = df.parse(periodEndInput.getText().toString());
+            Date periodStart = df.parse(periodStartInput.getText().toString().trim());
+            Date periodEnd = df.parse(periodEndInput.getText().toString().trim());
             newPeriod.setStart(periodStart);
             newPeriod.setEnd(periodEnd);
             periodUtility.savePeriodAndAssignDefaultValues(newPeriod);
@@ -202,24 +201,11 @@ public class CreatePeriodActivity extends AppCompatActivity implements TextWatch
         try {
             DateFormat df = DateFormat.getDateInstance();
             df.parse(dateField.getText().toString());
-            //removeWrongMark(dateField); //TODO: Improve UI
         }
         catch (Exception ex) {
             result = false;
-            //markFieldAsWrong(dateField); //TODO: Improve UI
         }
         return result;
     }
-
-    private void markFieldAsWrong(EditText textFieldToMark) {
-        Drawable drawable = DrawableCompat.wrap(textFieldToMark.getBackground());
-        DrawableCompat.setTintList(drawable, ColorStateList.valueOf(Color.parseColor("#cc0000")));
-    }
-
-    private void removeWrongMark(EditText textFieldToUnMark) {
-        Drawable drawable = DrawableCompat.wrap(textFieldToUnMark.getBackground());
-    }
-
-
 
 }
