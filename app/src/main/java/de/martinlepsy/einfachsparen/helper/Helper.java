@@ -41,13 +41,6 @@ public class Helper {
         return month;
     }
 
-    public static String getMonthForDate(Date date)
-    {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return Helper.getMonthForInt(cal.get(Calendar.MONTH));
-    }
-
     public static String getNextMonthName() {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, 1);
