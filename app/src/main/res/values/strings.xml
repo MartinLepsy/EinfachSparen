@@ -84,6 +84,53 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- Tour Texts -->
+
+    <string name="tour_overview_title">Überblick</string>
+
+    <string name="tour_overview_description">Einfach Sparen soll dem Anwender einen Überblick über seine
+        aktuellen Ausgaben und sein aktuell verbleibendes Budget verschaffen und ihn dabei unterstützen, monatlich einen Sparbetrag beiseite zu legen. Dazu werden auf der Hauptseite verschiedene
+        Werte angezeigt:</string>
+    <string name="tour_overview_explaination">Zunächst werden die aktuellen Ausgaben und die geplanten Ausgaben
+    angezeigt. Die geplanten Ausgaben ergeben sich aus dem bisherigen Einkommen und dem Sparziel. Die Ausgabe
+        dieser Werte kann deaktiviert werden (mehr Privatsphäre).
+        Zusätzlich dazu wird das restlich verfügbare Budget und das für jeden Tag verfügbare Budget (ergibt
+        sich aus den restlichen Tagen und dem verbleibenden Budget) angezeigt.
+        Außerdem werden die verbleibenden Tage der Periode und der aktuell voraussichtliche Sparbetrag angezeigt.
+        Dieser ergibt sich aus dem geplanten Sparbetrag und dem verbleibenden Budget.
+        Zuletzt wird das bis zum aktuellen Tag verbleibende Budget angezeigt. Dabei wird von einem linearen
+        Geldverbrauch ab Periodenbeginn ausgegangen, wobei die regelmäßig anfallenden Ausgaben bereits abgezogen sind.
+    </string>
+
+    <string name="tour_period_title">Perioden</string>
+    <string name="tour_period_description">Alle Berechnungen der App werden in Perioden organisiert. Diese haben
+    einen definierten Anfang und ein Ende. Für jede Periode kann ein Sparziel festgelegt werden.</string>
+    <string name="tour_period_details">Es ist immer nur eine Periode gleichzeitig aktiv. Beim Anlegen einer neuen
+    Periode wird die vorherige abgeschlossen. Wenn bereits wiederkehrende Einnahmen oder Ausgaben definiert wurden,
+    werden diese bei Anlage einer neuen Periode automatisch gebucht.</string>
+
+    <string name="tour_transaction_title">Transaktionen</string>
+    <string name="tour_transaction_description">Zweck der App ist die möglichst einfache Erfassung von
+    Einnahmen und Ausgaben. Für jede Transaktion kann angegeben werden, ob diese wiederkehrend ist. In
+    diesem Fall wird sie bei jeder neuen Periode automatisch verbucht.</string>
+    <string name="tour_transaction_details">Zusätzlich dazu können für Transaktionen Kategorien vergeben
+    werden. Diese Funktionalität kann in den Einstellungen aktiviert werden. Wenn für eine Transaktion
+    bereits eine Kategorie vergeben wurde, wird diese automatisch vorgeschlagen. In der Übersicht über
+    Einnahmen oder Ausgaben können diese bearbeitet oder gelöscht werden.</string>
+
+    <string name="tour_privacy_title">Privatsphäre</string>
+    <string name="tour_privacy_description">In den Einstellungen kann die Anzeige der bisherigen und geplanten
+    Ausgaben deaktiviert werden. Außerdem kann eingestellt werden, dass die Einnahmen nicht in der Liste
+    angezeigt werden.</string>
+    <string name="tour_privacy_details">Die Daten, die in der App erfasst werden, werden lediglich auf
+    dem Gerät gespeichert.</string>
+
+    <string name="tour_widget_title">Widgets</string>
+    <string name="tour_widget_description">Zur schnellen Erfassung und zur Anzeige der Werte auf
+    dem Startbildschirm wird ein Widget mitgeliefert.</string>
+    <string name="tour_widget_details">Durch Antippen einer der Buttons auf dem Widget können Ausgaben
+    mit den vordefinierten Beträgen schnell erfasst werden. Diese Ausgaben können nachträglich angepasst werden.</string>
+
     <!-- Preferences -->
 
     <string name="pref_title_useTags">Kategorien verwenden</string>
@@ -92,15 +139,13 @@
     </string>
     <string name="pref_key_useTags">use_tags</string>
 
-    <string name="pref_title_expensesOnDashboard">Dashboard: Ausgaben</string>
-    <string name="pref_description_expensesOnDashboard">Blendet die Ausgaben auf dem Dashboard ein
-        oder aus (Privatsphäre)
+    <string name="pref_title_expensesOnDashboard">Ausgaben ausblenden</string>
+    <string name="pref_description_expensesOnDashboard">Blendet die Ausgaben auf dem Dashboard aus.
     </string>
     <string name="pref_key_expensesOnDashboard">expenses_dashboard_switch</string>
 
     <string name="pref_title_showExpenseList">Einnahmen anzeigen</string>
-    <string name="pref_description_showExpenseList">Wenn deaktiviert, werden die Einnahmen in der
-        Einnahmenliste nicht angezeigt (Privatsphäre)
+    <string name="pref_description_showExpenseList">Blendet die Einnahmen in der Einnahmenliste aus.
     </string>
     <string name="pref_key_showIncomeList">income_showList</string>
     <string name="title_activity_tour">Tour</string>
