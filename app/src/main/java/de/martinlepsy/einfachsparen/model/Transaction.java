@@ -12,8 +12,6 @@ public class Transaction implements Serializable {
 
     }
 
-
-
     public Transaction(boolean isStandard, String name, String tag, double value , Date date,
                        TransactionType type, int copiedFromId) {
         this.isStandard = isStandard;
@@ -22,9 +20,8 @@ public class Transaction implements Serializable {
         this.value = value;
         this.date = date;
         this.type = type;
+        this.fromStandardId = copiedFromId;
     }
-
-
 
     private int id;
 

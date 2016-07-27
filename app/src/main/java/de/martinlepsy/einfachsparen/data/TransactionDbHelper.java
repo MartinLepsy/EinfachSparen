@@ -73,6 +73,9 @@ public class TransactionDbHelper {
                 ) {
             addTransaction(currentTransaction, db);
         }
+        if (db.isOpen()) {
+            db.close();
+        }
     }
 
     public boolean addTransaction(Transaction transactionToAdd, SQLiteDatabase db) {
@@ -92,7 +95,6 @@ public class TransactionDbHelper {
         } catch (Exception e) {
             result = false;
         }
-        db.close();
         return result;
     }
 
