@@ -46,6 +46,7 @@ public class TourActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.getParent().requestDisallowInterceptTouchEvent(true);
 
         TourHelper tourHelper = new TourHelper(this);
         tourHelper.markTourAsTaken();

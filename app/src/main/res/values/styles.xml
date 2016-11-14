@@ -32,10 +32,7 @@
         <item name="android:src">@android:drawable/ic_menu_save</item>
     </style>
 
-    <style name="EinfachSparen.Button" parent="android:style/Widget.Material.Button">
-    </style>
-
-
+    <style name="EinfachSparen.Button" parent="android:style/Widget.Material.Button"></style>
 
 
 </resources>

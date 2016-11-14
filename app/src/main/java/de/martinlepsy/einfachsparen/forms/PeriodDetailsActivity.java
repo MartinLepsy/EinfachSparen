@@ -61,11 +61,21 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
 
         getReferencesToWidgets();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         Intent sourceIntent = getIntent();
-        periodToShow = (Period) sourceIntent.getSerializableExtra("PeriodToShow");
+        Period periodFromIntent = (Period) sourceIntent.getSerializableExtra("PeriodToShow");
 
-        showData();
-
+        if(periodFromIntent != null) {
+            DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+            PeriodDbHelper periodDbHelper = new PeriodDbHelper(dbHelper);
+            this.periodToShow = periodDbHelper.getPeriod(periodFromIntent.getId());
+            showData();
+        }
     }
 
     private void showData() {
@@ -105,12 +115,21 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
             case R.id.action_deletePeriod:
                 askDeletionConfirmation();
                 return true;
+            case R.id.action_editPeriod:
+                editDisplayedPeriod();
+                return true;
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void editDisplayedPeriod() {
+        Intent openEditPeriodIntent = new Intent(getApplicationContext(), EditPeriodActivity.class);
+        openEditPeriodIntent.putExtra(EditPeriodActivity.PERIOD_TO_EDIT_EXTRA_NAME, periodToShow);
+        startActivity(openEditPeriodIntent);
     }
 
     private void askDeletionConfirmation() {

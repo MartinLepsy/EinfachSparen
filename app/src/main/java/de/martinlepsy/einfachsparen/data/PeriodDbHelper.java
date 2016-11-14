@@ -67,6 +67,17 @@ public class PeriodDbHelper {
         return result;
     }
 
+    public Period getPeriod(long id) {
+        Period result = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor dbResults = db.rawQuery("SELECT * FROM " + PERIOD_TABLE_NAME + " WHERE " + PERIOD_ID + " = " + id, null);
+        while (dbResults.moveToNext()) {
+            result = getPeriodFromCursor(dbResults);
+        }
+        dbResults.close();
+        return result;
+    }
+
     public void cleanTable() {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL(PERIOD_DELETE_TABLE);

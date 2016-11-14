@@ -24,7 +24,7 @@
     <string name="budgetLabel">Rest Budget:</string>
     <string name="budgetPerDayLabel">Budget/Tag:</string>
     <string name="lastExpensesListTitle">Letzte Ausgaben:</string>
-    <string name="remainingDaysLabel">Verblebende Tage:</string>
+    <string name="remainingDaysLabel">Verbleibende Tage:</string>
     <string name="approximatedSavingLabel">Vsl. Sparbetrag:</string>
     <string name="startingValueDisplay">--</string>
 
@@ -168,5 +168,6 @@
     <string name="remaining_expenses_per_today">Bis heute verbleibendes Budget:</string>
 
     <string name="tour_taken_key">isTourTaken</string>
+    <string name="title_activity_edit_period">Periode bearbeiten</string>
 
 </resources>
