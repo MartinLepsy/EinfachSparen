@@ -5,6 +5,13 @@
     tools:context="de.martinlepsy.einfachsparen.forms.PeriodDetailsActivity">
 
     <item
+        android:id="@+id/action_categoryDetails"
+        android:orderInCategory="100"
+        android:title=""
+        android:icon="@drawable/ic_action_pie_chart"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_editPeriod"
         android:orderInCategory="100"
         android:title=""

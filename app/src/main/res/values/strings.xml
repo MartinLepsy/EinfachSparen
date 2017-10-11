@@ -169,5 +169,6 @@
 
     <string name="tour_taken_key">isTourTaken</string>
     <string name="title_activity_edit_period">Periode bearbeiten</string>
+    <string name="title_activity_period_category_overview">Category Overview</string>
 
 </resources>

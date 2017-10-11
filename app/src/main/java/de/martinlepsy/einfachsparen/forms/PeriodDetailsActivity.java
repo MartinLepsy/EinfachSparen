@@ -24,6 +24,7 @@ import de.martinlepsy.einfachsparen.data.DatabaseHelper;
 import de.martinlepsy.einfachsparen.data.PeriodDbHelper;
 import de.martinlepsy.einfachsparen.data.TransactionAdapter;
 import de.martinlepsy.einfachsparen.data.TransactionDbHelper;
+import de.martinlepsy.einfachsparen.helper.Helper;
 import de.martinlepsy.einfachsparen.model.Period;
 import de.martinlepsy.einfachsparen.model.Transaction;
 
@@ -112,6 +113,9 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.action_categoryDetails:
+                showCategoryDetailsForPeriod();
+                return true;
             case R.id.action_deletePeriod:
                 askDeletionConfirmation();
                 return true;
@@ -124,6 +128,13 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showCategoryDetailsForPeriod() {
+        Intent showPeriodCategoryDetailsIntent = new Intent(getApplicationContext(),
+                PeriodCategoryOverviewActivity.class);
+        showPeriodCategoryDetailsIntent.putExtra("PeriodToShow", this.periodToShow);
+        startActivity(showPeriodCategoryDetailsIntent);
     }
 
     private void editDisplayedPeriod() {
@@ -153,6 +164,7 @@ public class PeriodDetailsActivity extends AppCompatActivity implements DialogIn
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_perioddetails, menu);
+        menu.findItem(R.id.action_categoryDetails).setVisible(Helper.areTagsActivated(this.getApplicationContext()));
         return true;
     }
 

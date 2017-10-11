@@ -117,6 +117,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.martinlepsy.einfachsparen.forms.PeriodDetailsActivity" />
         </activity>
+        <activity
+            android:name=".forms.PeriodCategoryOverviewActivity"
+            android:label="@string/title_activity_period_category_overview"
+            android:parentActivityName=".forms.PeriodDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.martinlepsy.einfachsparen.forms.PeriodDetailsActivity" />
+        </activity>
     </application>
 
 </manifest>

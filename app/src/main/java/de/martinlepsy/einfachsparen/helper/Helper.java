@@ -95,10 +95,7 @@ public class Helper {
     }
 
     public static void hideOrConfigureTagInput(AutoCompleteTextView tagInputField) {
-        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(tagInputField.getContext());
-        boolean useTags = sPrefs.getBoolean(tagInputField.getContext().getString(
-                R.string.pref_key_useTags), false);
-        if (!useTags) {
+        if (!areTagsActivated(tagInputField.getContext())) {
             tagInputField.setVisibility(View.GONE);
         }
         else {
@@ -109,6 +106,11 @@ public class Helper {
                     android.R.layout.simple_dropdown_item_1line, new ArrayList<>(Arrays.asList(allTags)));
             tagInputField.setAdapter(tagAutoCompleteAdapter);
         }
+    }
+
+    public static boolean areTagsActivated(Context context) {
+        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return sPrefs.getBoolean(context.getString(R.string.pref_key_useTags), false);
     }
 
     public static void addTransactionTitleAutoComplete(AutoCompleteTextView titleInputField) {
