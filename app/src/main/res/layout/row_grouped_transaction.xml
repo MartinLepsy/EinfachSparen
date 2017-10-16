@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/grouped_transaction_listItem_value"
-            android:textColor="@color/colorCanSave"
+            android:textColor="@color/colorCannotSave"
             android:layout_marginRight="20dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"

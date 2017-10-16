@@ -10,9 +10,15 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import de.martinlepsy.einfachsparen.R;
 import de.martinlepsy.einfachsparen.data.DatabaseHelper;
+import de.martinlepsy.einfachsparen.data.GroupedExpenseAdapter;
 import de.martinlepsy.einfachsparen.data.PeriodDbHelper;
+import de.martinlepsy.einfachsparen.data.TransactionAdapter;
+import de.martinlepsy.einfachsparen.data.TransactionDbHelper;
+import de.martinlepsy.einfachsparen.model.GroupedTransactionByCategory;
 import de.martinlepsy.einfachsparen.model.Period;
 
 public class PeriodCategoryOverviewActivity extends AppCompatActivity {
@@ -23,6 +29,10 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
 
     private ListView groupedExpenseListView;
 
+    private DatabaseHelper dbHelper;
+
+    private TransactionDbHelper transactionDbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +42,10 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        dbHelper = new DatabaseHelper(getApplicationContext());
+
         getReferencesToWidgets();
+
     }
 
     private void getReferencesToWidgets() {
@@ -57,6 +70,12 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
 
     private void showData() {
         periodNameTextView.setText(periodToShow.getName());
+
+        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
+        ArrayList<GroupedTransactionByCategory> itemsToShow =
+                transactionDbHelper.getAllExpensesForPeriodGroupedByCategory(periodToShow.getId());
+        GroupedExpenseAdapter adapter = new GroupedExpenseAdapter(this, itemsToShow);
+        groupedExpenseListView.setAdapter(adapter);
     }
 
 }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.Date;
 
+import de.martinlepsy.einfachsparen.model.GroupedTransactionByCategory;
 import de.martinlepsy.einfachsparen.model.Period;
 import de.martinlepsy.einfachsparen.model.Transaction;
 import de.martinlepsy.einfachsparen.model.TransactionType;
@@ -130,6 +131,23 @@ public class TransactionDbHelper {
             result.add(getTransactionFromCursor(dbResults, periodId));
         }
         dbResults.close();
+        return result;
+    }
+
+    public ArrayList<GroupedTransactionByCategory> getAllExpensesForPeriodGroupedByCategory(long periodId) {
+        ArrayList<GroupedTransactionByCategory> result = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sumColumnName = "CatValue";
+        String query = "SELECT SUM(" + TRANSACTION_VALUE +") AS " + sumColumnName + ", " + TRANSACTION_TAG + " FROM " +
+                TRANSACTION_TABLE_NAME + " WHERE " + periodId + " = " + TRANSACTION_PERIOD_ID + " AND " +
+                TRANSACTION_TYPE + " = " + TransactionType.EXPENSE.ordinal() + " GROUP BY " + TRANSACTION_TAG;
+        Cursor dbResults = db.rawQuery(query, null);
+        while (dbResults.moveToNext()) {
+            GroupedTransactionByCategory newResult = new GroupedTransactionByCategory();
+            newResult.setCategoryName(dbResults.getString(dbResults.getColumnIndex(TRANSACTION_TAG)));
+            newResult.setValue(dbResults.getDouble(dbResults.getColumnIndex(sumColumnName)));
+            result.add(newResult);
+        }
         return result;
     }
 
