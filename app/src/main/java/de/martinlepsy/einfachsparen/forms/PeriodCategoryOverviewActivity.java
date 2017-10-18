@@ -10,7 +10,18 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import de.martinlepsy.einfachsparen.R;
 import de.martinlepsy.einfachsparen.data.DatabaseHelper;
@@ -29,6 +40,8 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
 
     private ListView groupedExpenseListView;
 
+    private PieChart chart;
+
     private DatabaseHelper dbHelper;
 
     private TransactionDbHelper transactionDbHelper;
@@ -39,6 +52,7 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_period_category_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Verteilung der Ausgaben");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -51,6 +65,7 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
     private void getReferencesToWidgets() {
         periodNameTextView = (TextView) findViewById(R.id.periodDetailsName);
         groupedExpenseListView = (ListView) findViewById(R.id.periodExpensesGroupedByCategoryList);
+        chart = (PieChart) findViewById(R.id.periodExpensesGroupedByCategoryPie);
     }
 
     @Override
@@ -76,6 +91,41 @@ public class PeriodCategoryOverviewActivity extends AppCompatActivity {
                 transactionDbHelper.getAllExpensesForPeriodGroupedByCategory(periodToShow.getId());
         GroupedExpenseAdapter adapter = new GroupedExpenseAdapter(this, itemsToShow);
         groupedExpenseListView.setAdapter(adapter);
+        fillChart(itemsToShow);
+    }
+
+    private void fillChart(ArrayList<GroupedTransactionByCategory> data) {
+        double totalExpenses = 0d;
+        List<PieEntry> dataEntries = new ArrayList<>();
+        for (GroupedTransactionByCategory group: data
+             ) {
+            totalExpenses += group.getValue();
+        }
+        for (GroupedTransactionByCategory group: data
+             ) {
+            String groupLabel = group.getCategoryName().equals("") ? "Keine Kategorie" :
+                    group.getCategoryName();
+            float groupPercentage = (float) (group.getValue() / totalExpenses) * 100f;
+            //PieEntry entry = new PieEntry(groupPercentage, groupLabel);
+            PieEntry entry = new PieEntry((float)group.getValue(), groupLabel);
+            dataEntries.add(entry);
+        }
+        PieDataSet set = new PieDataSet(dataEntries, "");
+        set.setHighlightEnabled(true);
+        set.setColors(ColorTemplate.COLORFUL_COLORS);
+        set.setValueTextSize(14f);
+        //set.setYValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        PieData pieData = new PieData(set);
+        chart.setData(pieData);
+        Description descr = new Description();
+        descr.setText("Verteilung der Ausgaben");
+        chart.setDescription(descr);
+        chart.setDrawHoleEnabled(false);
+        chart.invalidate();
+        chart.getLegend().setWordWrapEnabled(true);
+
+
+
     }
 
 }

@@ -21,11 +21,22 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/periodExpensesGroupedByCategoryPie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/periodDetailsName" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/periodExpensesGroupedByCategoryList"
-        android:layout_below="@+id/periodDetailsName"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/periodDetailsName"
+        android:layout_below="@+id/periodExpensesGroupedByCategoryPie"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>
