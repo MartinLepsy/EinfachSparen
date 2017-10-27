@@ -29,6 +29,8 @@ public class Dashboard {
 
     private double plannedExpenses;
 
+    private double sumOfRecurringExpenses;
+
     private int daysRemaining;
 
     private double approximatedSaving;
@@ -54,27 +56,16 @@ public class Dashboard {
     public void recalculate() {
         cumulatedExpenses = 0;
         cumulatedIncome = 0;
-        double allPlannedExpenses = 0;
+        sumOfRecurringExpenses = 0;
         if (currentPeriod != null) {
             daysRemaining = (int) Helper.getDateDiff(dateToCalculateFrom, currentPeriod.getEnd(),
                     TimeUnit.DAYS);
-            if (periodExpenses != null) {
-                for (Transaction currentExpense : periodExpenses) {
-                    cumulatedExpenses += currentExpense.getValue();
-                    if (currentExpense.isStandard() || currentExpense.getFromStandardId() > 0) {
-                        allPlannedExpenses += currentExpense.getValue();
-                    }
-                }
-            }
-            if (periodIncome != null) {
-                for (Transaction currentIncome : periodIncome) {
-                    cumulatedIncome += currentIncome.getValue();
-                }
-            }
+            calculateCumulatedAndRecurringExpenses();
+            calculatedCumulatedIncome();
             budget = cumulatedIncome - cumulatedExpenses - currentPeriod.getPlannedSaving();
             plannedExpenses = cumulatedIncome - currentPeriod.getPlannedSaving();
             calculateDailyBudget();
-            calculateDifferenceToPlannedBudget(allPlannedExpenses);
+            calculateDifferenceToPlannedBudget();
             approximatedSaving = currentPeriod.getPlannedSaving() + budget;
         }
         else {
@@ -83,11 +74,29 @@ public class Dashboard {
             plannedExpenses = 0;
             setDifferenceToPlannedExpense(0);
         }
-
     }
 
-    private void calculateDifferenceToPlannedBudget(double allPlannedExpenses) {
-        double startingPoint = cumulatedIncome - allPlannedExpenses;
+    private void calculatedCumulatedIncome() {
+        if (periodIncome != null) {
+            for (Transaction currentIncome : periodIncome) {
+                cumulatedIncome += currentIncome.getValue();
+            }
+        }
+    }
+
+    private void calculateCumulatedAndRecurringExpenses() {
+        if (periodExpenses != null) {
+            for (Transaction currentExpense : periodExpenses) {
+                cumulatedExpenses += currentExpense.getValue();
+                if (currentExpense.isStandard() || currentExpense.getFromStandardId() > 0) {
+                    sumOfRecurringExpenses += currentExpense.getValue();
+                }
+            }
+        }
+    }
+
+    private void calculateDifferenceToPlannedBudget() {
+        double startingPoint = cumulatedIncome - sumOfRecurringExpenses;
         double differenceToPlannedSaving = startingPoint - currentPeriod.getPlannedSaving();
         if (currentPeriod.getPeriodDays() > 0) {
             double plannedExpensePerDay = differenceToPlannedSaving / (double) currentPeriod.getPeriodDays();
