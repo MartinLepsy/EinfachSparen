@@ -33,6 +33,11 @@ public class Period implements Serializable {
                 TimeUnit.DAYS);
     }
 
+    public int getRemainingDays(Date dateToCalculateFrom) {
+        return (int) Helper.getDateDiff(dateToCalculateFrom, getEnd(),
+                TimeUnit.DAYS);
+    }
+
     public long getId() {
         return id;
     }
