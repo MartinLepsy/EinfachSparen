@@ -89,11 +89,9 @@ public class Dashboard {
     private void calculateDifferenceToPlannedBudget(double allPlannedExpenses) {
         double startingPoint = cumulatedIncome - allPlannedExpenses;
         double differenceToPlannedSaving = startingPoint - currentPeriod.getPlannedSaving();
-        int periodDays = (int) Helper.getDateDiff(currentPeriod.getStart(), currentPeriod.getEnd(),
-                TimeUnit.DAYS);
-        if (periodDays > 0) {
-            double plannedExpensePerDay = differenceToPlannedSaving / (double) periodDays;
-            double optimalExpensesPerToday = startingPoint - ((double)(periodDays - daysRemaining)) * plannedExpensePerDay;
+        if (currentPeriod.getPeriodDays() > 0) {
+            double plannedExpensePerDay = differenceToPlannedSaving / (double) currentPeriod.getPeriodDays();
+            double optimalExpensesPerToday = startingPoint - ((double)(currentPeriod.getPeriodDays() - daysRemaining)) * plannedExpensePerDay;
             setDifferenceToPlannedExpense(cumulatedIncome - cumulatedExpenses - optimalExpensesPerToday);
         }
     }

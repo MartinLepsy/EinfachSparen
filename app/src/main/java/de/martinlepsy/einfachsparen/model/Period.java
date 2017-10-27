@@ -2,6 +2,9 @@ package de.martinlepsy.einfachsparen.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import de.martinlepsy.einfachsparen.helper.Helper;
 
 /**
  * Created by martin on 16.04.16.
@@ -23,6 +26,11 @@ public class Period implements Serializable {
         id = -1;
         start = new Date();
         //name = Helper.getMonthForDate(start);
+    }
+
+    public int getPeriodDays() {
+        return (int) Helper.getDateDiff(getStart(), getEnd(),
+                TimeUnit.DAYS);
     }
 
     public long getId() {
