@@ -1,6 +1,7 @@
 package de.martinlepsy.einfachsparen.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -80,7 +81,16 @@ public class Dashboard {
     }
 
     private void calculateChartData() {
-
+        Calendar start = Calendar.getInstance();
+        start.setTime(currentPeriod.getStart());
+        Calendar end = Calendar.getInstance();
+        end.setTime(currentPeriod.getEnd());
+        for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
+            DashboardChartDataPoint currentDataPoint = new DashboardChartDataPoint();
+            currentDataPoint.setDate(date);
+            currentDataPoint.setPlannedBudget((float)(cumulatedIncome - sumOfRecurringExpenses) -
+                    ((float)currentPeriod.getRemainingDays(date) * (float)linearExpensePerDay));
+        }
     }
 
     private void calculateCumulatedIncome() {
@@ -169,6 +179,6 @@ public class Dashboard {
     }
 
     public int getDaysRemaining() {
-        return currentPeriod.getRemainingDays(dateToCalculateFrom);
+        return currentPeriod != null ? currentPeriod.getRemainingDays(dateToCalculateFrom) : 0;
     }
 }
