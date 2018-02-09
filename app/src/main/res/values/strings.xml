@@ -5,6 +5,7 @@
 
     <string name="app_name">Einfach Sparen</string>
     <string name="action_settings">Einstellungen</string>
+    <string name="action_testData">Testdaten generieren</string>
     <string name="action_tour">Tour</string>
     <string name="action_about">Info</string>
     <string name="action_createNewPeriod">Neue Periode anlegen</string>

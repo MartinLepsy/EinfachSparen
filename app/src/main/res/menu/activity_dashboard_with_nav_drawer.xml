@@ -11,6 +11,12 @@
     </group>
     <group>
         <item
+            android:id="@+id/actin_createTestData"
+            android:orderInCategory="100"
+            android:title="@string/action_testData" />
+    </group>
+    <group>
+        <item
             android:id="@+id/action_manageExpenses"
             android:orderInCategory="100"
             android:title="@string/action_manageExpenses"
