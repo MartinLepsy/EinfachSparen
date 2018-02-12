@@ -30,8 +30,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        deleteDatabases(sqLiteDatabase);
-        createDatabaseFromScratch(sqLiteDatabase);
+        recreateDatabase();
+    }
+
+    public void recreateDatabase() {
+        deleteDatabases(getWritableDatabase());
+        createDatabaseFromScratch(getWritableDatabase());
     }
 
     private void deleteDatabases(SQLiteDatabase sqLiteDatabase){
