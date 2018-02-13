@@ -12,6 +12,16 @@ public class Transaction implements Serializable {
 
     }
 
+    /**
+     *
+     * @param isStandard
+     * @param name
+     * @param tag
+     * @param value
+     * @param date
+     * @param type
+     * @param copiedFromId
+     */
     public Transaction(boolean isStandard, String name, String tag, double value , Date date,
                        TransactionType type, int copiedFromId) {
         this.isStandard = isStandard;
@@ -21,6 +31,23 @@ public class Transaction implements Serializable {
         this.date = date;
         this.type = type;
         this.fromStandardId = copiedFromId;
+    }
+
+    /**
+     *
+     * @param isStandard
+     * @param name
+     * @param tag
+     * @param value
+     * @param date
+     * @param type
+     * @param copiedFromId
+     * @param periodId
+     */
+    public Transaction(boolean isStandard, String name, String tag, double value , Date date,
+                       TransactionType type, int copiedFromId, long periodId) {
+        this(isStandard, name, tag, value, date, type, copiedFromId);
+        setPeriodId(periodId);
     }
 
     private int id;
