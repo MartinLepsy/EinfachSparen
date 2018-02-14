@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
 
+import de.martinlepsy.einfachsparen.admin.AdminActivity;
 import de.martinlepsy.einfachsparen.data.DatabaseHelper;
 import de.martinlepsy.einfachsparen.data.PeriodDbHelper;
 import de.martinlepsy.einfachsparen.data.TransactionAdapter;
@@ -224,6 +225,10 @@ public class DashboardActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.action_adminArea:
+                Intent goToAdminArea = new Intent(getApplicationContext(), AdminActivity.class);
+                startActivity(goToAdminArea);
+                break;
             case R.id.action_newPeriod:
                 Intent goToCreateNewPeriod = new Intent(getApplicationContext(),
                         CreatePeriodActivity.class);

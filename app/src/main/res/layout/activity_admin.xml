@@ -28,11 +28,31 @@
         android:layout_alignParentEnd="true" />
 
     <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Alle Perioden Löschen"
+    android:id="@+id/adminDeleteAllPeriods"
+    android:layout_below="@+id/adminDeleteAllExpensesButton"
+    android:layout_alignParentStart="true"
+    android:layout_alignEnd="@+id/adminDeleteAllExpensesButton" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alle Perioden Löschen"
-        android:id="@+id/adminDeleteAllPeriods"
-        android:layout_below="@+id/adminDeleteAllExpensesButton"
+        android:text="Testdaten generieren"
+        android:id="@+id/adminCreateTestData"
+        android:layout_below="@+id/adminDeleteAllPeriods"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/adminDeleteAllExpensesButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/periodStartInput"
+        android:hint="Startdatum"
+        android:layout_below="@+id/adminCreateTestData"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/adminCreateTestData"/>
 </RelativeLayout>

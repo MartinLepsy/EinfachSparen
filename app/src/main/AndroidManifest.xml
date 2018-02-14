@@ -97,7 +97,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
         </activity>
-
+        <activity android:name=".admin.AdminActivity"
+            android:label="Admin"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.martinlepsy.einfachsparen.DashboardActivity" />
+        </activity>
         <receiver android:name=".DesktopWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
