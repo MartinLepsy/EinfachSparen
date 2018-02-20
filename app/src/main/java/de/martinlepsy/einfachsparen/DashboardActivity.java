@@ -47,21 +47,9 @@ public class DashboardActivity extends AppCompatActivity
 
     Dashboard dashboard;
 
-    TextView allCurrentExpensesDisplay;
-
-    TextView plannedExpensesDisplay;
-
     TextView budgetDisplay;
 
     TextView budgetPerDayDisplay;
-
-    private TextView daysRemainingDisplay;
-
-    private TextView approximatedSavingsDisplay;
-
-    private TextView plannedExpensesDisplayTitle;
-
-    private TextView allCurrentExpensesDisplayTitle;
 
     private TextView remainingBudgetPerTodayDisplay;
 
@@ -143,22 +131,10 @@ public class DashboardActivity extends AppCompatActivity
     private void updateDisplay() {
         Locale currentLocale = Locale.getDefault();
         Currency myCurrency = Currency.getInstance((currentLocale));
-        SharedPreferences sPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean hideExpenses = sPrefs.getBoolean(getString(R.string.pref_key_expensesOnDashboard), false);
-        allCurrentExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getCumulatedExpenses(), myCurrency.getSymbol()));
         budgetDisplay.setText(String.format("%1.2f %s", dashboard.getBudget(), myCurrency.getSymbol()));
         budgetPerDayDisplay.setText(String.format("%1.2f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
-        plannedExpensesDisplay.setText(String.format("%1.2f %s", dashboard.getPlannedExpenses(), myCurrency.getSymbol()));
-        daysRemainingDisplay.setText(String.format("%s", dashboard.getDaysRemaining()));
-        approximatedSavingsDisplay.setText(String.format("%1.2f %s", dashboard.getApproximatedSaving(), myCurrency.getSymbol()));
         remainingBudgetPerTodayDisplay.setText(String.format("%1.2f %s", dashboard.getDifferenceToPlannedExpense(), myCurrency.getSymbol()));
         formatRemainingBudgetPerToday();
-        if (hideExpenses) {
-            allCurrentExpensesDisplay.setVisibility(View.GONE);
-            allCurrentExpensesDisplayTitle.setVisibility(View.GONE);
-            plannedExpensesDisplay.setVisibility(View.GONE);
-            plannedExpensesDisplayTitle.setVisibility(View.GONE);
-        }
     }
 
     private void formatRemainingBudgetPerToday() {
@@ -177,14 +153,8 @@ public class DashboardActivity extends AppCompatActivity
     private void findReferencesToDisplayControls() {
         expenseList = (ListView) findViewById(R.id.dashboardExpenseList);
         addExpenseButton = (FloatingActionButton) findViewById(R.id.fab);
-        allCurrentExpensesDisplay = (TextView) findViewById(R.id.currentExpensesDisplay);
-        allCurrentExpensesDisplayTitle = (TextView) findViewById(R.id.currentExpensesLabel);
-        plannedExpensesDisplay = (TextView) findViewById(R.id.plannedExpensesDisplay);
-        plannedExpensesDisplayTitle = (TextView) findViewById(R.id.plannedExpensesLabel);
         budgetDisplay = (TextView) findViewById(R.id.budgetDisplay);
         budgetPerDayDisplay = (TextView) findViewById(R.id.budgetPerDayDisplay);
-        daysRemainingDisplay = (TextView) findViewById(R.id.remainingDaysDisplay);
-        approximatedSavingsDisplay = (TextView) findViewById(R.id.approximatedSavingsDisplay);
         remainingBudgetPerTodayDisplay = (TextView) findViewById(R.id.remainingBudgetPerTodayDisplay);
     }
 
