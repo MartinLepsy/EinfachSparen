@@ -20,6 +20,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Locale;
@@ -53,9 +56,9 @@ public class DashboardActivity extends AppCompatActivity
 
     private TextView remainingBudgetPerTodayDisplay;
 
-    private FloatingActionButton addExpenseButton;
+    private LineChart budgetBurndownChart;
 
-    private TransactionAdapter expenseAdapter;
+    private FloatingActionButton addExpenseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +126,13 @@ public class DashboardActivity extends AppCompatActivity
         budgetPerDayDisplay.setText(String.format("%1.2f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
         remainingBudgetPerTodayDisplay.setText(String.format("%1.2f %s", dashboard.getDifferenceToPlannedExpense(), myCurrency.getSymbol()));
         formatRemainingBudgetPerToday();
+        updateBurndownChart();
+    }
+
+    private void updateBurndownChart() {
+        Description description = new Description();
+        description.setText("Budgetentwicklung");
+        budgetBurndownChart.setDescription(description);
     }
 
     private void formatRemainingBudgetPerToday() {
@@ -143,6 +153,7 @@ public class DashboardActivity extends AppCompatActivity
         budgetDisplay = (TextView) findViewById(R.id.budgetDisplay);
         budgetPerDayDisplay = (TextView) findViewById(R.id.budgetPerDayDisplay);
         remainingBudgetPerTodayDisplay = (TextView) findViewById(R.id.remainingBudgetPerTodayDisplay);
+        budgetBurndownChart = (LineChart) findViewById(R.id.budgetBurndownChart);
     }
 
     private void showNoPeriodFoundDialog() {

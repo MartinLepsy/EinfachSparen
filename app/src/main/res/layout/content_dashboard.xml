@@ -127,6 +127,12 @@
 
     </LinearLayout>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/budgetBurndownChart"
+        ></com.github.mikephil.charting.charts.LineChart>
+
 </LinearLayout >
 
 

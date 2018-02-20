@@ -18,6 +18,8 @@ public class Dashboard {
 
     private ArrayList<Transaction> periodIncome;
 
+    private ArrayList<DashboardChartDataPoint> budgetBurndownChartDataPoints;
+
     private  double budget;
 
     private  double budgetPerDay;
@@ -40,6 +42,7 @@ public class Dashboard {
 
     public Dashboard() {
         setDateToCalculateFrom(new Date());
+        budgetBurndownChartDataPoints = new ArrayList<>();
     }
 
     public void setPeriod(Period periode) {
@@ -85,11 +88,13 @@ public class Dashboard {
         start.setTime(currentPeriod.getStart());
         Calendar end = Calendar.getInstance();
         end.setTime(currentPeriod.getEnd());
+        budgetBurndownChartDataPoints.clear();
         for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
             DashboardChartDataPoint currentDataPoint = new DashboardChartDataPoint();
             currentDataPoint.setDate(date);
             currentDataPoint.setPlannedBudget((float)(cumulatedIncome - sumOfRecurringExpenses) -
                     ((float)currentPeriod.getRemainingDays(date) * (float)linearExpensePerDay));
+            budgetBurndownChartDataPoints.add(currentDataPoint);
         }
     }
 
