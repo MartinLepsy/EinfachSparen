@@ -53,8 +53,6 @@ public class DashboardActivity extends AppCompatActivity
 
     private TextView remainingBudgetPerTodayDisplay;
 
-    private ListView expenseList;
-
     private FloatingActionButton addExpenseButton;
 
     private TransactionAdapter expenseAdapter;
@@ -97,16 +95,6 @@ public class DashboardActivity extends AppCompatActivity
             }
         });
 
-        expenseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Transaction selectedExpense = expenseAdapter.getValues().get(position);
-                Intent editIncomeIntent = new Intent(getApplicationContext(),
-                        EditTransactionActivity.class);
-                editIncomeIntent.putExtra("TransactionToEdit", selectedExpense);
-                startActivity(editIncomeIntent);
-            }
-        });
     }
 
 
@@ -151,7 +139,6 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     private void findReferencesToDisplayControls() {
-        expenseList = (ListView) findViewById(R.id.dashboardExpenseList);
         addExpenseButton = (FloatingActionButton) findViewById(R.id.fab);
         budgetDisplay = (TextView) findViewById(R.id.budgetDisplay);
         budgetPerDayDisplay = (TextView) findViewById(R.id.budgetPerDayDisplay);
@@ -174,22 +161,10 @@ public class DashboardActivity extends AppCompatActivity
 
         loadCurrentPeriodOrShowNotAvailableDialog();
 
-        refreshExpenseList();
-
         updateDisplay();
     }
 
-    private void refreshExpenseList() {
-        TransactionDbHelper transactionDbHelper = new TransactionDbHelper(dbHelper);
-        PeriodDbHelper periodDbHelper = new PeriodDbHelper(dbHelper);
 
-        Period currentPeriod = periodDbHelper.getCurrentPeriod();
-        if (currentPeriod != null) {
-            ArrayList<Transaction> expenses = transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId(), true);
-            expenseAdapter = new TransactionAdapter(this, Helper.castToTransactionList(expenses));
-            expenseList.setAdapter(expenseAdapter);
-        }
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

@@ -127,24 +127,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/lastExpensesListTitle"
-        android:id="@+id/expensesListCaption"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/colorPrimary_text" />
-
-    <ListView android:layout_marginTop="2dp"
-
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dashboardExpenseList">
-
-    </ListView>
-
-
 </LinearLayout >
 
 
