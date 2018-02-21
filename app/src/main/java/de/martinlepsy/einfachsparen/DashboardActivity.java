@@ -34,6 +34,8 @@ import de.martinlepsy.einfachsparen.data.TransactionAdapter;
 import de.martinlepsy.einfachsparen.data.TransactionDbHelper;
 import de.martinlepsy.einfachsparen.forms.CreateTransactionActivity;
 import de.martinlepsy.einfachsparen.forms.EditTransactionActivity;
+import de.martinlepsy.einfachsparen.helper.BudgetBurndownChartConverter;
+import de.martinlepsy.einfachsparen.helper.BudgetBurndownChartFormatter;
 import de.martinlepsy.einfachsparen.helper.Helper;
 import de.martinlepsy.einfachsparen.helper.TourHelper;
 import de.martinlepsy.einfachsparen.lists.PeriodListActivity;
@@ -130,9 +132,9 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     private void updateBurndownChart() {
-        Description description = new Description();
-        description.setText("Budgetentwicklung");
-        budgetBurndownChart.setDescription(description);
+        budgetBurndownChart.setData(BudgetBurndownChartConverter.getChartDataFromDashboard(dashboard.getBudgetBurndownChartDataPoints()));
+        BudgetBurndownChartFormatter.configureBurndownChart(budgetBurndownChart);
+        budgetBurndownChart.invalidate();
     }
 
     private void formatRemainingBudgetPerToday() {

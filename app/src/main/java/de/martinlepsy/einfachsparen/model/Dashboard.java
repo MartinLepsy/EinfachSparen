@@ -3,9 +3,6 @@ package de.martinlepsy.einfachsparen.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import de.martinlepsy.einfachsparen.helper.Helper;
 
 /**
  * Created by martin on 16.04.16.
@@ -88,13 +85,13 @@ public class Dashboard {
         start.setTime(currentPeriod.getStart());
         Calendar end = Calendar.getInstance();
         end.setTime(currentPeriod.getEnd());
-        budgetBurndownChartDataPoints.clear();
+        getBudgetBurndownChartDataPoints().clear();
         for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
             DashboardChartDataPoint currentDataPoint = new DashboardChartDataPoint();
             currentDataPoint.setDate(date);
             currentDataPoint.setPlannedBudget((float)(cumulatedIncome - sumOfRecurringExpenses) -
                     ((float)currentPeriod.getRemainingDays(date) * (float)linearExpensePerDay));
-            budgetBurndownChartDataPoints.add(currentDataPoint);
+            getBudgetBurndownChartDataPoints().add(currentDataPoint);
         }
     }
 
@@ -185,5 +182,9 @@ public class Dashboard {
 
     public int getDaysRemaining() {
         return currentPeriod != null ? currentPeriod.getRemainingDays(dateToCalculateFrom) : 0;
+    }
+
+    public ArrayList<DashboardChartDataPoint> getBudgetBurndownChartDataPoints() {
+        return budgetBurndownChartDataPoints;
     }
 }

@@ -1,5 +1,7 @@
 package de.martinlepsy.einfachsparen.helper;
 
+import android.graphics.Color;
+
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
@@ -18,8 +20,8 @@ import de.martinlepsy.einfachsparen.model.DashboardChartDataPoint;
 
 public class BudgetBurndownChartConverter {
 
-    public static ChartData getChartDataFromDashboard(List<DashboardChartDataPoint> dataPoint) {
-        ChartData result = null;
+    public static LineData getChartDataFromDashboard(List<DashboardChartDataPoint> dataPoint) {
+        LineData result = null;
         List<Entry> plannedBudgetEntries = new ArrayList<>();
         List<Entry> currentBudgetEntries = new ArrayList<>();
         int counter = 0;
@@ -32,14 +34,21 @@ public class BudgetBurndownChartConverter {
             counter++;
         }
         LineDataSet plannedBudgetDataSet = new LineDataSet(plannedBudgetEntries, "Geplantes Budget");
-        plannedBudgetDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        formatDataSet(plannedBudgetDataSet);
         LineDataSet currentBudgetDataSet = new LineDataSet(currentBudgetEntries, "Tatsächliches Budget");
-        currentBudgetDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        formatDataSet(currentBudgetDataSet);
         List<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(plannedBudgetDataSet);
         dataSets.add(currentBudgetDataSet);
         result = new LineData(dataSets);
         return result;
+    }
+
+    private static void formatDataSet(LineDataSet dataSet) {
+        dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        dataSet.setDrawValues(false);
+        dataSet.setDrawCircles(false);
+        dataSet.setColor(Color.BLACK);
     }
 
 
