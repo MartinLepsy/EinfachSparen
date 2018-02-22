@@ -20,8 +20,11 @@ public class BudgetBurndownChartFormatter {
         Description description = new Description();
         description.setText("Budgetentwicklung");
         budgetBurndownChart.setDescription(description);
+        budgetBurndownChart.setPinchZoom(false);
+        budgetBurndownChart.setScaleEnabled(false);
 
         budgetBurndownChart.getAxisLeft().setDrawGridLines(false);
+        budgetBurndownChart.getAxisLeft().setAxisMinimum(0);
         budgetBurndownChart.getXAxis().setDrawGridLines(false);
     }
 }
