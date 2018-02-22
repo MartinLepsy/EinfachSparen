@@ -92,7 +92,7 @@ public class Dashboard {
             DashboardChartDataPoint currentDataPoint = new DashboardChartDataPoint();
             currentDataPoint.setDate(date);
             currentDataPoint.setPlannedBudget((float)(cumulatedIncome - sumOfRecurringExpenses) -
-                    ((float)currentPeriod.getRemainingDays(date) * (float)linearExpensePerDay));
+                    ((float)currentPeriod.getDaysInPeriod(date) * (float)linearExpensePerDay));
             currentDataPoint.setCurrentBudget((float)(cumulatedIncome - sumOfRecurringExpenses) - transactionDbHelper.getSumOfExpensesForPeriodUntil(currentPeriod.getId(),
                     date.getTime()));
             getBudgetBurndownChartDataPoints().add(currentDataPoint);

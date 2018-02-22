@@ -54,7 +54,8 @@ public class TransactionDbHelper {
 
     private static final String TRANSACTION_GET_SUM_OF_EXPENSES_IN_PERIOD_UNTIL = "SELECT sum(" + TRANSACTION_VALUE +
             ") as Total FROM " + TRANSACTION_TABLE_NAME + " WHERE " + TRANSACTION_TYPE + " = " + TransactionType.EXPENSE.ordinal() +
-            " AND " + TRANSACTION_PERIOD_ID + " = ? AND " + TRANSACTION_DATE + " < ?";
+            " AND " + TRANSACTION_COPIED_FROM_STANDARD_ID + " = 0 AND " + TRANSACTION_IS_STANDARD +
+            " = 0 AND " + TRANSACTION_PERIOD_ID + " = ? AND " + TRANSACTION_DATE + " < ?";
 
     private DatabaseHelper dbHelper;
 
