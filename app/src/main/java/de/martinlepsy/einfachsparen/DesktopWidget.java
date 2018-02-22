@@ -68,7 +68,7 @@ public class DesktopWidget extends AppWidgetProvider {
             dashboard.setPeriod(currentPeriod);
             dashboard.setPeriodExpenses(transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId()));
             dashboard.setPeriodIncome(transactionDbHelper.getAllIncomesForPeriod(currentPeriod.getId()));
-            dashboard.recalculate();
+            dashboard.recalculate(transactionDbHelper);
             remoteViews.setTextViewText(R.id.budgetPerDayWidget,
                     String.format("%1.0f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
         }

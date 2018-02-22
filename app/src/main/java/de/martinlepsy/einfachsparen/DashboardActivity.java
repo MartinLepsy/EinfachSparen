@@ -117,7 +117,7 @@ public class DashboardActivity extends AppCompatActivity
             dashboard.setPeriodExpenses(transactionDbHelper.getAllExpensesForPeriod(currentPeriod.getId()));
             dashboard.setPeriodIncome(transactionDbHelper.getAllIncomesForPeriod(currentPeriod.getId()));
         }
-        dashboard.recalculate();
+        dashboard.recalculate(transactionDbHelper);
         updateDisplay();
     }
 

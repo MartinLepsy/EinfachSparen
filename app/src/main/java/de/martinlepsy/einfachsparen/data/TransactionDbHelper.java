@@ -52,6 +52,10 @@ public class TransactionDbHelper {
     private static final String TRANSACTION_GET_DISTINCT_EXPENSES = "SELECT DISTINCT " + TRANSACTION_NAME +
             " FROM " + TRANSACTION_TABLE_NAME;
 
+    private static final String TRANSACTION_GET_SUM_OF_EXPENSES_IN_PERIOD_UNTIL = "SELECT sum(" + TRANSACTION_VALUE +
+            ") as Total FROM " + TRANSACTION_TABLE_NAME + " WHERE " + TRANSACTION_TYPE + " = " + TransactionType.EXPENSE.ordinal() +
+            " AND " + TRANSACTION_PERIOD_ID + " = ? AND " + TRANSACTION_DATE + " < ?";
+
     private DatabaseHelper dbHelper;
 
     public TransactionDbHelper(DatabaseHelper dbHelper) {
@@ -131,6 +135,17 @@ public class TransactionDbHelper {
             result.add(getTransactionFromCursor(dbResults, periodId));
         }
         dbResults.close();
+        return result;
+    }
+
+    public float getSumOfExpensesForPeriodUntil(long periodId, long dateValue) {
+        float result = 0f;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] selArgs = {""+periodId, ""+ dateValue};
+        Cursor dbResult = db.rawQuery(TRANSACTION_GET_SUM_OF_EXPENSES_IN_PERIOD_UNTIL, selArgs);
+        if (dbResult.moveToNext()) {
+            result = dbResult.getFloat(dbResult.getColumnIndex("Total"));
+        }
         return result;
     }
 

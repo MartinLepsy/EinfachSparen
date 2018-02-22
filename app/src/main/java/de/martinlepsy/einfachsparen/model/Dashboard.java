@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.martinlepsy.einfachsparen.data.TransactionDbHelper;
+
 /**
  * Created by martin on 16.04.16.
  */
@@ -54,13 +56,13 @@ public class Dashboard {
         this.periodIncome = periodIncome;
     }
 
-    public void recalculate() {
+    public void recalculate(TransactionDbHelper transactionDbHelper) {
         cumulatedExpenses = 0;
         cumulatedIncome = 0;
         sumOfRecurringExpenses = 0;
         if (currentPeriod != null) {
             calculateData();
-            calculateChartData();
+            calculateChartData(transactionDbHelper);
         }
         else {
             budgetPerDay = 0;
@@ -80,7 +82,7 @@ public class Dashboard {
         approximatedSaving = currentPeriod.getPlannedSaving() + budget;
     }
 
-    private void calculateChartData() {
+    private void calculateChartData(TransactionDbHelper transactionDbHelper) {
         Calendar start = Calendar.getInstance();
         start.setTime(currentPeriod.getStart());
         Calendar end = Calendar.getInstance();
@@ -91,6 +93,8 @@ public class Dashboard {
             currentDataPoint.setDate(date);
             currentDataPoint.setPlannedBudget((float)(cumulatedIncome - sumOfRecurringExpenses) -
                     ((float)currentPeriod.getRemainingDays(date) * (float)linearExpensePerDay));
+            currentDataPoint.setCurrentBudget((float)(cumulatedIncome - sumOfRecurringExpenses) - transactionDbHelper.getSumOfExpensesForPeriodUntil(currentPeriod.getId(),
+                    date.getTime()));
             getBudgetBurndownChartDataPoints().add(currentDataPoint);
         }
     }
