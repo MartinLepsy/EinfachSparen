@@ -25,7 +25,6 @@ public class BudgetBurndownChartConverter {
         LineData result = null;
         List<Entry> plannedBudgetEntries = new ArrayList<>();
         List<Entry> currentBudgetEntries = new ArrayList<>();
-        //int[] currentBudgetColors = new int[dataPoint.size()];
         int counter = 0;
         for (DashboardChartDataPoint currentPoint :
                 dataPoint) {
@@ -33,15 +32,12 @@ public class BudgetBurndownChartConverter {
             plannedBudgetEntries.add(currentPlannedBudgetEntry);
             Entry currentBudgetEntry = new Entry(counter, currentPoint.getCurrentBudget());
             currentBudgetEntries.add(currentBudgetEntry);
-            //currentBudgetColors[counter] = currentPoint.getCurrentBudget() > currentPoint.getPlannedBudget() ?
-            //        Color.GREEN : Color.RED;
             counter++;
         }
         LineDataSet plannedBudgetDataSet = new LineDataSet(plannedBudgetEntries, "Geplantes Budget");
         formatDataSet(plannedBudgetDataSet, Color.BLACK);
         LineDataSet currentBudgetDataSet = new LineDataSet(currentBudgetEntries, "Tatsächliches Budget");
-        formatDataSet(currentBudgetDataSet, Color.GREEN);
-        //currentBudgetDataSet.setColors(currentBudgetColors);
+        formatDataSet(currentBudgetDataSet, Color.BLUE);
         List<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(plannedBudgetDataSet);
         dataSets.add(currentBudgetDataSet);
