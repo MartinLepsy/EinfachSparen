@@ -128,7 +128,9 @@ public class DashboardActivity extends AppCompatActivity
         budgetPerDayDisplay.setText(String.format("%1.2f %s", dashboard.getBudgetPerDay(), myCurrency.getSymbol()));
         remainingBudgetPerTodayDisplay.setText(String.format("%1.2f %s", dashboard.getDifferenceToPlannedExpense(), myCurrency.getSymbol()));
         formatRemainingBudgetPerToday();
-        updateBurndownChart();
+        if(dashboard.hasPeriod()) {
+            updateBurndownChart();
+        }
     }
 
     private void updateBurndownChart() {

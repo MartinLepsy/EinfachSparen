@@ -44,6 +44,10 @@ public class Dashboard {
         budgetBurndownChartDataPoints = new ArrayList<>();
     }
 
+    public boolean hasPeriod() {
+        return currentPeriod != null;
+    }
+
     public void setPeriod(Period periode) {
         currentPeriod = periode;
     }
